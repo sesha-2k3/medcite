@@ -50,6 +50,9 @@ class Settings(BaseSettings):
     ncbi_email: str = "you@example.com"
     ncbi_max_rps: int = Field(default=9, ge=1, le=10)
     ncbi_base_url: str = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+    ncbi_timeout_s: float = Field(default=15.0, gt=0)
+    ncbi_retry_attempts: int = Field(default=4, ge=1)
+    ncbi_cache_ttl_s: int = Field(default=86_400, ge=0)
 
     llm_provider: LLMProviderName = "groq"
     llm_api_key: SecretStr | None = None

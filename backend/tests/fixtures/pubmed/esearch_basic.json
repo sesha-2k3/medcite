@@ -1,0 +1,14 @@
+{
+  "header": {"type": "esearch", "version": "0.3"},
+  "esearchresult": {
+    "count": "1287",
+    "retmax": "3",
+    "retstart": "0",
+    "idlist": ["90000003", "90000002", "90000001"],
+    "translationset": [
+      {"from": "biceps", "to": "\"biceps\"[All Fields]"},
+      {"from": "hypertrophy", "to": "\"hypertrophy\"[MeSH Terms] OR \"hypertrophy\"[All Fields]"}
+    ],
+    "querytranslation": "\"biceps\"[All Fields] AND (\"hypertrophy\"[MeSH Terms] OR \"hypertrophy\"[All Fields])"
+  }
+}

@@ -25,4 +25,8 @@ export default tseslint.config(
     files: ["src/api/**/*.{ts,tsx}"],
     rules: { "no-restricted-globals": "off" },
   },
+  {
+    files: ["src/components/ui/**/*.tsx"],
+    rules: { "react-refresh/only-export-components": "off" },
+  },
 );

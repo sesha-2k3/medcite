@@ -1,0 +1,111 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * MedCite tokens.
+ * Palette: cool "index card" paper, slate ink, and one accent (index teal) used for
+ * interactive elements and citation markers only. Evidence-level colors are added in M9
+ * and are always paired with a text label.
+ */
+:root {
+  --paper: #f5f7f6;
+  --ink: #17252e;
+  --rule: #cfd8d6;
+  --muted-ink: #556570;
+  --index-teal: #0d6b66;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
+  --primary: var(--index-teal);
+  --primary-foreground: #f5f7f6;
+  --secondary: #e6ecea;
+  --secondary-foreground: var(--ink);
+  --muted: #e6ecea;
+  --muted-foreground: var(--muted-ink);
+  --accent: #dcebe8;
+  --accent-foreground: var(--ink);
+  --destructive: #a3302a;
+  --success: #2c6e3f;
+  --border: var(--rule);
+  --input: var(--rule);
+  --ring: var(--index-teal);
+  --radius: 0.375rem;
+}
+
+.dark {
+  --paper: #121c22;
+  --ink: #e2eae8;
+  --rule: #2c3a41;
+  --muted-ink: #9aaab0;
+  --index-teal: #5fb8ae;
+
+  --card: #182429;
+  --popover: #182429;
+  --primary-foreground: #0f181d;
+  --secondary: #1f2d33;
+  --muted: #1f2d33;
+  --accent: #1d3634;
+  --destructive: #e07a72;
+  --success: #7cc28f;
+}
+
+@theme inline {
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Literata", ui-serif, Georgia, serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

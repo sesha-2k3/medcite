@@ -1,0 +1,26 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+backend/.models/
+
+# Node
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+
+# Eval output (keep the baseline reports you want under version control explicitly)
+eval/reports/*.json
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

@@ -857,7 +857,7 @@ requires-dist = [
     { name = "lxml", specifier = ">=5.2" },
     { name = "numpy", specifier = ">=1.26" },
     { name = "openai", specifier = ">=1.40" },
-    { name = "pgvector", specifier = ">=0.3" },
+    { name = "pgvector", specifier = ">=0.4" },
     { name = "pydantic", specifier = ">=2.8" },
     { name = "pydantic-settings", specifier = ">=2.4" },
     { name = "pyjwt", extras = ["crypto"], specifier = ">=2.9" },

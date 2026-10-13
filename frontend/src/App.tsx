@@ -40,7 +40,12 @@ export default function App() {
   }, [check]);
 
   const rows: StatusRow[] = [
-    { label: "API", state: api, okText: "Reachable", failText: `Not reachable at ${getConfig().apiBaseUrl}` },
+    {
+      label: "API",
+      state: api,
+      okText: "Reachable",
+      failText: `Not reachable at ${getConfig().apiBaseUrl}`,
+    },
     { label: "Database", state: db, okText: "Connected", failText: "Not connected" },
     { label: "Cache", state: redis, okText: "Connected", failText: "Not connected" },
   ];
@@ -53,12 +58,12 @@ export default function App() {
           MedCite
           <sup
             aria-hidden="true"
-            className="ml-1.5 inline-flex h-7 min-w-7 -translate-y-5 items-center justify-center rounded border border-primary px-1.5 font-sans text-sm font-semibold text-primary sm:-translate-y-7"
+            className="border-primary text-primary ml-1.5 inline-flex h-7 min-w-7 -translate-y-5 items-center justify-center rounded border px-1.5 font-sans text-sm font-semibold sm:-translate-y-7"
           >
             1
           </sup>
         </h1>
-        <p className="mt-6 max-w-prose font-serif text-lg leading-relaxed text-muted-foreground">
+        <p className="text-muted-foreground mt-6 max-w-prose font-serif text-lg leading-relaxed">
           Answers from PubMed literature, with every claim cited and every study labeled by the
           strength of its evidence.
         </p>
@@ -75,21 +80,28 @@ export default function App() {
           <ul aria-live="polite" className="mt-4 divide-y">
             {rows.map((row) => (
               <li key={row.label} className="flex items-center gap-3 py-3 text-sm">
-                <span aria-hidden="true" className={cn("size-2 rounded-full", STATE_DOT[row.state])} />
+                <span
+                  aria-hidden="true"
+                  className={cn("size-2 rounded-full", STATE_DOT[row.state])}
+                />
                 <span className="w-20 font-medium">{row.label}</span>
                 <span className="text-muted-foreground">
-                  {row.state === "checking" ? "Checking" : row.state === "ok" ? row.okText : row.failText}
+                  {row.state === "checking"
+                    ? "Checking"
+                    : row.state === "ok"
+                      ? row.okText
+                      : row.failText}
                 </span>
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mt-6 text-sm">
             Search opens here once the evidence pipeline is in place.
           </p>
         </section>
       </main>
 
-      <footer className="border-t px-6 py-6 text-xs text-muted-foreground">
+      <footer className="text-muted-foreground border-t px-6 py-6 text-xs">
         <p className="mx-auto max-w-2xl">
           Data from PubMed, courtesy of the U.S. National Library of Medicine. MedCite summarizes
           published research and is not medical advice.

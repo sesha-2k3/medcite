@@ -1,0 +1,45 @@
+# Local development stack.
+#   docker compose up -d db redis     # just the data stores (typical dev loop)
+#   docker compose up --build         # everything in containers
+name: medcite
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: medcite
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d medcite"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      # Inside the Compose network the data stores are reached by service name.
+      DATABASE_URL: postgresql+asyncpg://postgres:dev@db:5432/medcite
+      DATABASE_URL_DIRECT: postgresql+asyncpg://postgres:dev@db:5432/medcite
+      REDIS_URL: redis://redis:6379/0
+      HF_HOME: /models
+      WEB_CONCURRENCY: "1"
+    ports: ["8000:8000"]
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_healthy }
+
+volumes:
+  pgdata:

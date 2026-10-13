@@ -60,9 +60,7 @@ def test_readyz_503_when_a_dependency_is_down(
     assert resp.json() == {"status": "unavailable", "checks": expected}
 
 
-def test_readyz_503_when_a_check_hangs(
-    client: TestClient, monkeypatch: pytest.MonkeyPatch
-) -> None:
+def test_readyz_503_when_a_check_hangs(client: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr("app.api.health.CHECK_TIMEOUT_S", 0.1)
     _set_checks(client, database=_hang, redis=_ok)
     resp = client.get("/readyz")
@@ -87,7 +85,7 @@ def test_readyz_200_against_compose_services(make_settings: Callable[..., Settin
     with TestClient(create_app(settings)) as c:
         resp = c.get("/readyz")
     if resp.status_code != 200:
-        pytest.skip("Compose services down or dev DB not migrated (alembic upgrade head)")
+        pytest.skip("Compose Postgres/Redis not running (docker compose up -d db redis)")
     assert resp.json()["checks"] == {"database": "ok", "redis": "ok"}
 
 

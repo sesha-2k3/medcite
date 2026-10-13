@@ -3,16 +3,17 @@
 Supports direct and pooled connection strings (portability rule 12). With
 ``DB_STATEMENT_CACHE_SIZE=0`` statement caching is disabled and prepared statements get unique
 names, as transaction-mode poolers require.
+
+pgvector values travel as text: the ``Vector`` column type serializes arrays on the way in and
+parses them back into numpy on the way out, so no asyncpg codec is registered.
 """
 
 from __future__ import annotations
 
-from functools import partial
 from typing import Any
 from uuid import uuid4
 
-from pgvector.asyncpg import register_vector
-from sqlalchemy import event, text
+from sqlalchemy import text
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
     AsyncSession,
@@ -37,28 +38,15 @@ def build_connect_args(settings: Settings) -> dict[str, Any]:
     return args
 
 
-def register_vector_codec(engine: AsyncEngine, schema: str) -> None:
-    """Teach every new asyncpg connection to encode and decode pgvector values.
-
-    Requires the ``vector`` extension, so the engine fails to connect until migrations ran.
-    """
-
-    @event.listens_for(engine.sync_engine, "connect")
-    def _on_connect(dbapi_connection: Any, _record: Any) -> None:
-        dbapi_connection.run_async(partial(register_vector, schema=schema))
-
-
 def create_engine(settings: Settings) -> AsyncEngine:
     """Create the application's async engine. Call once per process."""
-    engine = create_async_engine(
+    return create_async_engine(
         settings.database_url,
         pool_size=settings.db_pool_size,
         max_overflow=settings.db_pool_size,
         pool_pre_ping=True,
         connect_args=build_connect_args(settings),
     )
-    register_vector_codec(engine, settings.db_vector_schema)
-    return engine
 
 
 def create_session_factory(engine: AsyncEngine) -> async_sessionmaker[AsyncSession]:

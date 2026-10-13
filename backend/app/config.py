@@ -41,8 +41,6 @@ class Settings(BaseSettings):
     db_statement_cache_size: int = Field(default=100, ge=0)
     db_pool_size: int = Field(default=5, ge=1)
     db_connect_timeout_s: float = Field(default=5.0, gt=0)
-    # Schema holding the pgvector extension: "public" locally, "extensions" on Supabase.
-    db_vector_schema: str = "public"
 
     redis_url: str = "redis://localhost:6379/0"
     redis_connect_timeout_s: float = Field(default=2.0, gt=0)

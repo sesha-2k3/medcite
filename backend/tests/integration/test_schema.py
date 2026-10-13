@@ -58,8 +58,8 @@ async def test_upgrade_creates_tables_indexes_and_extension(engine: AsyncEngine)
         extension = await conn.scalar(
             text("SELECT extversion FROM pg_extension WHERE extname = 'vector'")
         )
-    assert APP_TABLES <= tables
-    assert EXPECTED_INDEXES <= indexes
+    assert tables >= APP_TABLES
+    assert indexes >= EXPECTED_INDEXES
     assert extension is not None
 
 
@@ -70,7 +70,7 @@ def test_downgrade_base_removes_every_table_and_upgrade_restores_them(
     assert asyncio.run(fetch_public_tables(database_url)) == {"alembic_version"}
 
     command.upgrade(migrated, "head")
-    assert APP_TABLES <= asyncio.run(fetch_public_tables(database_url))
+    assert asyncio.run(fetch_public_tables(database_url)) >= APP_TABLES
 
 
 async def test_article_with_chunks_round_trips(engine: AsyncEngine) -> None:

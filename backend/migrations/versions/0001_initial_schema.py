@@ -149,9 +149,7 @@ def upgrade() -> None:
         timestamp_now("created_at"),
         sa.PrimaryKeyConstraint("id", name="pk_saved_searches"),
         fk("user_id", "saved_searches", "users", "CASCADE"),
-        sa.CheckConstraint(
-            "cadence IN ('weekly', 'monthly')", name="ck_saved_searches_cadence"
-        ),
+        sa.CheckConstraint("cadence IN ('weekly', 'monthly')", name="ck_saved_searches_cadence"),
     )
 
     op.create_table(

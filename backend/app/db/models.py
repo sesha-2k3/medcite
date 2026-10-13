@@ -43,9 +43,7 @@ BigIntArray = Annotated[list[int], mapped_column(ARRAY(BigInteger))]
 Json = Annotated[dict[str, Any], mapped_column(JSONB)]
 Money = Annotated[Decimal, mapped_column(Numeric(10, 5))]
 Timestamp = Annotated[datetime, mapped_column(DateTime(timezone=True))]
-CreatedAt = Annotated[
-    datetime, mapped_column(DateTime(timezone=True), server_default=func.now())
-]
+CreatedAt = Annotated[datetime, mapped_column(DateTime(timezone=True), server_default=func.now())]
 
 
 def user_fk(ondelete: str = "CASCADE") -> ForeignKey:
@@ -147,9 +145,7 @@ class Trial(Base):
 
 class SavedSearch(Base):
     __tablename__ = "saved_searches"
-    __table_args__ = (
-        CheckConstraint("cadence IN ('weekly', 'monthly')", name="cadence"),
-    )
+    __table_args__ = (CheckConstraint("cadence IN ('weekly', 'monthly')", name="cadence"),)
 
     id: Mapped[BigId]
     user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), user_fk())

@@ -29,6 +29,7 @@ from app.errors import LLMOutputError, RateLimitedError, UpstreamError
 
 logger = logging.getLogger(__name__)
 
+
 class LLMRole(StrEnum):
     PLANNER = "planner"  # routing, PICO, query building, metadata extraction (small model)
     GENERATOR = "generator"  # answer synthesis (strong model)
@@ -90,8 +91,6 @@ class LLMProvider(Protocol):
         json_mode: bool,
         reasoning_effort: ReasoningEffort,
     ) -> ProviderResult: ...
-
-
 
 
 class OpenAICompatibleProvider:
@@ -182,7 +181,6 @@ def _retry_after(exc: Any) -> float | None:
         return float(exc.response.headers["retry-after"])
     except (AttributeError, KeyError, TypeError, ValueError):
         return None
-
 
 
 _DEFAULT_TEMPERATURE = {LLMRole.PLANNER: 0.2, LLMRole.GENERATOR: 0.3, LLMRole.JUDGE: 0.0}

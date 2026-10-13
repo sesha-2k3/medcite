@@ -1,7 +1,7 @@
-"""Fixtures for tests that need the Compose Postgres.
+"""Fixtures for tests that need the Compose Postgres or Redis.
 
-Tests run against a throwaway database (``medcite_test`` by default), recreated once per
-session, so the development database is never touched.
+Postgres tests use a throwaway database (``medcite_test``), recreated once per session. Redis
+tests use logical database 15, flushed around each test. Development data is never touched.
 """
 
 from __future__ import annotations
@@ -16,6 +16,8 @@ import asyncpg
 import pytest
 from alembic import command
 from alembic.config import Config
+from redis.asyncio import Redis
+from redis.exceptions import RedisError
 from sqlalchemy.engine import make_url
 from sqlalchemy.ext.asyncio import AsyncEngine
 
@@ -25,6 +27,7 @@ from tests.integration.helpers import recreate_database
 
 BACKEND_DIR = Path(__file__).resolve().parents[2]
 DEFAULT_TEST_DATABASE_URL = "postgresql+asyncpg://postgres:dev@localhost:5432/medcite_test"
+DEFAULT_TEST_REDIS_URL = "redis://localhost:6379/15"
 SAFE_TEST_DB_NAME = re.compile(r"^[a-z0-9_]+_test$")
 
 
@@ -61,3 +64,20 @@ async def engine(
     db_engine = create_engine(make_settings(database_url=database_url))
     yield db_engine
     await db_engine.dispose()
+
+
+@pytest.fixture
+async def redis_client() -> AsyncIterator[Redis]:
+    client = Redis.from_url(
+        os.environ.get("TEST_REDIS_URL", DEFAULT_TEST_REDIS_URL),
+        decode_responses=True,
+        socket_connect_timeout=2,
+    )
+    try:
+        await client.flushdb()
+    except (OSError, RedisError) as exc:
+        await client.aclose()
+        pytest.skip(f"Redis not reachable ({exc}); run: docker compose up -d redis")
+    yield client
+    await client.flushdb()
+    await client.aclose()

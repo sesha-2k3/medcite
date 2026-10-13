@@ -6,7 +6,7 @@ COMPOSE := docker compose
 
 .DEFAULT_GOAL := help
 .PHONY: help setup install up down ps logs psql db-reset migrate downgrade migration history \
-	models api web dev test test-live test-web lint lint-web format typecheck typecheck-web \
+	models pubmed-sample pubmed-record api web dev test test-live test-web lint lint-web format typecheck typecheck-web \
 	fix check gen-api image image-multiarch clean
 
 help: ## List available commands
@@ -55,6 +55,14 @@ history: ## Show migration history
 
 models: ## Download MedCPT weights into HF_HOME
 	$(PY) python -m app.models.download
+
+pubmed-sample: ## Fetch real records: make pubmed-sample q="biceps curl" [n=20]
+	@test -n "$(q)" || (echo 'usage: make pubmed-sample q="your query"' && exit 1)
+	$(PY) python -m scripts.fetch_pubmed_sample "$(q)" --count $(or $(n),20)
+
+pubmed-record: ## Save real responses as fixtures: make pubmed-record q="biceps curl"
+	@test -n "$(q)" || (echo 'usage: make pubmed-record q="your query"' && exit 1)
+	$(PY) python -m scripts.fetch_pubmed_sample "$(q)" --count $(or $(n),20) --record
 
 api: ## Run the API with reload on :8000
 	$(PY) uvicorn app.main:app --reload --port 8000

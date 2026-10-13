@@ -865,7 +865,7 @@ requires-dist = [
     { name = "scikit-learn", specifier = ">=1.5" },
     { name = "sentry-sdk", extras = ["fastapi"], specifier = ">=2.10" },
     { name = "sqlalchemy", extras = ["asyncio"], specifier = ">=2.0.30" },
-    { name = "tenacity", specifier = ">=8.5" },
+    { name = "tenacity", specifier = ">=9.2.1" },
     { name = "torch", marker = "sys_platform != 'linux'", specifier = ">=2.3" },
     { name = "torch", marker = "sys_platform == 'linux'", specifier = ">=2.3", index = "https://download.pytorch.org/whl/cpu" },
     { name = "transformers", specifier = ">=4.44" },

@@ -18,7 +18,7 @@ dependencies = [
     "redis>=5.0",
     # External calls
     "httpx>=0.27",
-    "tenacity>=8.5",
+    "tenacity>=9.2.1",
     "lxml>=5.2",
     # LLM access (OpenAI-compatible SDK; used for Groq via base_url)
     "openai>=1.40",

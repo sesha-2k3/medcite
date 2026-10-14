@@ -1,0 +1,179 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PubmedArticleSet PUBLIC "-//NLM//DTD PubMedArticle, 1st January 2025//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_250101.dtd">
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">90000101</PMID>
+      <Article PubModel="Print-Electronic">
+        <Journal>
+          <JournalIssue CitedMedium="Internet">
+            <PubDate><Year>2024</Year><Month>Mar</Month><Day>05</Day></PubDate>
+          </JournalIssue>
+          <Title>Journal of Synthetic Strength Research</Title>
+          <ISOAbbreviation>J Synth Strength Res</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Dumbbell versus barbell curls for <i>elbow flexor</i> hypertrophy: a randomized trial.</ArticleTitle>
+        <Abstract>
+          <AbstractText Label="BACKGROUND" NlmCategory="BACKGROUND">Few trials compare curl variants.</AbstractText>
+          <AbstractText Label="METHODS" NlmCategory="METHODS">Twenty-four trained men trained for 8 weeks.</AbstractText>
+          <AbstractText Label="RESULTS" NlmCategory="RESULTS">Muscle thickness rose 1.2 mm<sup>2</sup> in both groups (<i>p</i> = 0.71).</AbstractText>
+          <AbstractText Label="CONCLUSIONS" NlmCategory="CONCLUSIONS">Both exercises produced similar growth.</AbstractText>
+          <CopyrightInformation>Synthetic text.</CopyrightInformation>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016449">Randomized Controlled Trial</PublicationType>
+        </PublicationTypeList>
+        <ArticleDate DateType="Electronic"><Year>2024</Year><Month>02</Month><Day>18</Day></ArticleDate>
+      </Article>
+      <MeshHeadingList>
+        <MeshHeading><DescriptorName UI="D055070" MajorTopicYN="Y">Resistance Training</DescriptorName></MeshHeading>
+        <MeshHeading><DescriptorName UI="D018482" MajorTopicYN="N">Muscle, Skeletal</DescriptorName><QualifierName UI="Q000502" MajorTopicYN="N">physiology</QualifierName></MeshHeading>
+      </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="received"><Year>2023</Year><Month>10</Month><Day>01</Day></PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez"><Year>2024</Year><Month>2</Month><Day>20</Day></PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed"><Year>2024</Year><Month>2</Month><Day>21</Day></PubMedPubDate>
+      </History>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">90000101</ArticleId>
+        <ArticleId IdType="doi">10.1000/synthetic.101</ArticleId>
+        <ArticleId IdType="pmc">PMC9000101</ArticleId>
+      </ArticleIdList>
+      <ReferenceList>
+        <Reference>
+          <Citation>A cited reference with its own identifiers.</Citation>
+          <ArticleIdList>
+            <ArticleId IdType="doi">10.9999/not-this-article</ArticleId>
+            <ArticleId IdType="pmc">PMC1111111</ArticleId>
+          </ArticleIdList>
+        </Reference>
+      </ReferenceList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="PubMed-not-MEDLINE" Owner="NLM">
+      <PMID Version="1">90000102</PMID>
+      <Article PubModel="Electronic">
+        <Journal>
+          <JournalIssue><PubDate><Year>2019</Year><Month>11</Month></PubDate></JournalIssue>
+          <ISOAbbreviation>Synth Sports Med</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>An unstructured abstract about rest intervals.</ArticleTitle>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1000/synthetic.102</ELocationID>
+        <Abstract>
+          <AbstractText>Longer rest between sets increased training volume. Strength gains were similar.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList><PublicationType UI="D016428">Journal Article</PublicationType></PublicationTypeList>
+      </Article>
+    </MedlineCitation>
+    <PubmedData>
+      <History><PubMedPubDate PubStatus="entrez"><Year>2019</Year><Month>11</Month><Day>12</Day></PubMedPubDate></History>
+      <ArticleIdList><ArticleId IdType="pubmed">90000102</ArticleId></ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">90000103</PMID>
+      <Article PubModel="Print">
+        <Journal>
+          <JournalIssue><PubDate><MedlineDate>2018 Dec-2019 Jan</MedlineDate></PubDate></JournalIssue>
+          <Title>Synthetic Letters</Title>
+        </Journal>
+        <ArticleTitle>Response.</ArticleTitle>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016420">Comment</PublicationType>
+          <PublicationType UI="D016422">Letter</PublicationType>
+        </PublicationTypeList>
+      </Article>
+    </MedlineCitation>
+    <PubmedData>
+      <History><PubMedPubDate PubStatus="pubmed"><Year>2019</Year><Month>1</Month><Day>3</Day></PubMedPubDate></History>
+      <ArticleIdList><ArticleId IdType="pubmed">90000103</ArticleId></ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">90000104</PMID>
+      <Article PubModel="Print">
+        <Journal>
+          <JournalIssue><PubDate><Year>2016</Year><Month>Jun</Month></PubDate></JournalIssue>
+          <Title>Journal of Synthetic Physiology</Title>
+        </Journal>
+        <ArticleTitle>A retracted study of exercise signalling.</ArticleTitle>
+        <Abstract>
+          <AbstractText Label="AIMS" NlmCategory="OBJECTIVE">Synthetic aims.</AbstractText>
+          <AbstractText Label="RESULTS" NlmCategory="RESULTS">Synthetic results.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016441">Retracted Publication</PublicationType>
+        </PublicationTypeList>
+      </Article>
+      <CommentsCorrectionsList>
+        <CommentsCorrections RefType="RetractionIn"><RefSource>Synthetic notice.</RefSource><PMID Version="1">90000199</PMID></CommentsCorrections>
+      </CommentsCorrectionsList>
+    </MedlineCitation>
+    <PubmedData>
+      <ArticleIdList><ArticleId IdType="pubmed">90000104</ArticleId></ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">90000105</PMID>
+      <Article PubModel="Print">
+        <Journal>
+          <JournalIssue><PubDate><Year>2021</Year><Season>Spring</Season></PubDate></JournalIssue>
+          <Title>Revista Sintetica</Title>
+        </Journal>
+        <ArticleTitle>[Strength training in older adults].</ArticleTitle>
+        <Abstract><AbstractText>Un resumen sintetico.</AbstractText></Abstract>
+        <Language>spa</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016454">Review</PublicationType>
+        </PublicationTypeList>
+        <VernacularTitle>Entrenamiento de fuerza en adultos mayores.</VernacularTitle>
+      </Article>
+    </MedlineCitation>
+    <PubmedData><ArticleIdList><ArticleId IdType="pubmed">90000105</ArticleId></ArticleIdList></PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">90000106</PMID>
+      <Article PubModel="Print">
+        <Journal><JournalIssue><PubDate><Year>2017</Year></PubDate></JournalIssue><Title>Synthetische Zeitschrift</Title></Journal>
+        <ArticleTitle>[Not Available].</ArticleTitle>
+        <Language>ger</Language>
+        <PublicationTypeList><PublicationType UI="D016428">Journal Article</PublicationType></PublicationTypeList>
+        <VernacularTitle>Diabetes im Alter.</VernacularTitle>
+      </Article>
+    </MedlineCitation>
+    <PubmedData><ArticleIdList><ArticleId IdType="pubmed">90000106</ArticleId></ArticleIdList></PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">90000107</PMID>
+      <Article PubModel="Print">
+        <Journal><JournalIssue><PubDate><Year>2015</Year><Month>Feb</Month><Day>31</Day></PubDate></JournalIssue></Journal>
+        <ArticleTitle>[Not Available].</ArticleTitle>
+        <Abstract>
+          <AbstractText Label="Methods and results">Synthetic methods and results.</AbstractText>
+          <AbstractText Label="Take-home message" NlmCategory="UNASSIGNED">Synthetic message.</AbstractText>
+          <AbstractText Label="EMPTY" NlmCategory="CONCLUSIONS"></AbstractText>
+        </Abstract>
+        <PublicationTypeList><PublicationType UI="D016428">Journal Article</PublicationType></PublicationTypeList>
+      </Article>
+    </MedlineCitation>
+    <PubmedData><ArticleIdList><ArticleId IdType="pubmed">90000107</ArticleId></ArticleIdList></PubmedData>
+  </PubmedArticle>
+  <PubmedBookArticle>
+    <BookDocument><PMID Version="1">90000108</PMID></BookDocument>
+  </PubmedBookArticle>
+</PubmedArticleSet>

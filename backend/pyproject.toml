@@ -18,7 +18,7 @@ dependencies = [
     "redis>=5.0",
     # External calls
     "httpx>=0.27",
-    "tenacity>=9.2.1",
+    "tenacity>=8.5",
     "lxml>=5.2",
     # LLM access (OpenAI-compatible SDK; used for Groq via base_url)
     "openai>=1.40",
@@ -79,7 +79,7 @@ warn_unreachable = true
 
 [[tool.mypy.overrides]]
 # Third-party libraries without type stubs. Each entry must stay justified.
-module = ["transformers.*", "pgvector.*", "langfuse.*", "sklearn.*", "redis.*"]
+module = ["transformers.*", "pgvector.*", "langfuse.*", "sklearn.*", "redis.*", "lxml.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
@@ -89,5 +89,6 @@ asyncio_default_fixture_loop_scope = "function"
 markers = [
     "integration: needs the Compose Postgres and Redis (docker compose up -d db redis)",
     "live: calls real external services (NCBI, Groq); never run by default",
+    "models: needs downloaded MedCPT weights (make models); skips otherwise",
 ]
 addopts = "-m 'not live'"

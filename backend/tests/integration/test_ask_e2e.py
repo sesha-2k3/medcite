@@ -14,10 +14,13 @@ import pytest
 from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
+from app.api.background import BackgroundWrites
 from app.auth.tokens import DEV_ISSUER, DevTokenVerifier, mint_dev_token
 from app.auth.users import UserDirectory
 from app.config import Settings
-from app.db.models import Article, User
+from app.db.models import Article, QueryLog, UsageDaily, User
+from app.db.queries.articles import ArticleRepository
+from app.db.queries.query_logs import QueryLogRepository, UsageRepository
 from app.generation.generate import Generator
 from app.generation.verify import Judge, Verifier
 from app.graph.build import Pipeline
@@ -27,6 +30,7 @@ from app.main import create_app
 from app.models.llm import LLMClient
 from app.retrieval.factory import build_retriever
 from app.services import PipelineConfig, Services
+from app.tracing import NoopTracer
 from tests.graph.fakes import FakePlanner, FakeSearcher, question_plan
 from tests.ingest.fakes import FixtureFetcher, HashEmbedder, PubTypeMetadata
 from tests.llm_fakes import ScriptedProvider
@@ -66,6 +70,7 @@ async def clean_sessions(
 
     async def clear() -> None:
         async with sessions.begin() as session:
+            await session.execute(delete(QueryLog).where(QueryLog.user_query.like("Dumbbell%")))
             await session.execute(delete(Article).where(Article.pmid.in_(BICEPS_PMIDS)))
             await session.execute(
                 delete(User).where(User.auth_issuer == DEV_ISSUER, User.auth_subject == SUBJECT)
@@ -106,12 +111,18 @@ async def test_ask_streams_a_verified_answer_end_to_end(
         generator=Generator(llm),
         verifier=Verifier(Judge(llm)),
         config=PipelineConfig(enough_relevant_passages=1),
+        recorder=QueryLogRepository(sessions),
     )
     app = create_app(settings)
     app.state.settings = settings
     app.state.verifier = DevTokenVerifier(DEV_KEY, settings.auth_audience)
     app.state.users = UserDirectory(sessions)
     app.state.pipeline = Pipeline(services)
+    app.state.usage = UsageRepository(sessions)
+    app.state.query_logs = QueryLogRepository(sessions)
+    app.state.articles = ArticleRepository(sessions)
+    app.state.tracer = NoopTracer()
+    app.state.background = BackgroundWrites()
     token = mint_dev_token(DEV_KEY, subject=SUBJECT, audience=settings.auth_audience)
 
     transport = httpx.ASGITransport(app=app)
@@ -121,6 +132,11 @@ async def test_ask_streams_a_verified_answer_end_to_end(
             json={"question": "Dumbbell versus barbell curls for biceps growth?"},
             headers={"Authorization": f"Bearer {token}"},
             timeout=30,
+        )
+        await app.state.background.drain()
+        cited = next(data for name, data in parse(response.text) if name == "citations")
+        article = await client.get(
+            f"/v1/articles/{cited[0]['pmid']}", headers={"Authorization": f"Bearer {token}"}
         )
 
     assert response.status_code == 200
@@ -132,6 +148,10 @@ async def test_ask_streams_a_verified_answer_end_to_end(
     assert order == ["gap", "token", "citations", "evidence_table", "rating", "done"]
     citations = next(data for name, data in events if name == "citations")
     assert citations[0]["pmid"] in BICEPS_PMIDS
+    done = events[-1][1]
+    assert isinstance(done["query_id"], int)
+    assert article.status_code == 200
+    assert article.json()["passages"]
 
     async with sessions() as session:
         user = (
@@ -139,4 +159,13 @@ async def test_ask_streams_a_verified_answer_end_to_end(
                 select(User).where(User.auth_issuer == DEV_ISSUER, User.auth_subject == SUBJECT)
             )
         ).scalar_one()
-    assert user.id is not None
+    async with sessions() as session:
+        log = await session.get(QueryLog, done["query_id"])
+        usage = (
+            await session.execute(select(UsageDaily).where(UsageDaily.user_id == user.id))
+        ).scalar_one()
+    assert log is not None
+    assert log.trace_id == done["trace_id"]
+    assert log.evidence_gap is True
+    assert log.context_chunk_ids
+    assert usage.requests == 1

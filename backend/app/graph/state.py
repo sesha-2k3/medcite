@@ -16,6 +16,7 @@ from app.generation.context import EvidenceContext
 from app.generation.plan import Mode, Plan
 from app.models.llm import UsageMeter
 from app.retrieval.retriever import EvidencePassage
+from app.tracing import Trace
 
 
 @dataclass(slots=True)
@@ -52,3 +53,6 @@ class PipelineState(TypedDict, total=False):
     retries: int
     retry_failed: bool
     control: RunControl
+    trace: Trace
+    started_at: float  # time.monotonic() when the run began
+    scores: dict[int, float]  # cross-encoder scores by chunk ID, reused across tiers

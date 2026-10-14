@@ -9,6 +9,7 @@ from datetime import date
 from typing import Any
 
 from app.config import Settings
+from app.db.queries.query_logs import CompletedQuery
 from app.generation.generate import Generator
 from app.generation.plan import DateWindow, Plan, Tier
 from app.generation.verify import Judge, Verifier
@@ -77,6 +78,7 @@ class FakeRetriever:
     def __init__(self, passages: Callable[[Mapping[int, int]], list[EvidencePassage]]) -> None:
         self._passages = passages
         self.calls: list[dict[int, int]] = []
+        self.caches: list[dict[int, float] | None] = []
 
     async def retrieve(
         self,
@@ -84,9 +86,24 @@ class FakeRetriever:
         *,
         candidate_tiers: Mapping[int, int] | None = None,
         question_outcome: OutcomeClass | None = None,
+        score_cache: dict[int, float] | None = None,
     ) -> list[EvidencePassage]:
         self.calls.append(dict(candidate_tiers or {}))
+        self.caches.append(score_cache)
         return self._passages(candidate_tiers or {})
+
+
+class FakeRecorder:
+    def __init__(self, query_id: int = 42, error: Exception | None = None) -> None:
+        self.entries: list[CompletedQuery] = []
+        self._query_id = query_id
+        self._error = error
+
+    async def record(self, entry: CompletedQuery) -> int:
+        self.entries.append(entry)
+        if self._error is not None:
+            raise self._error
+        return self._query_id
 
 
 def fake_services(
@@ -98,6 +115,7 @@ def fake_services(
     retriever: FakeRetriever | None = None,
     ingester: FakeIngester | None = None,
     config: PipelineConfig | None = None,
+    recorder: FakeRecorder | None = None,
 ) -> tuple[Services, ScriptedProvider]:
     provider = ScriptedProvider(replies)
     llm = LLMClient(settings, provider)
@@ -109,6 +127,7 @@ def fake_services(
         generator=Generator(llm),
         verifier=Verifier(Judge(llm)),
         config=config or PipelineConfig(),
+        recorder=recorder,
     )
     return services, provider
 

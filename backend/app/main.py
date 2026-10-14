@@ -12,11 +12,14 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import ask, health
+from app.api import articles, ask, feedback, health
+from app.api.background import BackgroundWrites
 from app.api.middleware import REQUEST_ID_HEADER, RequestIdMiddleware
 from app.auth.tokens import build_verifier
 from app.auth.users import UserDirectory
 from app.config import Settings, get_settings
+from app.db.queries.articles import ArticleRepository
+from app.db.queries.query_logs import QueryLogRepository, UsageRepository
 from app.db.redis import create_redis, ping_redis
 from app.db.session import create_engine, create_session_factory, ping_database
 from app.errors import install_error_handlers
@@ -24,6 +27,7 @@ from app.graph.build import Pipeline
 from app.observability import configure_logging, configure_sentry
 from app.services import Resources, ServicesFactory, build_services
 from app.sources.http import create_http_client
+from app.tracing import build_tracer
 
 logger = logging.getLogger(__name__)
 
@@ -51,6 +55,11 @@ def create_app(
         app.state.redis = redis
         app.state.verifier = build_verifier(settings, http)
         app.state.users = UserDirectory(sessions)
+        app.state.usage = UsageRepository(sessions)
+        app.state.query_logs = QueryLogRepository(sessions)
+        app.state.articles = ArticleRepository(sessions)
+        app.state.tracer = build_tracer(settings)
+        app.state.background = BackgroundWrites()
         app.state.readiness_checks = {
             "database": lambda: ping_database(engine),
             "redis": lambda: ping_redis(redis),
@@ -61,6 +70,8 @@ def create_app(
         try:
             yield
         finally:
+            await app.state.background.drain()
+            app.state.tracer.shutdown()
             await http.aclose()
             await redis.aclose()
             await engine.dispose()
@@ -86,6 +97,8 @@ def create_app(
     install_error_handlers(app)
     app.include_router(health.router)
     app.include_router(ask.router)
+    app.include_router(articles.router)
+    app.include_router(feedback.router)
     return app
 
 

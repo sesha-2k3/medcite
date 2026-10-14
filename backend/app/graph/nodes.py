@@ -4,10 +4,14 @@ emits a ``step`` event when it starts.
 
 from __future__ import annotations
 
+import logging
+import time
+from decimal import Decimal
 from typing import Any, Literal
 
+from app.db.queries.query_logs import CompletedQuery
 from app.errors import AppError
-from app.generation.answer import issue
+from app.generation.answer import Answer, VerificationResult, issue
 from app.generation.context import build_context
 from app.generation.gap import detect_evidence_gap, requested_evidence_label
 from app.generation.service import no_evidence, with_gap_fallback, with_issue
@@ -15,6 +19,8 @@ from app.generation.verify import user_warnings
 from app.graph.events import emit, emit_step, token_chunks
 from app.graph.state import PipelineState
 from app.services import Services
+
+logger = logging.getLogger(__name__)
 
 Update = dict[str, Any]
 MAX_ATTEMPTS = 2
@@ -73,6 +79,7 @@ class Nodes:
             plan.standalone_query,
             candidate_tiers=state["candidates"] or None,
             question_outcome=outcome,
+            score_cache=state.get("scores"),
         )
         return {"passages": passages}
 
@@ -176,14 +183,53 @@ class Nodes:
         emit("rating", {"level": answer.rating.level, "justification": answer.rating.justification})
         for message in user_warnings(result):
             emit("warning", {"message": message})
-        _emit_done(state)
+        trace = state.get("trace")
+        if trace is not None:
+            trace.update(
+                output={"direct_answer": answer.direct_answer, "rating": answer.rating.level},
+                metadata={"evidence_gap": answer.evidence_gap, "verified": result.passed},
+            )
+        query_id = await self._record(state, answer, result)
+        _emit_done(state, query_id)
         return {"draft": answer, "verification": result}
 
     async def respond_scope(self, state: PipelineState) -> Update:
         emit_step("respond", "Preparing the answer")
         emit("token", {"text": OUT_OF_SCOPE})
-        _emit_done(state)
+        _emit_done(state, await self._record(state, None, None))
         return {}
+
+    async def _record(
+        self, state: PipelineState, answer: Answer | None, result: VerificationResult | None
+    ) -> int | None:
+        """Fails open: the answer is already delivered, so a failed log write only loses
+        the row (and with it, feedback for this answer).
+        """
+        recorder = self._s.recorder
+        if recorder is None:
+            return None
+        plan, meter = state.get("plan"), state.get("meter")
+        context = state.get("context")
+        started = state.get("started_at", time.monotonic())
+        entry = CompletedQuery(
+            user_id=state["user_id"],
+            mode=plan.mode if plan else None,
+            user_query=state["question"],
+            plan=plan.model_dump(mode="json", by_alias=True) if plan else None,
+            candidate_pmids=sorted(state.get("candidates", {})),
+            context_chunk_ids=[i.chunk.chunk_id for i in context.items] if context else [],
+            answer=answer.model_dump(mode="json") if answer else None,
+            evidence_gap=answer.evidence_gap if answer else None,
+            verification=result.model_dump(mode="json") if result else None,
+            latency_ms=round((time.monotonic() - started) * 1000),
+            cost_usd=meter.cost_usd if meter else Decimal(0),
+            trace_id=state.get("trace_id", ""),
+        )
+        try:
+            return await recorder.record(entry)
+        except Exception:
+            logger.exception("query_log_failed")
+            return None
 
     @staticmethod
     def route(state: PipelineState) -> Literal["retrieve_tier", "respond_scope"]:
@@ -193,12 +239,13 @@ class Nodes:
         return "retrieve_tier"
 
 
-def _emit_done(state: PipelineState) -> None:
+def _emit_done(state: PipelineState, query_id: int | None) -> None:
     plan = state.get("plan")
     emit(
         "done",
         {
             "trace_id": state.get("trace_id", ""),
+            "query_id": query_id,
             "query_plan": plan.model_dump(mode="json", by_alias=True) if plan else None,
         },
     )

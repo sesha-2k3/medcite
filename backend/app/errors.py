@@ -57,6 +57,11 @@ class UnauthorizedError(AppError):
     status_code = 401
 
 
+class NotFoundError(AppError):
+    code = "not_found"
+    status_code = 404
+
+
 class ServiceUnavailableError(AppError):
     code = "unavailable"
     status_code = 503

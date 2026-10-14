@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import uuid
 from collections.abc import Callable, Mapping, Sequence
+from contextlib import nullcontext
 from dataclasses import replace
 
 import pytest
@@ -16,9 +17,11 @@ from app.ingest.service import IngestReport
 from app.models.llm import UsageMeter
 from app.retrieval.retriever import EvidencePassage
 from app.services import PipelineConfig
+from app.tracing import NoopTrace
 from tests.generation.builders import creatine_passages, stored
 from tests.graph.fakes import (
     FakeIngester,
+    FakeRecorder,
     FakeRetriever,
     FakeSearcher,
     fake_services,
@@ -227,6 +230,94 @@ async def test_cancelling_a_run_stops_the_running_node(build: Build) -> None:
     assert task.cancelled() or task.exception() is not None
     assert ingester.cancelled is True
     assert searcher.terms == ["q1"]
+
+
+async def test_completed_runs_are_logged_and_done_carries_the_query_id(build: Build) -> None:
+    recorder = FakeRecorder(query_id=42)
+    pipeline, _ = build(
+        [stored("generate_conflict"), stored("judge_supported")],
+        searcher=FakeSearcher({"q1": ALL}),
+        retriever=FakeRetriever(found_by_search),
+        config=PipelineConfig(enough_relevant_passages=1),
+        recorder=recorder,
+    )
+    events = await collect(pipeline)
+    assert events[-1].data["query_id"] == 42
+    [entry] = recorder.entries
+    assert entry.mode == "question"
+    assert entry.candidate_pmids == sorted(ALL)
+    assert entry.context_chunk_ids == [11, 12, 21, 31]
+    assert entry.trace_id == "t1"
+    assert entry.answer is not None
+    assert entry.answer["evidence_table"][0]["pmid"] == 90_000_001
+    assert entry.verification is not None
+    assert entry.verification["passed"] is True
+    assert entry.latency_ms >= 0
+
+
+async def test_a_failed_log_write_still_finishes_the_answer(build: Build) -> None:
+    pipeline, _ = build(
+        [],
+        plan=question_plan(mode="out_of_scope", tiers=[]),
+        recorder=FakeRecorder(error=OSError("database down")),
+    )
+    events = await collect(pipeline)
+    assert events[-1].name == "done"
+    assert events[-1].data["query_id"] is None
+
+
+async def test_scores_are_shared_across_tiers(build: Build) -> None:
+    retriever = FakeRetriever(found_by_search)
+    pipeline, _ = build(
+        [stored("generate_gap"), GAP_JUDGE],
+        searcher=FakeSearcher({"q1": PRIMARY}),
+        retriever=retriever,
+        config=PipelineConfig(enough_relevant_passages=5),
+    )
+    await collect(pipeline)
+    assert len(retriever.caches) == 4
+    first = retriever.caches[0]
+    assert first is not None
+    assert all(cache is first for cache in retriever.caches)
+
+
+class RecordingSpan:
+    def __init__(self, spans: list[tuple[str, int]], name: str) -> None:
+        self._spans = spans
+        self._name = name
+
+    def record_llm_calls(self, calls: Sequence[object]) -> None:
+        self._spans.append((self._name, len(calls)))
+
+
+class RecordingTrace(NoopTrace):
+    def __init__(self) -> None:
+        super().__init__("trace-1")
+        self.spans: list[tuple[str, int]] = []
+
+    def node(self, name: str) -> nullcontext[RecordingSpan]:  # type: ignore[override]
+        return nullcontext(RecordingSpan(self.spans, name))
+
+
+async def test_each_node_is_traced_with_its_llm_calls(build: Build) -> None:
+    pipeline, _ = build(
+        [stored("generate_conflict"), stored("judge_supported")],
+        searcher=FakeSearcher({"q1": ALL}),
+        retriever=FakeRetriever(found_by_search),
+        config=PipelineConfig(enough_relevant_passages=1),
+    )
+    trace = RecordingTrace()
+    async for _ in pipeline.run(question="q", user_id=uuid.uuid4(), trace_id="t", trace=trace):
+        pass
+    assert trace.spans == [
+        ("plan", 0),
+        ("retrieve_tier", 0),
+        ("ingest_abstracts", 0),
+        ("rank", 0),
+        ("generate", 1),
+        ("verify", 1),
+        ("respond", 0),
+    ]
 
 
 def test_token_chunks_rejoin_exactly() -> None:

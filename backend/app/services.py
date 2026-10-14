@@ -16,6 +16,7 @@ from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from app.config import Settings
+from app.db.queries.query_logs import CompletedQuery, QueryLogRepository
 from app.generation.context import ContextBudget
 from app.generation.factory import context_budget
 from app.generation.generate import Generator
@@ -63,7 +64,12 @@ class PassageRetriever(Protocol):
         *,
         candidate_tiers: Mapping[int, int] | None = None,
         question_outcome: OutcomeClass | None = None,
+        score_cache: dict[int, float] | None = None,
     ) -> list[EvidencePassage]: ...
+
+
+class QueryRecorder(Protocol):
+    async def record(self, entry: CompletedQuery) -> int: ...
 
 
 @dataclass(frozen=True, slots=True)
@@ -83,6 +89,7 @@ class Services:
     generator: AnswerGenerator
     verifier: AnswerVerifier
     config: PipelineConfig
+    recorder: QueryRecorder | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -118,6 +125,7 @@ async def build_services(settings: Settings, resources: Resources) -> Services:
         generator=Generator(llm, max_tokens=settings.generation_max_tokens),
         verifier=Verifier(Judge(llm, max_tokens=settings.judge_max_tokens)),
         config=pipeline_config(settings),
+        recorder=QueryLogRepository(resources.sessions),
     )
 
 

@@ -4,6 +4,9 @@ PY := cd $(BACKEND) && uv run
 NPM := cd $(FRONTEND) && npm run
 COMPOSE := docker compose
 
+# Passed to recipes through the environment, so values may contain quotes.
+export q n name
+
 .DEFAULT_GOAL := help
 .PHONY: help setup install up down ps logs psql db-reset migrate downgrade migration history \
 	models pubmed-sample pubmed-record fixtures-minimize ingest search plan api web dev test test-live test-web lint lint-web format typecheck typecheck-web \
@@ -47,8 +50,8 @@ downgrade: ## Roll back one migration
 	$(PY) alembic downgrade -1
 
 migration: ## Create an empty migration: make migration name="add foo"
-	@test -n "$(name)" || (echo 'usage: make migration name="describe the change"' && exit 1)
-	$(PY) alembic revision -m "$(name)"
+	@test -n "$$name" || (echo 'usage: make migration name="describe the change"' && exit 1)
+	$(PY) alembic revision -m "$$name"
 
 history: ## Show migration history
 	$(PY) alembic history --verbose
@@ -57,27 +60,27 @@ models: ## Download MedCPT weights into HF_HOME
 	$(PY) python -m app.models.download
 
 pubmed-sample: ## Fetch real records: make pubmed-sample q="biceps curl" [n=20]
-	@test -n "$(q)" || (echo 'usage: make pubmed-sample q="your query"' && exit 1)
-	$(PY) python -m scripts.fetch_pubmed_sample "$(q)" --count $(or $(n),20)
+	@test -n "$$q" || (echo 'usage: make pubmed-sample q="your query"' && exit 1)
+	$(PY) python -m scripts.fetch_pubmed_sample "$$q" --count $(or $(n),20)
 
 pubmed-record: ## Save real responses as fixtures: make pubmed-record q="biceps curl"
-	@test -n "$(q)" || (echo 'usage: make pubmed-record q="your query"' && exit 1)
-	$(PY) python -m scripts.fetch_pubmed_sample "$(q)" --count $(or $(n),20) --record
+	@test -n "$$q" || (echo 'usage: make pubmed-record q="your query"' && exit 1)
+	$(PY) python -m scripts.fetch_pubmed_sample "$$q" --count $(or $(n),20) --record
 
 fixtures-minimize: ## Make committable fixtures from local recordings
 	$(PY) python -m scripts.minimize_pubmed_fixture
 
 ingest: ## Search and ingest end to end: make ingest q="biceps curl" [n=10]
-	@test -n "$(q)" || (echo 'usage: make ingest q="your query"' && exit 1)
-	$(PY) python -m scripts.ingest_pubmed "$(q)" --count $(or $(n),10)
+	@test -n "$$q" || (echo 'usage: make ingest q="your query"' && exit 1)
+	$(PY) python -m scripts.ingest_pubmed "$$q" --count $(or $(n),10)
 
 search: ## Rank stored passages for a question: make search q="your question"
-	@test -n "$(q)" || (echo 'usage: make search q="your question"' && exit 1)
-	$(PY) python -m scripts.search_local "$(q)"
+	@test -n "$$q" || (echo 'usage: make search q="your question"' && exit 1)
+	$(PY) python -m scripts.search_local "$$q"
 
 plan: ## Plan a question and count matches per tier: make plan q="your question"
-	@test -n "$(q)" || (echo 'usage: make plan q="your question"' && exit 1)
-	$(PY) python -m scripts.plan_question "$(q)"
+	@test -n "$$q" || (echo 'usage: make plan q="your question"' && exit 1)
+	$(PY) python -m scripts.plan_question "$$q"
 
 api: ## Run the API with reload on :8000
 	$(PY) uvicorn app.main:app --reload --port 8000

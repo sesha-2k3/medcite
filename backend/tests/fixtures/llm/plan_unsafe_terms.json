@@ -1,0 +1,12 @@
+{
+  "mode": "question",
+  "intervention": "metformin",
+  "outcome": "kidney function",
+  "outcome_class": "clinical",
+  "requested_evidence": [],
+  "standalone_query": "Does metformin protect kidney function?",
+  "concepts": {
+    "intervention": {"mesh": ["Metformin"], "text": ["metformin", "biguanide\" OR (insulin"]},
+    "outcome": {"mesh": ["Kidney"], "text": ["renal function", "eGFR)"]}
+  }
+}

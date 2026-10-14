@@ -1,0 +1,8 @@
+{
+  "mode": "question",
+  "standalone_query": "Does metformin protect kidney function?",
+  "concepts": {
+    "intervention": {"mesh": [], "text": ["\"()\"", "a AND b"]},
+    "outcome": {"mesh": [], "text": []}
+  }
+}

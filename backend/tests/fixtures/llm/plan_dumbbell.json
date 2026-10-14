@@ -1,0 +1,67 @@
+{
+  "mode": "question",
+  "population": "healthy adults doing resistance training",
+  "intervention": "dumbbell curl",
+  "comparison": "barbell curl",
+  "outcome": "biceps hypertrophy",
+  "outcome_class": "physiological",
+  "requested_evidence": [
+    "meta_analysis",
+    "systematic_review"
+  ],
+  "date_range": null,
+  "standalone_query": "Is there a meta-analysis of dumbbell curl vs barbell curl for biceps muscle growth?",
+  "concepts": {
+    "population": null,
+    "intervention": {
+      "mesh": [],
+      "text": [
+        "dumbbell curl*",
+        "dumbbell*"
+      ]
+    },
+    "comparison": {
+      "mesh": [],
+      "text": [
+        "barbell curl*",
+        "barbell*"
+      ]
+    },
+    "outcome": {
+      "mesh": [
+        "Hypertrophy",
+        "Muscle, Skeletal"
+      ],
+      "text": [
+        "hypertroph*",
+        "muscle thickness",
+        "muscle size"
+      ]
+    },
+    "broader_intervention": {
+      "mesh": [
+        "Resistance Training"
+      ],
+      "text": [
+        "elbow flexion exercise*",
+        "curl exercise*"
+      ]
+    },
+    "surrogate_outcome": {
+      "mesh": [
+        "Electromyography"
+      ],
+      "text": [
+        "muscle activation",
+        "EMG"
+      ]
+    },
+    "site": {
+      "mesh": [],
+      "text": [
+        "biceps",
+        "elbow flexor*"
+      ]
+    }
+  }
+}

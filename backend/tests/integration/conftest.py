@@ -18,16 +18,19 @@ from alembic import command
 from alembic.config import Config
 from redis.asyncio import Redis
 from redis.exceptions import RedisError
+from sqlalchemy import delete
 from sqlalchemy.engine import make_url
-from sqlalchemy.ext.asyncio import AsyncEngine
+from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker
 
 from app.config import Settings
-from app.db.session import create_engine
+from app.db.models import Article
+from app.db.session import create_engine, create_session_factory
 from tests.integration.helpers import recreate_database
 
 BACKEND_DIR = Path(__file__).resolve().parents[2]
 DEFAULT_TEST_DATABASE_URL = "postgresql+asyncpg://postgres:dev@localhost:5432/medcite_test"
 DEFAULT_TEST_REDIS_URL = "redis://localhost:6379/15"
+SYNTHETIC_PMIDS = 90_000_000
 SAFE_TEST_DB_NAME = re.compile(r"^[a-z0-9_]+_test$")
 
 
@@ -64,6 +67,18 @@ async def engine(
     db_engine = create_engine(make_settings(database_url=database_url))
     yield db_engine
     await db_engine.dispose()
+
+
+@pytest.fixture
+async def sessions(engine: AsyncEngine) -> async_sessionmaker[AsyncSession]:
+    """Session factory on a database cleared of synthetic articles (PMIDs >= 90,000,000).
+
+    Cleanup happens before each test, so a failed test's rows stay around for inspection.
+    """
+    factory = create_session_factory(engine)
+    async with factory.begin() as session:
+        await session.execute(delete(Article).where(Article.pmid >= SYNTHETIC_PMIDS))
+    return factory
 
 
 @pytest.fixture

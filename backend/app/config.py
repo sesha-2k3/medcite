@@ -76,6 +76,18 @@ class Settings(BaseSettings):
     embed_batch_size: int = Field(default=16, ge=1)
     metadata_batch_size: int = Field(default=5, ge=1, le=20)
 
+    retrieval_per_leg: int = Field(default=100, ge=1)
+    rrf_k: int = Field(default=60, ge=1)
+    rerank_top_n: int = Field(default=60, ge=1)
+    rerank_batch_size: int = Field(default=16, ge=1)
+    context_min_chunks: int = Field(default=8, ge=1)
+    context_max_chunks: int = Field(default=15, ge=1)
+    max_chunks_per_article: int = Field(default=3, ge=1)
+    # Cross-encoder logits below this count as irrelevant once the minimum is met; tuned in M10.
+    rerank_relevance_floor: float | None = None
+    small_sample_threshold: int = Field(default=50, ge=1)
+    short_follow_up_weeks: float = Field(default=12.0, gt=0)
+
     auth_mode: AuthMode = "dev"
     auth_jwks_url: str | None = None
     auth_issuer: str | None = None

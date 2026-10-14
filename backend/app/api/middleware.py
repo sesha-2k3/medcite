@@ -38,6 +38,7 @@ class RequestIdMiddleware:
             incoming if incoming and _VALID_INCOMING_ID.match(incoming) else uuid.uuid4().hex
         )
         token = request_id_var.set(request_id)
+        scope.setdefault("state", {})["request_id"] = request_id
         started = time.perf_counter()
         status_code = 500
 

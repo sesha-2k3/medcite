@@ -161,7 +161,7 @@ class PubMedClient:
             retry=retry_if_exception(_is_transient),
             stop=stop_after_attempt(self._retry.attempts),
             wait=wait_exponential_jitter(
-                initial=self._retry.initial_wait_s, max=self._retry.max_wait_s
+                multiplier=self._retry.initial_wait_s, max=self._retry.max_wait_s
             ),
             reraise=True,
         )

@@ -60,6 +60,10 @@ def configure_logging(level: str = "INFO") -> None:
         lg.propagate = True
     # Our middleware logs each request; uvicorn's access log would duplicate it.
     logging.getLogger("uvicorn.access").setLevel(logging.WARNING)
+    # httpx logs full URLs at INFO, and E-utilities URLs carry the NCBI API key. Our own
+    # ncbi_request and llm_call records cover these calls without the secrets.
+    for name in ("httpx", "httpx2", "httpcore"):
+        logging.getLogger(name).setLevel(logging.WARNING)
 
 
 def configure_sentry(settings: Settings) -> None:

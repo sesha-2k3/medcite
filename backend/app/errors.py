@@ -50,23 +50,48 @@ class LLMOutputError(AppError):
     status_code = 502
 
 
+class UnauthorizedError(AppError):
+    """Missing, malformed, expired or untrusted credentials."""
+
+    code = "unauthorized"
+    status_code = 401
+
+
+class ServiceUnavailableError(AppError):
+    code = "unavailable"
+    status_code = 503
+
+
 class ReadOnlyError(AppError):
     code = "read_only"
     status_code = 503
 
 
-def error_body(code: str, message: str) -> dict[str, dict[str, str]]:
-    return {"error": {"code": code, "message": message, "trace_id": request_id_var.get() or ""}}
+def error_body(code: str, message: str, trace_id: str | None = None) -> dict[str, dict[str, str]]:
+    trace = trace_id or request_id_var.get() or ""
+    return {"error": {"code": code, "message": message, "trace_id": trace}}
+
+
+def _request_id(request: Request) -> str | None:
+    """Unhandled errors are rendered outside the request-ID middleware, after its context
+    variable is reset, so the ID is also kept on the request scope.
+    """
+    value = getattr(request.state, "request_id", None)
+    return value if isinstance(value, str) else None
 
 
 def install_error_handlers(app: FastAPI) -> None:
     @app.exception_handler(AppError)
-    async def _app_error(_: Request, exc: AppError) -> JSONResponse:
+    async def _app_error(request: Request, exc: AppError) -> JSONResponse:
         headers: dict[str, str] = {}
         if exc.retry_after_s is not None:
             headers["Retry-After"] = str(max(1, round(exc.retry_after_s)))
+        if exc.status_code == 401:
+            headers["WWW-Authenticate"] = "Bearer"
         return JSONResponse(
-            error_body(exc.code, exc.message), status_code=exc.status_code, headers=headers
+            error_body(exc.code, exc.message, _request_id(request)),
+            status_code=exc.status_code,
+            headers=headers,
         )
 
     @app.exception_handler(StarletteHTTPException)
@@ -82,6 +107,7 @@ def install_error_handlers(app: FastAPI) -> None:
         return JSONResponse(error_body("invalid_request", str(exc.errors())), status_code=422)
 
     @app.exception_handler(Exception)
-    async def _unhandled(_: Request, exc: Exception) -> JSONResponse:
+    async def _unhandled(request: Request, exc: Exception) -> JSONResponse:
         logger.exception("unhandled error")
-        return JSONResponse(error_body("internal_error", "Internal server error"), status_code=500)
+        body = error_body("internal_error", "Internal server error", _request_id(request))
+        return JSONResponse(body, status_code=500)

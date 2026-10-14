@@ -1,6 +1,9 @@
 BACKEND := backend
 FRONTEND := frontend
 PY := cd $(BACKEND) && uv run
+# MedCPT loads from the local cache; offline mode also stops transformers checking the Hub for
+# converted weights in the background. make models is the only target that downloads.
+OFFLINE := cd $(BACKEND) && HF_HUB_OFFLINE=1 uv run
 NPM := cd $(FRONTEND) && npm run
 COMPOSE := docker compose
 
@@ -9,7 +12,7 @@ export q n name
 
 .DEFAULT_GOAL := help
 .PHONY: help setup install up down ps logs psql db-reset migrate downgrade migration history \
-	models pubmed-sample pubmed-record fixtures-minimize ingest search plan answer api web dev test test-live test-web lint lint-web format typecheck typecheck-web \
+	models pubmed-sample pubmed-record fixtures-minimize ingest search plan answer dev-key dev-token api web dev test test-live test-web lint lint-web format typecheck typecheck-web \
 	fix check gen-api image image-multiarch clean
 
 help: ## List available commands
@@ -76,7 +79,7 @@ ingest: ## Search and ingest end to end: make ingest q="biceps curl" [n=10]
 
 search: ## Rank stored passages for a question: make search q="your question"
 	@test -n "$$q" || (echo 'usage: make search q="your question"' && exit 1)
-	$(PY) python -m scripts.search_local "$$q"
+	$(OFFLINE) python -m scripts.search_local "$$q"
 
 plan: ## Plan a question and count matches per tier: make plan q="your question"
 	@test -n "$$q" || (echo 'usage: make plan q="your question"' && exit 1)
@@ -84,10 +87,16 @@ plan: ## Plan a question and count matches per tier: make plan q="your question"
 
 answer: ## Plan, search, ingest, retrieve, generate and verify: make answer q="..." [n=20]
 	@test -n "$$q" || (echo 'usage: make answer q="your question"' && exit 1)
-	$(PY) python -m scripts.answer_question "$$q" --per-tier $(or $(n),20)
+	$(OFFLINE) python -m scripts.answer_question "$$q" --per-tier $(or $(n),20)
+
+dev-key: ## Print a new AUTH_DEV_SIGNING_KEY for backend/.env
+	$(PY) python -m app.auth.dev_token --new-key
+
+dev-token: ## Print a development bearer token (AUTH_MODE=dev)
+	$(PY) python -m app.auth.dev_token
 
 api: ## Run the API with reload on :8000
-	$(PY) uvicorn app.main:app --reload --port 8000
+	$(OFFLINE) uvicorn app.main:app --reload --port 8000
 
 web: ## Run the frontend dev server on :5173
 	$(NPM) dev

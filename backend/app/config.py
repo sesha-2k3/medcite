@@ -91,6 +91,11 @@ class Settings(BaseSettings):
     passage_max_chars: int = Field(default=1400, ge=300)
     generation_max_tokens: int = Field(default=2500, ge=256)
     judge_max_tokens: int = Field(default=2000, ge=256)
+    # Pipeline: PMIDs searched per tier, and when to stop moving to the next tier.
+    tier_retmax: int = Field(default=20, ge=1, le=10_000)
+    enough_relevant_passages: int = Field(default=5, ge=1)
+    relevance_threshold: float = 0.0
+    sse_heartbeat_s: float = Field(default=15.0, gt=0)
     small_sample_threshold: int = Field(default=50, ge=1)
     short_follow_up_weeks: float = Field(default=12.0, gt=0)
 
@@ -99,6 +104,7 @@ class Settings(BaseSettings):
     auth_issuer: str | None = None
     auth_audience: str = "authenticated"
     auth_dev_signing_key: SecretStr | None = None
+    auth_jwks_cache_ttl_s: int = Field(default=3600, ge=0)
 
     user_daily_cost_cap_usd: Decimal = Decimal("2.00")
     discovery_max_articles: int = Field(default=200, ge=1)

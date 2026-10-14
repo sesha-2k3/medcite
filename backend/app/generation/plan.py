@@ -25,7 +25,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from app.errors import AppError
-from app.generation.mesh import MeshChecker
+from app.generation.mesh import MeshChecker, TermSearcher
 from app.generation.prompts import load_prompt
 from app.generation.pubmed_query import (
     Terms,
@@ -42,6 +42,7 @@ from app.models.llm import ChatMessage, LLMClient, LLMRole, UsageMeter
 logger = logging.getLogger(__name__)
 
 PROMPT = load_prompt("plan", "v3")
+BROADEN_PROMPT = load_prompt("plan_broaden", "v1")
 
 Mode = Literal["question", "discovery", "hybrid", "out_of_scope"]
 EvidenceType = Literal[
@@ -186,6 +187,7 @@ class Plan(BaseModel):
     tiers: list[Tier] = Field(default_factory=list)
     concepts: Concepts | None = None
     rejected_mesh: list[str] = Field(default_factory=list)
+    broadened: bool = False
     source: Literal["llm", "fallback"] = "llm"
     prompt: str | None = None
 
@@ -215,10 +217,13 @@ class _ModelPlan(BaseModel):
 
 
 class Planner:
-    def __init__(self, llm: LLMClient, mesh: MeshChecker | None = None) -> None:
-        """Without ``mesh``, the model's MeSH headings are used unverified."""
+    def __init__(self, llm: LLMClient, searcher: TermSearcher | None = None) -> None:
+        """With a ``searcher`` (the PubMed client), MeSH headings are verified and an empty
+        evidence ladder is retried once with broader terms; without one, neither happens.
+        """
         self._llm = llm
-        self._mesh = mesh
+        self._searcher = searcher
+        self._mesh = MeshChecker(searcher) if searcher is not None else None
 
     async def plan(
         self,
@@ -233,32 +238,72 @@ class Planner:
         ``window`` (from a discovery request) overrides any date range in the question.
         """
         today = today or date.today()
+        conversation = [
+            ChatMessage("system", PROMPT.text),
+            ChatMessage("user", _render(question, history, today)),
+        ]
+        drafted = await self._draft(conversation, meter)
+        if drafted is None:
+            return fallback_plan(question, window=window)
+        drafted = _adjusted(drafted, window, today)
+        plan = await self._build(drafted)
+        if plan is None:
+            return fallback_plan(drafted.standalone_query or question, window=window)
+        if not await self._direct_tiers_empty(plan):
+            return plan
+
+        retry = [
+            *conversation,
+            ChatMessage("assistant", drafted.model_dump_json(by_alias=True)),
+            ChatMessage("user", BROADEN_PROMPT.text),
+        ]
+        broader_draft = await self._draft(retry, meter)
+        if broader_draft is None:
+            return plan
+        broader = await self._build(_adjusted(broader_draft, window, today))
+        if broader is None:
+            return plan
+        logger.info("plan_broadened", extra={"question": question})
+        return broader.model_copy(update={"broadened": True})
+
+    async def _draft(
+        self, messages: Sequence[ChatMessage], meter: UsageMeter | None
+    ) -> _ModelPlan | None:
         try:
-            drafted = await self._llm.complete_json(
-                LLMRole.PLANNER,
-                [
-                    ChatMessage("system", PROMPT.text),
-                    ChatMessage("user", _render(question, history, today)),
-                ],
-                _ModelPlan,
-                max_tokens=3000,
-                meter=meter,
+            return await self._llm.complete_json(
+                LLMRole.PLANNER, messages, _ModelPlan, max_tokens=3000, meter=meter
             )
         except AppError as exc:
-            logger.warning("plan_fallback", extra={"reason": exc.message})
-            return fallback_plan(question, window=window)
+            logger.warning("plan_draft_failed", extra={"reason": exc.message})
+            return None
 
-        if window is not None:
-            drafted = drafted.model_copy(update={"date_range": window, "mode": "discovery"})
-        drafted = _open_ended(drafted, today)
+    async def _build(self, drafted: _ModelPlan) -> Plan | None:
+        """Verify MeSH, build the tiers, and reject the plan if any query is malformed."""
         concepts, rejected = await self._verified(drafted.concepts)
         plan = build_plan(drafted.model_copy(update={"concepts": concepts}))
         plan = plan.model_copy(update={"rejected_mesh": rejected})
         problems = {t.level: validate_query(t.pubmed_query) for t in plan.tiers}
         if plan.mode != "out_of_scope" and (not plan.tiers or any(problems.values())):
             logger.warning("plan_invalid_queries", extra={"problems": problems})
-            return fallback_plan(drafted.standalone_query or question, window=window)
+            return None
         return plan
+
+    async def _direct_tiers_empty(self, plan: Plan) -> bool:
+        """Whether tiers 1 and 2 both match nothing, the case that would be reported as an
+        evidence gap. Unknown (no searcher, or PubMed unreachable) counts as not empty.
+        """
+        if self._searcher is None or plan.mode not in ("question", "hybrid"):
+            return False
+        if len(plan.tiers) < 2:
+            return False
+        try:
+            for tier in plan.tiers[:2]:
+                if (await self._searcher.esearch(tier.pubmed_query, retmax=0)).count:
+                    return False
+        except AppError as exc:
+            logger.warning("tier_count_skipped", extra={"reason": exc.message})
+            return False
+        return True
 
     async def _verified(self, concepts: Concepts) -> tuple[Concepts, list[str]]:
         """Turn invented MeSH headings into text terms. Fails open: if PubMed can't be
@@ -276,6 +321,12 @@ class Planner:
             return concepts, []
         logger.info("mesh_rejected", extra={"headings": sorted(unknown)})
         return without_headings(concepts, unknown), sorted(unknown)
+
+
+def _adjusted(drafted: _ModelPlan, window: DateWindow | None, today: date) -> _ModelPlan:
+    if window is not None:
+        drafted = drafted.model_copy(update={"date_range": window, "mode": "discovery"})
+    return _open_ended(drafted, today)
 
 
 def without_headings(concepts: Concepts, unknown: set[str]) -> Concepts:

@@ -9,7 +9,6 @@ import pytest
 
 from app.config import Settings
 from app.errors import RateLimitedError, UpstreamError
-from app.generation.mesh import MeshChecker
 from app.generation.plan import (
     EVIDENCE_FILTERS,
     DateWindow,
@@ -19,7 +18,7 @@ from app.generation.plan import (
 )
 from app.generation.pubmed_query import RETRACTED_EXCLUSION, concept_clause, validate_query
 from app.models.llm import LLMClient
-from tests.generation.test_mesh import FakeSearcher
+from tests.generation.fakes import FakeSearcher
 from tests.llm_fakes import Reply, ScriptedProvider
 
 FIXTURES = Path(__file__).resolve().parents[1] / "fixtures" / "llm"
@@ -269,7 +268,7 @@ def checked_planner(
 ) -> tuple[Planner, FakeSearcher]:
     searcher = FakeSearcher(not_found)
     llm = LLMClient(make_settings(), ScriptedProvider([stored("plan_dumbbell")]))
-    return Planner(llm, MeshChecker(searcher)), searcher
+    return Planner(llm, searcher), searcher
 
 
 async def test_invented_mesh_headings_become_text_terms(
@@ -283,7 +282,8 @@ async def test_invented_mesh_headings_become_text_terms(
     assert '"Electromyography"[mh]' not in mechanistic
     assert '"electromyography"[tiab]' in mechanistic
     assert '"Resistance Training"[mh]' in mechanistic
-    assert len(searcher.terms) == 1
+    mesh_checks = [t for t in searcher.terms if t not in searcher.tier_searches]
+    assert len(mesh_checks) == 1
     assert_well_formed(plan)
 
 
@@ -299,3 +299,87 @@ async def test_mesh_check_failure_keeps_headings(make_settings: Callable[..., Se
     plan = await planner_.plan(DUMBBELL, today=TODAY)
     assert plan.source == "llm"
     assert '"Electromyography"[mh]' in plan.tiers[3].pubmed_query
+
+
+BROADER = {
+    "intervention": {"mesh": [], "text": ["dumbbell*"]},
+    "comparison": {"mesh": [], "text": ["barbell*"]},
+    "outcome": {"mesh": ["Hypertrophy"], "text": ["hypertroph*", "muscle size"]},
+}
+
+
+def broadening_planner(
+    make_settings: Callable[..., Settings],
+    replies: list[Reply],
+    count: Callable[[str], int],
+) -> tuple[Planner, ScriptedProvider, FakeSearcher]:
+    provider = ScriptedProvider(replies)
+    searcher = FakeSearcher([], count=count)
+    return Planner(LLMClient(make_settings(), provider), searcher), provider, searcher
+
+
+def broader_dumbbell() -> str:
+    data = json.loads(stored("plan_dumbbell"))
+    data["concepts"].update(BROADER)
+    return json.dumps(data)
+
+
+async def test_empty_direct_tiers_are_retried_once_with_broader_terms(
+    make_settings: Callable[..., Settings],
+) -> None:
+    planner_, provider, _ = broadening_planner(
+        make_settings, [stored("plan_dumbbell"), broader_dumbbell()], count=lambda _q: 0
+    )
+    plan = await planner_.plan(DUMBBELL, today=TODAY)
+
+    assert plan.broadened is True
+    assert '"dumbbell*"[tiab]' in plan.tiers[0].pubmed_query
+    assert len(provider.prompts) == 2
+    assert "no studies at all in tiers 1 and 2" in provider.prompts[1]
+    assert_well_formed(plan)
+
+
+async def test_direct_evidence_found_means_no_retry(
+    make_settings: Callable[..., Settings],
+) -> None:
+    planner_, provider, searcher = broadening_planner(
+        make_settings, [stored("plan_dumbbell")], count=lambda _q: 3
+    )
+    plan = await planner_.plan(DUMBBELL, today=TODAY)
+    assert plan.broadened is False
+    assert len(provider.prompts) == 1
+    assert len(searcher.tier_searches) == 1
+
+
+async def test_tier_two_results_alone_prevent_the_retry(
+    make_settings: Callable[..., Settings],
+) -> None:
+    def count(query: str) -> int:
+        return 0 if '"meta-analysis"[pt] OR' in query and " NOT (" not in query else 4
+
+    planner_, provider, searcher = broadening_planner(
+        make_settings, [stored("plan_dumbbell")], count=count
+    )
+    plan = await planner_.plan(DUMBBELL, today=TODAY)
+    assert plan.broadened is False
+    assert len(searcher.tier_searches) == 2
+    assert len(provider.prompts) == 1
+
+
+async def test_failed_retry_keeps_the_first_plan(make_settings: Callable[..., Settings]) -> None:
+    planner_, _, _ = broadening_planner(
+        make_settings, [stored("plan_dumbbell"), "not json", "still not"], count=lambda _q: 0
+    )
+    plan = await planner_.plan(DUMBBELL, today=TODAY)
+    assert (plan.broadened, plan.source) == (False, "llm")
+    assert '"dumbbell curl*"[tiab]' in plan.tiers[0].pubmed_query
+
+
+async def test_discovery_is_never_broadened(make_settings: Callable[..., Settings]) -> None:
+    planner_, provider, searcher = broadening_planner(
+        make_settings, [stored("plan_discovery")], count=lambda _q: 0
+    )
+    plan = await planner_.plan("recent diabetes research in older adults", today=TODAY)
+    assert plan.broadened is False
+    assert searcher.tier_searches == []
+    assert len(provider.prompts) == 1

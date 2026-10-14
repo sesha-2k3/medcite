@@ -4,19 +4,7 @@ import pytest
 
 from app.errors import UpstreamError
 from app.generation.mesh import MeshChecker
-from app.sources.pubmed import SearchResult
-
-
-class FakeSearcher:
-    def __init__(self, not_found: list[str] | Exception) -> None:
-        self.not_found = not_found
-        self.terms: list[str] = []
-
-    async def esearch(self, term: str, *, retmax: int = 100) -> SearchResult:
-        self.terms.append(term)
-        if isinstance(self.not_found, Exception):
-            raise self.not_found
-        return SearchResult(count=10, pmids=[], query_translation=None, not_found=self.not_found)
+from tests.generation.fakes import FakeSearcher
 
 
 async def test_one_search_identifies_unknown_headings() -> None:

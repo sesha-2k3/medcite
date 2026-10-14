@@ -10,7 +10,6 @@ import asyncio
 
 from app.config import get_settings
 from app.db.redis import create_redis
-from app.generation.mesh import MeshChecker
 from app.generation.plan import Planner
 from app.models.llm import build_llm_client
 from app.observability import configure_logging
@@ -25,7 +24,7 @@ async def run(question: str) -> None:
     try:
         async with create_http_client(settings) as http:
             pubmed = build_pubmed_client(settings, http, redis)
-            planner = Planner(build_llm_client(settings), MeshChecker(pubmed))
+            planner = Planner(build_llm_client(settings), pubmed)
             plan = await planner.plan(question)
 
             print(f"\nmode: {plan.mode}   source: {plan.source}   outcome: {plan.outcome_class}")
@@ -33,6 +32,7 @@ async def run(question: str) -> None:
             print(f"C: {plan.comparison}\nO: {plan.outcome}")
             print(f"requested evidence: {plan.requested_evidence or 'none'}")
             print(f"rejected MeSH: {plan.rejected_mesh or 'none'}")
+            print(f"broadened after an empty first search: {'yes' if plan.broadened else 'no'}")
             print(f"standalone: {plan.standalone_query}\n")
             if not plan.tiers:
                 print("no tiers (out of scope)")

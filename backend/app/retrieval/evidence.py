@@ -153,4 +153,7 @@ def suggest_rating(cited: Sequence[CitedEvidence]) -> RatingSuggestion:
 def _is_surrogate(study: OutcomeClass, question: OutcomeClass | None) -> bool:
     if study == "surrogate":
         return question != "surrogate"
-    return question is not None and study not in ("unknown", question)
+    # An unclassified question gives nothing to compare against.
+    if question is None or question == "unknown":
+        return False
+    return study not in ("unknown", question)

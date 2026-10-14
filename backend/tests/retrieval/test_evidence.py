@@ -93,6 +93,8 @@ def test_thresholds_are_configurable() -> None:
         ("surrogate", "surrogate", False),
         ("unknown", "clinical", False),
         ("clinical", None, False),
+        ("clinical", "unknown", False),
+        ("surrogate", "unknown", True),
     ],
 )
 def test_surrogate_outcome_is_relative_to_the_question(

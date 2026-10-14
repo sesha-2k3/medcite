@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import dataclasses
 import json
-from collections.abc import Callable, Sequence
+from collections.abc import Callable
 
 import pytest
 
-from app.config import ReasoningEffort, Settings
+from app.config import Settings
 from app.errors import RateLimitedError
 from app.ingest.metadata import (
     MetadataExtractor,
@@ -15,33 +15,9 @@ from app.ingest.metadata import (
     funding_from_pub_types,
 )
 from app.ingest.pubmed_parser import ParsedArticle
-from app.models.llm import ChatMessage, LLMClient, ProviderResult
+from app.models.llm import LLMClient
 from tests.ingest.helpers import edge_cases
-
-Reply = str | Exception
-
-
-class ScriptedProvider:
-    def __init__(self, replies: list[Reply]) -> None:
-        self.replies = list(replies)
-        self.prompts: list[str] = []
-
-    async def chat(
-        self,
-        *,
-        model: str,
-        messages: Sequence[ChatMessage],
-        max_tokens: int,
-        temperature: float,
-        json_mode: bool,
-        reasoning_effort: ReasoningEffort,
-    ) -> ProviderResult:
-        self.prompts.append(messages[-1].content)
-        reply = self.replies.pop(0)
-        if isinstance(reply, Exception):
-            raise reply
-        return ProviderResult(text=reply, input_tokens=100, output_tokens=50)
-
+from tests.llm_fakes import Reply, ScriptedProvider
 
 BuildExtractor = Callable[..., tuple[MetadataExtractor, ScriptedProvider]]
 

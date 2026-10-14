@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import dataclasses
 import json
 from collections.abc import Callable, Sequence
 
@@ -7,7 +8,12 @@ import pytest
 
 from app.config import ReasoningEffort, Settings
 from app.errors import RateLimitedError
-from app.ingest.metadata import MetadataExtractor, design_from_pub_types
+from app.ingest.metadata import (
+    MetadataExtractor,
+    design_from_pub_types,
+    fallback_metadata,
+    funding_from_pub_types,
+)
 from app.ingest.pubmed_parser import ParsedArticle
 from app.models.llm import ChatMessage, LLMClient, ProviderResult
 from tests.ingest.helpers import edge_cases
@@ -85,7 +91,7 @@ async def test_llm_fills_fields_and_pub_types_decide_design(
     assert result[rct.pmid].sample_size == 24
     assert result[rct.pmid].outcome_class == "physiological"
     assert result[rct.pmid].source == "llm"
-    assert result[rct.pmid].prompt == "extract_metadata@v1"
+    assert result[rct.pmid].prompt == "extract_metadata@v2"
     assert result[unstructured.pmid].design == "cross_sectional"
     assert len(provider.prompts) == 1
 
@@ -155,3 +161,35 @@ def test_design_from_pub_types(
     pub_types: list[str], include_fallback: bool, expected: str | None
 ) -> None:
     assert design_from_pub_types(pub_types, include_fallback=include_fallback) == expected
+
+
+NIH = "Research Support, N.I.H., Extramural"
+
+
+@pytest.mark.parametrize(
+    ("pub_types", "expected"),
+    [
+        ([NIH], "public"),
+        (["Research Support, U.S. Gov't, Non-P.H.S."], "public"),
+        (["Research Support, Non-U.S. Gov't"], None),
+        (["Journal Article"], None),
+    ],
+)
+def test_funding_from_pub_types(pub_types: list[str], expected: str | None) -> None:
+    assert funding_from_pub_types(pub_types) == expected
+
+
+def test_fallback_uses_funding_publication_types(articles: dict[int, ParsedArticle]) -> None:
+    funded = dataclasses.replace(articles[90000102], pub_types=("Journal Article", NIH))
+    assert fallback_metadata(funded).funding == "public"
+
+
+async def test_publication_types_fill_funding_the_abstract_omits(
+    articles: dict[int, ParsedArticle], extractor: BuildExtractor
+) -> None:
+    funded = dataclasses.replace(articles[90000102], pub_types=("Journal Article", NIH))
+    stated = dataclasses.replace(articles[90000101], pub_types=(*articles[90000101].pub_types, NIH))
+    ex, _ = extractor([batch({"pmid": funded.pmid}, {"pmid": stated.pmid, "funding": "industry"})])
+    result = await ex.extract([funded, stated])
+    assert result[funded.pmid].funding == "public"
+    assert result[stated.pmid].funding == "industry"

@@ -58,7 +58,11 @@ DEFINITIVE_DESIGNS: tuple[tuple[str, Design], ...] = (
 # "Review" alone may hide an untagged systematic review, so it only applies without the LLM.
 FALLBACK_DESIGNS: tuple[tuple[str, Design], ...] = (("Review", "narrative_review"),)
 
-PROMPT = load_prompt("extract_metadata", "v1")
+# NIH and US-government support is public by definition. "Non-U.S. Gov't" also covers
+# foundations and companies, so it says nothing either way.
+PUBLIC_FUNDING_PREFIXES = ("Research Support, N.I.H.", "Research Support, U.S. Gov't")
+
+PROMPT = load_prompt("extract_metadata", "v2")
 MAX_TOKENS_PER_ARTICLE = 400
 
 
@@ -93,9 +97,17 @@ def design_from_pub_types(pub_types: Sequence[str], *, include_fallback: bool) -
     return next((design for pub_type, design in table if pub_type in present), None)
 
 
+def funding_from_pub_types(pub_types: Sequence[str]) -> Funding | None:
+    return "public" if any(p.startswith(PUBLIC_FUNDING_PREFIXES) for p in pub_types) else None
+
+
 def fallback_metadata(article: ParsedArticle) -> StudyMetadata:
     design = design_from_pub_types(article.pub_types, include_fallback=True)
-    return StudyMetadata(design=design or "other", source="publication_types")
+    return StudyMetadata(
+        design=design or "other",
+        funding=funding_from_pub_types(article.pub_types) or "not_stated",
+        source="publication_types",
+    )
 
 
 class MetadataExtractor:
@@ -144,6 +156,8 @@ class MetadataExtractor:
             definitive = design_from_pub_types(article.pub_types, include_fallback=False)
             fields = item.model_dump(exclude={"pmid", "source", "prompt"})
             fields["design"] = definitive or item.design
+            if item.funding == "not_stated":
+                fields["funding"] = funding_from_pub_types(article.pub_types) or "not_stated"
             extracted[item.pmid] = StudyMetadata(**fields, source="llm", prompt=PROMPT.id)
         missing = by_pmid.keys() - extracted.keys()
         if missing:

@@ -8,6 +8,7 @@ from fastapi.testclient import TestClient
 
 from app.config import Settings
 from app.main import create_app
+from app.services import no_services
 
 # Ports nothing listens on: connections are refused immediately.
 UNREACHABLE_DB = "postgresql+asyncpg://postgres:dev@127.0.0.1:1/medcite"
@@ -35,5 +36,5 @@ def make_settings() -> Callable[..., Settings]:
 
 @pytest.fixture
 def client(make_settings: Callable[..., Settings]) -> Iterator[TestClient]:
-    with TestClient(create_app(make_settings())) as c:
+    with TestClient(create_app(make_settings(), services=no_services)) as c:
         yield c

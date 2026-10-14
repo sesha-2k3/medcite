@@ -12,20 +12,30 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import health
+from app.api import ask, health
 from app.api.middleware import REQUEST_ID_HEADER, RequestIdMiddleware
+from app.auth.tokens import build_verifier
+from app.auth.users import UserDirectory
 from app.config import Settings, get_settings
 from app.db.redis import create_redis, ping_redis
 from app.db.session import create_engine, create_session_factory, ping_database
 from app.errors import install_error_handlers
+from app.graph.build import Pipeline
 from app.observability import configure_logging, configure_sentry
+from app.services import Resources, ServicesFactory, build_services
+from app.sources.http import create_http_client
 
 logger = logging.getLogger(__name__)
 
 
-def create_app(settings: Settings | None = None) -> FastAPI:
-    """Build the app. Tests pass their own ``Settings``; production reads the environment."""
+def create_app(
+    settings: Settings | None = None, *, services: ServicesFactory | None = None
+) -> FastAPI:
+    """Build the app. Tests pass their own ``Settings`` and a ``services`` factory with fakes
+    (or ``no_services``); production reads the environment and loads the real services.
+    """
     settings = settings or get_settings()
+    make_services = services or build_services
     configure_logging(settings.log_level)
     configure_sentry(settings)
 
@@ -33,19 +43,25 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         engine = create_engine(settings)
         redis = create_redis(settings)
+        http = create_http_client(settings)
+        sessions = create_session_factory(engine)
         app.state.settings = settings
         app.state.engine = engine
-        app.state.session_factory = create_session_factory(engine)
+        app.state.session_factory = sessions
         app.state.redis = redis
+        app.state.verifier = build_verifier(settings, http)
+        app.state.users = UserDirectory(sessions)
         app.state.readiness_checks = {
             "database": lambda: ping_database(engine),
             "redis": lambda: ping_redis(redis),
         }
-        # MedCPT model singletons are loaded here from M3 onward.
+        built = await make_services(settings, Resources(http=http, redis=redis, sessions=sessions))
+        app.state.pipeline = Pipeline(built) if built is not None else None
         logger.info("startup", extra={"app_env": settings.app_env})
         try:
             yield
         finally:
+            await http.aclose()
             await redis.aclose()
             await engine.dispose()
             logger.info("shutdown")
@@ -69,7 +85,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     )
     install_error_handlers(app)
     app.include_router(health.router)
-    # /v1 routers (ask, discover, articles, feedback) are added in M7.
+    app.include_router(ask.router)
     return app
 
 

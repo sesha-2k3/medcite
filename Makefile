@@ -9,7 +9,7 @@ export q n name
 
 .DEFAULT_GOAL := help
 .PHONY: help setup install up down ps logs psql db-reset migrate downgrade migration history \
-	models pubmed-sample pubmed-record fixtures-minimize ingest search plan api web dev test test-live test-web lint lint-web format typecheck typecheck-web \
+	models pubmed-sample pubmed-record fixtures-minimize ingest search plan answer api web dev test test-live test-web lint lint-web format typecheck typecheck-web \
 	fix check gen-api image image-multiarch clean
 
 help: ## List available commands
@@ -81,6 +81,10 @@ search: ## Rank stored passages for a question: make search q="your question"
 plan: ## Plan a question and count matches per tier: make plan q="your question"
 	@test -n "$$q" || (echo 'usage: make plan q="your question"' && exit 1)
 	$(PY) python -m scripts.plan_question "$$q"
+
+answer: ## Plan, search, ingest, retrieve, generate and verify: make answer q="..." [n=20]
+	@test -n "$$q" || (echo 'usage: make answer q="your question"' && exit 1)
+	$(PY) python -m scripts.answer_question "$$q" --per-tier $(or $(n),20)
 
 api: ## Run the API with reload on :8000
 	$(PY) uvicorn app.main:app --reload --port 8000

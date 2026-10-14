@@ -6,11 +6,11 @@ COMPOSE := docker compose
 
 .DEFAULT_GOAL := help
 .PHONY: help setup install up down ps logs psql db-reset migrate downgrade migration history \
-	models pubmed-sample pubmed-record api web dev test test-live test-web lint lint-web format typecheck typecheck-web \
+	models pubmed-sample pubmed-record fixtures-minimize ingest api web dev test test-live test-web lint lint-web format typecheck typecheck-web \
 	fix check gen-api image image-multiarch clean
 
 help: ## List available commands
-	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 setup: ## First-time setup: env files, dependencies, services, migrations
 	cp -n $(BACKEND)/.env.example $(BACKEND)/.env || true
@@ -63,6 +63,13 @@ pubmed-sample: ## Fetch real records: make pubmed-sample q="biceps curl" [n=20]
 pubmed-record: ## Save real responses as fixtures: make pubmed-record q="biceps curl"
 	@test -n "$(q)" || (echo 'usage: make pubmed-record q="your query"' && exit 1)
 	$(PY) python -m scripts.fetch_pubmed_sample "$(q)" --count $(or $(n),20) --record
+
+fixtures-minimize: ## Make committable fixtures from local recordings
+	$(PY) python -m scripts.minimize_pubmed_fixture
+
+ingest: ## Search and ingest end to end: make ingest q="biceps curl" [n=10]
+	@test -n "$(q)" || (echo 'usage: make ingest q="your query"' && exit 1)
+	$(PY) python -m scripts.ingest_pubmed "$(q)" --count $(or $(n),10)
 
 api: ## Run the API with reload on :8000
 	$(PY) uvicorn app.main:app --reload --port 8000

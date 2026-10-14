@@ -118,3 +118,9 @@ def test_entities_are_not_expanded() -> None:
         "<PubmedArticleSet>&e;</PubmedArticleSet>"
     )
     assert parse_pubmed_xml(hostile) == []
+
+
+def test_publication_status(articles: dict[int, ParsedArticle]) -> None:
+    assert articles[90000101].publication_status == "aheadofprint"
+    assert articles[90000102].publication_status == "ppublish"
+    assert articles[90000103].publication_status is None

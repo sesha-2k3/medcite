@@ -89,6 +89,7 @@ class Article(Base):
     source_etag: Mapped[Str | None]
     study_meta: Mapped[Json | None]
     evidence_level: Mapped[Str | None]
+    publication_status: Mapped[Str | None]
     last_checked_at: Mapped[Timestamp | None]
     created_at: Mapped[CreatedAt]
 

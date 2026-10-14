@@ -38,6 +38,7 @@
         <PubMedPubDate PubStatus="entrez"><Year>2024</Year><Month>2</Month><Day>20</Day></PubMedPubDate>
         <PubMedPubDate PubStatus="pubmed"><Year>2024</Year><Month>2</Month><Day>21</Day></PubMedPubDate>
       </History>
+      <PublicationStatus>aheadofprint</PublicationStatus>
       <ArticleIdList>
         <ArticleId IdType="pubmed">90000101</ArticleId>
         <ArticleId IdType="doi">10.1000/synthetic.101</ArticleId>
@@ -73,6 +74,7 @@
     </MedlineCitation>
     <PubmedData>
       <History><PubMedPubDate PubStatus="entrez"><Year>2019</Year><Month>11</Month><Day>12</Day></PubMedPubDate></History>
+      <PublicationStatus>ppublish</PublicationStatus>
       <ArticleIdList><ArticleId IdType="pubmed">90000102</ArticleId></ArticleIdList>
     </PubmedData>
   </PubmedArticle>

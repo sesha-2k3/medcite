@@ -34,6 +34,7 @@ REFRESHED_COLUMNS = (
     "pub_types",
     "mesh_terms",
     "is_retracted",
+    "publication_status",
     "study_meta",
     "last_checked_at",
 )
@@ -116,6 +117,7 @@ def _article_row(record: ArticleRecord) -> dict[str, Any]:
         "pub_types": list(article.pub_types),
         "mesh_terms": list(article.mesh_terms),
         "is_retracted": False,
+        "publication_status": article.publication_status,
         "study_meta": record.metadata.model_dump(mode="json") if record.metadata else None,
         "last_checked_at": func.now(),
     }

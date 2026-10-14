@@ -53,6 +53,7 @@ class ParsedArticle:
     mesh_terms: tuple[str, ...]
     abstract: tuple[AbstractSection, ...]
     is_retracted: bool
+    publication_status: str | None = None
 
     @property
     def has_abstract(self) -> bool:
@@ -99,6 +100,7 @@ def _parse_article(node: Any) -> ParsedArticle | None:
         mesh_terms=tuple(_texts(citation.iterfind("MeshHeadingList/MeshHeading/DescriptorName"))),
         abstract=_abstract(article),
         is_retracted=RETRACTED_PUBLICATION in pub_types or _has_retraction_link(citation),
+        publication_status=_text(node.find("PubmedData/PublicationStatus")),
     )
 
 

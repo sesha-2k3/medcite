@@ -143,7 +143,15 @@ class LangfuseTracer:
     def __init__(self, client: Any) -> None:
         self._client = client
 
-    def start(self, *, seed: str, name: str, user_id: str, input: Any) -> Trace:
+    def start(
+        self,
+        *,
+        seed: str,
+        name: str,
+        user_id: str,
+        input: Any,
+        metadata: Mapping[str, Any] | None = None,
+    ) -> Trace:
         try:
             trace_id = str(self._client.create_trace_id(seed=seed))
             root = self._client.start_observation(
@@ -151,7 +159,7 @@ class LangfuseTracer:
                 as_type="span",
                 trace_context={"trace_id": trace_id},
                 input=input,
-                metadata={"user_id": user_id},
+                metadata={"user_id": user_id, **(metadata or {})},
             )
         except Exception as exc:
             logger.warning("trace_start_failed", extra={"error": repr(exc)})

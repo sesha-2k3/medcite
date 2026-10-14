@@ -55,11 +55,13 @@ async def ask(
 
     tracer: Tracer = state.tracer
     background: BackgroundWrites = state.background
+    request_id = request_id_var.get() or uuid.uuid4().hex
     trace = tracer.start(
-        seed=request_id_var.get() or uuid.uuid4().hex,
+        seed=request_id,
         name="ask",
         user_id=str(user.id),
         input={"question": body.question, "history": body.history},
+        metadata={"request_id": request_id},  # links the trace to the request's log lines
     )
     meter, control = UsageMeter(), RunControl()
 

@@ -67,7 +67,9 @@ def call(role: LLMRole = LLMRole.GENERATOR) -> LLMResponse:
 
 def test_trace_records_nodes_and_generations() -> None:
     client = FakeClient()
-    trace = LangfuseTracer(client).start(seed="req-1", name="ask", user_id="u1", input={"q": 1})
+    trace = LangfuseTracer(client).start(
+        seed="req-1", name="ask", user_id="u1", input={"q": 1}, metadata={"request_id": "req-1"}
+    )
     assert trace.trace_id == TRACE_ID
     with trace.node("generate") as span:
         span.record_llm_calls([call()])
@@ -77,6 +79,7 @@ def test_trace_records_nodes_and_generations() -> None:
     root_start = client.log[0]
     assert root_start[:2] == ("start", "ask")
     assert root_start[2]["trace_context"] == {"trace_id": TRACE_ID}
+    assert root_start[2]["metadata"] == {"user_id": "u1", "request_id": "req-1"}
     names = [(kind, name) for kind, name, _ in client.log]
     assert names == [
         ("start", "ask"),

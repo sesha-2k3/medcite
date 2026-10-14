@@ -123,6 +123,26 @@ async def test_pmids_missing_from_the_reply_keep_the_fallback(
     assert 12345 not in result
 
 
+async def test_labels_outside_the_vocabulary_do_not_fail_the_batch(
+    articles: dict[int, ParsedArticle], extractor: BuildExtractor
+) -> None:
+    item = {
+        "pmid": 90000102,
+        "design": "pilot",
+        "age_group": "teens",
+        "outcome_class": "mechanistic",
+        "funding": "unclear",
+        "sample_size": 12,
+    }
+    ex, provider = extractor([batch(item)])
+    meta = (await ex.extract([articles[90000102]]))[90000102]
+    assert len(provider.prompts) == 1
+    assert meta.source == "llm"
+    assert meta.sample_size == 12
+    assert (meta.design, meta.age_group) == ("other", "unknown")
+    assert (meta.outcome_class, meta.funding) == ("unknown", "not_stated")
+
+
 @pytest.mark.parametrize(
     ("pub_types", "include_fallback", "expected"),
     [

@@ -10,9 +10,9 @@ from __future__ import annotations
 import json
 import logging
 from collections.abc import Sequence
-from typing import Literal
+from typing import Any, Literal, get_args
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.errors import AppError
 from app.generation.prompts import load_prompt
@@ -62,6 +62,13 @@ FALLBACK_DESIGNS: tuple[tuple[str, Design], ...] = (("Review", "narrative_review
 # foundations and companies, so it says nothing either way.
 PUBLIC_FUNDING_PREFIXES = ("Research Support, N.I.H.", "Research Support, U.S. Gov't")
 
+VOCABULARY: dict[str, tuple[tuple[str, ...], str]] = {
+    "design": (get_args(Design), "other"),
+    "age_group": (get_args(AgeGroup), "unknown"),
+    "outcome_class": (get_args(OutcomeClass), "unknown"),
+    "funding": (get_args(Funding), "not_stated"),
+}
+
 PROMPT = load_prompt("extract_metadata", "v2")
 MAX_TOKENS_PER_ARTICLE = 400
 
@@ -81,6 +88,20 @@ class StudyMetadata(BaseModel):
     funding: Funding = "not_stated"
     source: Source = "llm"
     prompt: str | None = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def _unknown_if_invalid(cls, data: Any) -> Any:
+        """A label outside a field's vocabulary (the model once gave outcome_class
+        "mechanistic") becomes that field's unknown value instead of failing the whole batch.
+        """
+        if not isinstance(data, dict):
+            return data
+        fixed = dict(data)
+        for key, (allowed, fallback) in VOCABULARY.items():
+            if key in fixed and fixed[key] not in allowed:
+                fixed[key] = fallback
+        return fixed
 
 
 class _Extracted(StudyMetadata):

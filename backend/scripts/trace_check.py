@@ -26,7 +26,9 @@ def main() -> None:
         return
     if not tracer.auth_ok():
         host = settings.langfuse_host or "the SDK default (EU cloud)"
-        print(f"Langfuse rejected the keys at {host}; LANGFUSE_HOST must match your project's region")
+        print(
+            f"Langfuse rejected the keys at {host};LANGFUSE_HOST must match your project's region"
+        )
         return
     trace = tracer.start(
         seed=uuid.uuid4().hex, name="trace-check", user_id="trace-check", input={"ok": True}

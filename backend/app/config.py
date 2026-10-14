@@ -73,6 +73,8 @@ class Settings(BaseSettings):
     embed_article_model: str = "ncbi/MedCPT-Article-Encoder"
     rerank_model: str = "ncbi/MedCPT-Cross-Encoder"
     hf_home: str = "./.models"
+    embed_batch_size: int = Field(default=16, ge=1)
+    metadata_batch_size: int = Field(default=5, ge=1, le=20)
 
     auth_mode: AuthMode = "dev"
     auth_jwks_url: str | None = None

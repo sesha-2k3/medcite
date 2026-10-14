@@ -12,7 +12,7 @@ export q n name
 
 .DEFAULT_GOAL := help
 .PHONY: help setup install up down ps logs psql db-reset migrate downgrade migration history \
-	models pubmed-sample pubmed-record fixtures-minimize ingest search plan answer dev-key dev-token api web dev test test-live test-web lint lint-web format typecheck typecheck-web \
+	models pubmed-sample pubmed-record fixtures-minimize ingest search plan answer dev-key dev-token trace-check api web dev test test-live test-web lint lint-web format typecheck typecheck-web \
 	fix check gen-api image image-multiarch clean
 
 help: ## List available commands
@@ -94,6 +94,9 @@ dev-key: ## Print a new AUTH_DEV_SIGNING_KEY for backend/.env
 
 dev-token: ## Print a development bearer token (AUTH_MODE=dev)
 	$(PY) python -m app.auth.dev_token
+
+trace-check: ## Send one test trace to Langfuse and print its link
+	$(PY) python -m scripts.trace_check
 
 api: ## Run the API with reload on :8000
 	$(OFFLINE) uvicorn app.main:app --reload --port 8000

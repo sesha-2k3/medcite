@@ -2,7 +2,7 @@
 
 Logs are single-line JSON objects on stdout (portability rule 11). Each record carries the
 current request ID, held in a context variable so it follows the request across ``await``s.
-Langfuse tracing is wired in at M7, when there are LLM calls to trace.
+Request tracing lives in ``app.tracing``.
 """
 
 from __future__ import annotations

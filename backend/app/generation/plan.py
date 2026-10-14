@@ -146,6 +146,20 @@ class Concept(BaseModel):
     def terms(self) -> Terms:
         return Terms(mesh=self.mesh, text=self.text)
 
+    @field_validator("mesh", "text")
+    @classmethod
+    def _unique(cls, terms: list[str]) -> list[str]:
+        """First spelling of each term, ignoring case; the model and rejected MeSH headings
+        moved into text terms can both repeat a term.
+        """
+        seen: set[str] = set()
+        unique: list[str] = []
+        for term in (t.strip() for t in terms):
+            if term and term.lower() not in seen:
+                seen.add(term.lower())
+                unique.append(term)
+        return unique
+
 
 class Concepts(BaseModel):
     model_config = ConfigDict(extra="ignore")

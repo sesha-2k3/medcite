@@ -11,10 +11,13 @@ from app.config import Settings
 from app.errors import RateLimitedError, UpstreamError
 from app.generation.plan import (
     EVIDENCE_FILTERS,
+    Concept,
+    Concepts,
     DateWindow,
     Plan,
     Planner,
     fallback_plan,
+    without_headings,
 )
 from app.generation.pubmed_query import RETRACTED_EXCLUSION, concept_clause, validate_query
 from app.models.llm import LLMClient
@@ -48,6 +51,23 @@ def assert_well_formed(plan: Plan) -> None:
     for tier in plan.tiers:
         assert validate_query(tier.pubmed_query) == [], tier.pubmed_query
         assert tier.pubmed_query.endswith(RETRACTED_EXCLUSION)
+
+
+def test_concept_terms_are_unique_ignoring_case() -> None:
+    concept = Concept(
+        mesh=["Resistance Training", "resistance training"],
+        text=["biceps", " Biceps ", "biceps brachii", ""],
+    )
+    assert concept.mesh == ["Resistance Training"]
+    assert concept.text == ["biceps", "biceps brachii"]
+
+
+def test_rejected_headings_do_not_repeat_existing_text_terms() -> None:
+    concepts = Concepts(site=Concept(mesh=["Biceps Brachii"], text=["biceps", "biceps brachii"]))
+    moved = without_headings(concepts, {"Biceps Brachii"})
+    assert moved.site is not None
+    assert moved.site.mesh == []
+    assert moved.site.text == ["biceps", "biceps brachii"]
 
 
 async def plan_for(planner: BuildPlanner, reply: Reply, question: str = DUMBBELL) -> Plan:

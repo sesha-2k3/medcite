@@ -37,7 +37,15 @@ class Trace(Protocol):
 
 
 class Tracer(Protocol):
-    def start(self, *, seed: str, name: str, user_id: str, input: Any) -> Trace: ...
+    def start(
+        self,
+        *,
+        seed: str,
+        name: str,
+        user_id: str,
+        input: Any,
+        metadata: Mapping[str, Any] | None = None,
+    ) -> Trace: ...
 
     def shutdown(self) -> None: ...
 
@@ -69,7 +77,15 @@ class NoopTrace:
 class NoopTracer:
     """Without Langfuse the trace ID is the request ID, so logs and ``done`` still match."""
 
-    def start(self, *, seed: str, name: str, user_id: str, input: Any) -> Trace:
+    def start(
+        self,
+        *,
+        seed: str,
+        name: str,
+        user_id: str,
+        input: Any,
+        metadata: Mapping[str, Any] | None = None,
+    ) -> Trace:
         return NoopTrace(seed)
 
     def shutdown(self) -> None:

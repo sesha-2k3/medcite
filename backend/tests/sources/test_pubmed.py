@@ -126,6 +126,7 @@ async def test_esearch_reports_phrases_not_found(build: BuildHarness) -> None:
     assert result.pmids == []
     assert "phrasesnotfound: xyzzyplugh" in result.warnings
     assert "outputmessages: No items found." in result.warnings
+    assert result.not_found == ["xyzzyplugh"]
 
 
 async def test_esearch_error_payload_raises_and_is_not_cached(build: BuildHarness) -> None:
@@ -160,7 +161,7 @@ async def test_efetch_returns_the_xml_body(build: BuildHarness) -> None:
 
 async def test_efetch_batches_200_ids_dedupes_and_keeps_order(build: BuildHarness) -> None:
     h = build(efetch_handler)
-    pmids = [*range(90000001, 90000451), 90000001, 90000002]
+    pmids = [*list(range(90000001, 90000451)), 90000001, 90000002]
     documents = await h.client.efetch(pmids)
 
     sent = [r.url.params["id"].split(",") for r in h.requests]

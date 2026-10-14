@@ -43,6 +43,7 @@ class SearchResult:
     pmids: list[int]
     query_translation: str | None
     warnings: list[str] = field(default_factory=list)
+    not_found: list[str] = field(default_factory=list)
 
 
 @dataclass(frozen=True, slots=True)
@@ -160,7 +161,7 @@ class PubMedClient:
             retry=retry_if_exception(_is_transient),
             stop=stop_after_attempt(self._retry.attempts),
             wait=wait_exponential_jitter(
-                multiplier=self._retry.initial_wait_s, max=self._retry.max_wait_s
+                initial=self._retry.initial_wait_s, max=self._retry.max_wait_s
             ),
             reraise=True,
         )
@@ -211,6 +212,10 @@ def parse_esearch(body: str) -> SearchResult:
         pmids=[int(pmid) for pmid in result.get("idlist", [])],
         query_translation=result.get("querytranslation"),
         warnings=_messages(result.get("errorlist")) + _messages(result.get("warninglist")),
+        not_found=[
+            *(result.get("errorlist") or {}).get("phrasesnotfound", []),
+            *(result.get("warninglist") or {}).get("quotedphrasesnotfound", []),
+        ],
     )
 
 

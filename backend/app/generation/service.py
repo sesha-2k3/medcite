@@ -82,7 +82,7 @@ class AnswerService:
         """
         context = build_context(passages, self._budget)
         if not context.items:
-            return _no_evidence(plan, context)
+            return AnsweredQuestion(*no_evidence(plan), context, ())
 
         first = await self._generator.generate(
             question, context, plan=plan, evidence_gap=evidence_gap, meter=meter
@@ -105,8 +105,7 @@ class AnswerService:
         except AppError as exc:
             logger.warning("regeneration_failed", extra={"reason": exc.message})
             note = issue("regeneration_failed", "answer", f"retry failed: {exc.message}")
-            kept = checked.model_copy(update={"issues": [*checked.issues, note]})
-            return _done(*with_gap_fallback(first, kept), context)
+            return _done(*with_gap_fallback(first, with_issue(checked, note)), context)
 
         rechecked = await self._verifier.verify(
             question, second, context, attempt=2, judge_on_errors=True, meter=meter
@@ -131,11 +130,17 @@ def with_gap_fallback(
     return fixed, result.model_copy(update={"issues": issues, "passed": passed})
 
 
+def with_issue(result: VerificationResult, extra: Issue) -> VerificationResult:
+    issues = [*result.issues, extra]
+    passed = not any(i.severity == "error" for i in issues)
+    return result.model_copy(update={"issues": issues, "passed": passed})
+
+
 def _done(answer: Answer, result: VerificationResult, context: EvidenceContext) -> AnsweredQuestion:
     return AnsweredQuestion(answer, result, context, tuple(user_warnings(result)))
 
 
-def _no_evidence(plan: Plan | None, context: EvidenceContext) -> AnsweredQuestion:
+def no_evidence(plan: Plan | None) -> tuple[Answer, VerificationResult]:
     """No passages at all: say so without calling a model."""
     requested = list(plan.requested_evidence) if plan else []
     label = requested_evidence_label(requested)
@@ -151,5 +156,4 @@ def _no_evidence(plan: Plan | None, context: EvidenceContext) -> AnsweredQuestio
         requested_evidence=requested,
         requested_label=label,
     )
-    result = VerificationResult(passed=True, judge_status="skipped", attempts=0)
-    return AnsweredQuestion(answer, result, context, ())
+    return answer, VerificationResult(passed=True, judge_status="skipped", attempts=0)

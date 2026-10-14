@@ -46,7 +46,7 @@ class MedCPTEmbedder:
         article_model: str,
         cache_dir: Path,
         batch_size: int = 16,
-        local_files_only: bool = False,
+        local_files_only: bool = True,
     ) -> None:
         self._article_model_name = article_model
         self._batch_size = batch_size
@@ -85,8 +85,11 @@ class _Encoder:
         from transformers import AutoModel, AutoTokenizer
 
         options = {"cache_dir": str(cache_dir), "local_files_only": local_files_only}
-        self._tokenizer = AutoTokenizer.from_pretrained(name, **options)
-        self._model = AutoModel.from_pretrained(name, **options)
+        try:
+            self._tokenizer = AutoTokenizer.from_pretrained(name, **options)
+            self._model = AutoModel.from_pretrained(name, **options)
+        except OSError as exc:
+            raise OSError(f"{name} is not in {cache_dir}; run: make models") from exc
         self._model.eval()
 
     def encode(self, first: list[str], second: list[str] | None, max_length: int) -> Vectors:
@@ -111,8 +114,12 @@ _lock = threading.Lock()
 _loaded: dict[tuple[str, str, str], MedCPTEmbedder] = {}
 
 
-def load_embedder(settings: Settings, *, local_files_only: bool = False) -> MedCPTEmbedder:
-    """Process-wide singleton: weights take seconds and ~1 GB of RAM to load."""
+def load_embedder(settings: Settings, *, local_files_only: bool = True) -> MedCPTEmbedder:
+    """Process-wide singleton: weights take seconds and ~1 GB of RAM to load.
+
+    Loads from the local cache only, so serving never touches the network; ``make models``
+    is the one place weights are downloaded.
+    """
     key = (settings.embed_query_model, settings.embed_article_model, settings.hf_home)
     with _lock:
         if key not in _loaded:

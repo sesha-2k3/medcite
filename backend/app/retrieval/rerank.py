@@ -23,14 +23,25 @@ def passage_text(chunk: ChunkView) -> str:
 
 
 def rerank(
-    question: str, candidates: Sequence[tuple[ChunkView, HybridHit]], scorer: RelevanceScorer
+    question: str,
+    candidates: Sequence[tuple[ChunkView, HybridHit]],
+    scorer: RelevanceScorer,
+    cache: dict[int, float] | None = None,
 ) -> list[ScoredChunk]:
-    """Most relevant first; ties keep fusion order."""
+    """Most relevant first; ties keep fusion order.
+
+    ``cache`` maps chunk IDs to scores for this ``question``: tier escalation reranks the
+    growing pool several times, and only chunks not scored before go to the model.
+    """
     if not candidates:
         return []
-    scores = scorer.score(question, [passage_text(chunk) for chunk, _ in candidates])
+    known = cache if cache is not None else {}
+    missing = [chunk for chunk, _ in candidates if chunk.chunk_id not in known]
+    if missing:
+        fresh = scorer.score(question, [passage_text(chunk) for chunk in missing])
+        known.update({chunk.chunk_id: score for chunk, score in zip(missing, fresh, strict=True)})
     scored = [
-        ScoredChunk(chunk=chunk, hit=hit, relevance=score)
-        for (chunk, hit), score in zip(candidates, scores, strict=True)
+        ScoredChunk(chunk=chunk, hit=hit, relevance=known[chunk.chunk_id])
+        for chunk, hit in candidates
     ]
     return sorted(scored, key=lambda s: -s.relevance)

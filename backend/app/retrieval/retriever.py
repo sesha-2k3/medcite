@@ -56,6 +56,7 @@ class Retriever:
         *,
         candidate_tiers: Mapping[int, int] | None = None,
         question_outcome: OutcomeClass | None = None,
+        score_cache: dict[int, float] | None = None,
     ) -> list[EvidencePassage]:
         """``candidate_tiers`` maps PMIDs found for this question to the tier that found them;
         a second pass over the whole local index can add articles found by earlier questions.
@@ -76,7 +77,7 @@ class Retriever:
         hits = merge_hits(*passes)[: config.rerank_top_n]
         views = await self._chunks.load([hit.chunk_id for hit in hits])
         pairs = [(views[hit.chunk_id], hit) for hit in hits if hit.chunk_id in views]
-        ranked = await asyncio.to_thread(rerank, question, pairs, self._scorer)
+        ranked = await asyncio.to_thread(rerank, question, pairs, self._scorer, score_cache)
         kept = select_diverse(ranked, config.limits)
 
         tiers = candidate_tiers or {}

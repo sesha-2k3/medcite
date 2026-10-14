@@ -41,3 +41,18 @@ def test_empty_candidates_skip_the_model() -> None:
     scorer = OverlapScorer()
     assert rerank("q", [], scorer) == []
     assert scorer.passages == []
+
+
+def test_cached_scores_are_not_recomputed() -> None:
+    scorer = OverlapScorer()
+    cache: dict[int, float] = {}
+    first = [pair(1, "biceps curl"), pair(2, "curl")]
+    rerank("biceps curl", first, scorer, cache)
+    ranked = rerank("biceps curl", [*first, pair(3, "biceps curl growth")], scorer, cache)
+    assert scorer.passages == [
+        passage_text(first[0][0]),
+        passage_text(first[1][0]),
+        passage_text(pair(3, "biceps curl growth")[0]),
+    ]
+    assert [s.chunk.chunk_id for s in ranked] == [1, 3, 2]
+    assert cache == {1: 2.0, 2: 1.0, 3: 2.0}

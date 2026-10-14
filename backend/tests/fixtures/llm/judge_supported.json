@@ -1,0 +1,14 @@
+{
+  "claims": [
+    {"id": "S1", "verdict": "supported", "note": null},
+    {"id": "S2", "verdict": "supported", "note": null},
+    {"id": "S3", "verdict": "supported", "note": null},
+    {"id": "S4", "verdict": "supported", "note": null},
+    {"id": "S5", "verdict": "supported", "note": null},
+    {"id": "S6", "verdict": "supported", "note": null},
+    {"id": "S7", "verdict": "supported", "note": null}
+  ],
+  "gap_statement_ok": null,
+  "conflict_omitted": false,
+  "conflict_note": null
+}

@@ -1,0 +1,9 @@
+{
+  "direct_answer": "No systematic review or meta-analysis has examined creatine and grip strength in older adults. The closest evidence, from primary studies, is mixed [C1, C3].",
+  "synthesis": "A small randomized trial found that grip strength increased by 2.1 kg with creatine versus 0.4 kg with placebo after 12 weeks [C1]. In contrast, a cohort study found no association between creatine use and grip strength [C3].",
+  "evidence_rows": [
+    {"marker": "C1", "finding": "Grip strength +2.1 kg with creatine vs +0.4 kg with placebo"},
+    {"marker": "C3", "finding": "No association with grip strength"}
+  ],
+  "rating": {"level": "low", "justification": "Only primary studies with conflicting results."}
+}

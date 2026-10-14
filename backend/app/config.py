@@ -63,7 +63,7 @@ class Settings(BaseSettings):
     # Reasoning tokens count toward Groq's tokens-per-minute limit.
     llm_reasoning_planner: ReasoningEffort = "low"
     llm_reasoning_generator: ReasoningEffort = "medium"
-    llm_reasoning_judge: ReasoningEffort = "low"
+    llm_reasoning_judge: ReasoningEffort = "none"
     llm_timeout_s: float = Field(default=60.0, gt=0)
     llm_max_retries: int = Field(default=3, ge=0)
     # USD per million tokens [input, output] by model, as JSON; unlisted models cost 0.
@@ -85,6 +85,12 @@ class Settings(BaseSettings):
     max_chunks_per_article: int = Field(default=3, ge=1)
     # Cross-encoder logits below this count as irrelevant once the minimum is met; tuned in M10.
     rerank_relevance_floor: float | None = None
+    # Generation budgets fit Groq's free plan (about 8K tokens a minute per model): context,
+    # prompt and output (reasoning included) of one call must stay under it.
+    generation_context_tokens: int = Field(default=3400, ge=500)
+    passage_max_chars: int = Field(default=1400, ge=300)
+    generation_max_tokens: int = Field(default=2500, ge=256)
+    judge_max_tokens: int = Field(default=2000, ge=256)
     small_sample_threshold: int = Field(default=50, ge=1)
     short_follow_up_weeks: float = Field(default=12.0, gt=0)
 

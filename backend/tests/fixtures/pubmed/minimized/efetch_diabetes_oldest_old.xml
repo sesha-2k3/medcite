@@ -1,0 +1,721 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE PubmedArticleSet PUBLIC "-//NLM//DTD PubMedArticle, 1st January 2025//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_250101.dtd">
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Manual">
+      <PMID Version="1">28993859</PMID>
+      <DateCompleted>
+        <Year>2019</Year>
+        <Month>07</Month>
+        <Day>18</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>01</Month>
+        <Day>27</Day>
+      </DateRevised>
+      <Article PubModel="Print-Electronic">
+        <Journal>
+          <ISSN IssnType="Electronic">1435-1269</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>50</Volume>
+            <Issue>8</Issue>
+            <PubDate>
+              <Year>2017</Year>
+              <Month>Dec</Month>
+            </PubDate>
+          </JournalIssue>
+          <Title>Zeitschrift fur Gerontologie und Geriatrie</Title>
+          <ISOAbbreviation>Z Gerontol Geriatr</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>[Diabetes mellitus].</ArticleTitle>
+        <Pagination>
+          <StartPage>676</StartPage>
+          <EndPage>679</EndPage>
+          <MedlinePgn>676-679</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1007/s00391-017-1315-2</ELocationID>
+        <Language>ger</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016454">Review</PublicationType>
+        </PublicationTypeList>
+        <VernacularTitle>Diabetes mellitus.</VernacularTitle>
+        <ArticleDate DateType="Electronic">
+          <Year>2017</Year>
+          <Month>10</Month>
+          <Day>09</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>Germany</Country>
+        <MedlineTA>Z Gerontol Geriatr</MedlineTA>
+        <NlmUniqueID>9506215</NlmUniqueID>
+        <ISSNLinking>0948-6704</ISSNLinking>
+      </MedlineJournalInfo>
+      <ChemicalList>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D006442">Glycated Hemoglobin</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="C517652">hemoglobin A1c protein, human</NameOfSubstance>
+        </Chemical>
+      </ChemicalList>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000369" MajorTopicYN="N">Aged, 80 and over</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000544" MajorTopicYN="N">Alzheimer Disease</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+          <QualifierName UI="Q000523" MajorTopicYN="N">psychology</QualifierName>
+          <QualifierName UI="Q000628" MajorTopicYN="N">therapy</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015897" MajorTopicYN="N">Comorbidity</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003924" MajorTopicYN="N">Diabetes Mellitus, Type 2</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+          <QualifierName UI="Q000523" MajorTopicYN="N">psychology</QualifierName>
+          <QualifierName UI="Q000628" MajorTopicYN="Y">therapy</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D004185" MajorTopicYN="N">Disability Evaluation</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005260" MajorTopicYN="N">Female</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D016330" MajorTopicYN="N">Frail Elderly</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005858" MajorTopicYN="N" Type="Geographic">Germany</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005951" MajorTopicYN="N">Glucose Tolerance Test</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006442" MajorTopicYN="N">Glycated Hemoglobin</DescriptorName>
+          <QualifierName UI="Q000378" MajorTopicYN="N">metabolism</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D007003" MajorTopicYN="N">Hypoglycemia</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+          <QualifierName UI="Q000523" MajorTopicYN="N">psychology</QualifierName>
+          <QualifierName UI="Q000628" MajorTopicYN="N">therapy</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008297" MajorTopicYN="N">Male</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008403" MajorTopicYN="N">Mass Screening</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015995" MajorTopicYN="N">Prevalence</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D011788" MajorTopicYN="N">Quality of Life</DescriptorName>
+          <QualifierName UI="Q000523" MajorTopicYN="N">psychology</QualifierName>
+        </MeshHeading>
+      </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="received">
+          <Year>2017</Year>
+          <Month>7</Month>
+          <Day>30</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="accepted">
+          <Year>2017</Year>
+          <Month>9</Month>
+          <Day>1</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="revised">
+          <Year>2017</Year>
+          <Month>8</Month>
+          <Day>12</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2017</Year>
+          <Month>10</Month>
+          <Day>11</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2019</Year>
+          <Month>7</Month>
+          <Day>19</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2017</Year>
+          <Month>10</Month>
+          <Day>11</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">28993859</ArticleId>
+        <ArticleId IdType="doi">10.1007/s00391-017-1315-2</ArticleId>
+        <ArticleId IdType="pii">10.1007/s00391-017-1315-2</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Manual">
+      <PMID Version="1">24004480</PMID>
+      <DateCompleted>
+        <Year>2014</Year>
+        <Month>07</Month>
+        <Day>01</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2013</Year>
+        <Month>10</Month>
+        <Day>30</Day>
+      </DateRevised>
+      <Article PubModel="Print-Electronic">
+        <Journal>
+          <ISSN IssnType="Electronic">1753-0407</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>5</Volume>
+            <Issue>4</Issue>
+            <PubDate>
+              <Year>2013</Year>
+              <Month>Dec</Month>
+            </PubDate>
+          </JournalIssue>
+          <Title>Journal of diabetes</Title>
+          <ISOAbbreviation>J Diabetes</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Diabetes and aging.</ArticleTitle>
+        <Pagination>
+          <StartPage>369</StartPage>
+          <EndPage>371</EndPage>
+          <MedlinePgn>369-71</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1111/1753-0407.12086</ELocationID>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016421">Editorial</PublicationType>
+        </PublicationTypeList>
+        <ArticleDate DateType="Electronic">
+          <Year>2013</Year>
+          <Month>09</Month>
+          <Day>18</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>Australia</Country>
+        <MedlineTA>J Diabetes</MedlineTA>
+        <NlmUniqueID>101504326</NlmUniqueID>
+        <ISSNLinking>1753-0407</ISSNLinking>
+      </MedlineJournalInfo>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D000328" MajorTopicYN="N">Adult</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D017677" MajorTopicYN="N">Age Distribution</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000369" MajorTopicYN="N">Aged, 80 and over</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000375" MajorTopicYN="N">Aging</DescriptorName>
+          <QualifierName UI="Q000502" MajorTopicYN="Y">physiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D002681" MajorTopicYN="N" Type="Geographic">China</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003920" MajorTopicYN="N">Diabetes Mellitus</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="Y">epidemiology</QualifierName>
+          <QualifierName UI="Q000503" MajorTopicYN="Y">physiopathology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008875" MajorTopicYN="N">Middle Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015995" MajorTopicYN="N">Prevalence</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D014481" MajorTopicYN="N" Type="Geographic">United States</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D055815" MajorTopicYN="N">Young Adult</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2013</Year>
+          <Month>9</Month>
+          <Day>6</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2013</Year>
+          <Month>9</Month>
+          <Day>6</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2014</Year>
+          <Month>7</Month>
+          <Day>2</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">24004480</ArticleId>
+        <ArticleId IdType="doi">10.1111/1753-0407.12086</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Automated">
+      <PMID Version="1">34029928</PMID>
+      <DateCompleted>
+        <Year>2021</Year>
+        <Month>06</Month>
+        <Day>28</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2021</Year>
+        <Month>06</Month>
+        <Day>28</Day>
+      </DateRevised>
+      <Article PubModel="Print-Electronic">
+        <Journal>
+          <ISSN IssnType="Electronic">1872-6976</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>95</Volume>
+            <PubDate>
+              <Year>2021</Year>
+              <Season>Jul-Aug</Season>
+            </PubDate>
+          </JournalIssue>
+          <Title>Archives of gerontology and geriatrics</Title>
+          <ISOAbbreviation>Arch Gerontol Geriatr</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>The vicious cycle in the development of diabetes mellitus and sarcopenia in older persons.</ArticleTitle>
+        <Pagination>
+          <StartPage>104437</StartPage>
+          <MedlinePgn>104437</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1016/j.archger.2021.104437</ELocationID>
+        <ELocationID EIdType="pii" ValidYN="Y">S0167-4943(21)00100-X</ELocationID>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016421">Editorial</PublicationType>
+        </PublicationTypeList>
+        <ArticleDate DateType="Electronic">
+          <Year>2021</Year>
+          <Month>05</Month>
+          <Day>19</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>Netherlands</Country>
+        <MedlineTA>Arch Gerontol Geriatr</MedlineTA>
+        <NlmUniqueID>8214379</NlmUniqueID>
+        <ISSNLinking>0167-4943</ISSNLinking>
+      </MedlineJournalInfo>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000369" MajorTopicYN="N">Aged, 80 and over</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003920" MajorTopicYN="Y">Diabetes Mellitus</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003924" MajorTopicYN="Y">Diabetes Mellitus, Type 2</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D018737" MajorTopicYN="N">Hand Strength</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D055948" MajorTopicYN="Y">Sarcopenia</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+          <QualifierName UI="Q000209" MajorTopicYN="N">etiology</QualifierName>
+        </MeshHeading>
+      </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2021</Year>
+          <Month>5</Month>
+          <Day>25</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2021</Year>
+          <Month>6</Month>
+          <Day>29</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2021</Year>
+          <Month>5</Month>
+          <Day>24</Day>
+          <Hour>20</Hour>
+          <Minute>32</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">34029928</ArticleId>
+        <ArticleId IdType="doi">10.1016/j.archger.2021.104437</ArticleId>
+        <ArticleId IdType="pii">S0167-4943(21)00100-X</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Manual">
+      <PMID Version="1">29671523</PMID>
+      <DateCompleted>
+        <Year>2019</Year>
+        <Month>05</Month>
+        <Day>28</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>01</Month>
+        <Day>27</Day>
+      </DateRevised>
+      <Article PubModel="Print">
+        <Journal>
+          <ISSN IssnType="Electronic">1532-0650</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>97</Volume>
+            <Issue>4</Issue>
+            <PubDate>
+              <Year>2018</Year>
+              <Month>Feb</Month>
+              <Day>15</Day>
+            </PubDate>
+          </JournalIssue>
+          <Title>American family physician</Title>
+          <ISOAbbreviation>Am Fam Physician</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Diabetes Education and Glycemic Control.</ArticleTitle>
+        <Pagination>
+          <StartPage>269</StartPage>
+          <EndPage>270</EndPage>
+          <MedlinePgn>269-270</MedlinePgn>
+        </Pagination>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D003160">Comparative Study</PublicationType>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D017418">Meta-Analysis</PublicationType>
+        </PublicationTypeList>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>United States</Country>
+        <MedlineTA>Am Fam Physician</MedlineTA>
+        <NlmUniqueID>1272646</NlmUniqueID>
+        <ISSNLinking>0002-838X</ISSNLinking>
+      </MedlineJournalInfo>
+      <ChemicalList>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D006442">Glycated Hemoglobin</NameOfSubstance>
+        </Chemical>
+      </ChemicalList>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D000328" MajorTopicYN="N">Adult</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000369" MajorTopicYN="N">Aged, 80 and over</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003924" MajorTopicYN="N">Diabetes Mellitus, Type 2</DescriptorName>
+          <QualifierName UI="Q000175" MajorTopicYN="Y">diagnosis</QualifierName>
+          <QualifierName UI="Q000188" MajorTopicYN="Y">drug therapy</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005260" MajorTopicYN="N">Female</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006442" MajorTopicYN="N">Glycated Hemoglobin</DescriptorName>
+          <QualifierName UI="Q000032" MajorTopicYN="Y">analysis</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D038321" MajorTopicYN="Y">Glycemic Index</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006293" MajorTopicYN="N">Health Promotion</DescriptorName>
+          <QualifierName UI="Q000379" MajorTopicYN="Y">methods</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008297" MajorTopicYN="N">Male</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008875" MajorTopicYN="N">Middle Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D010353" MajorTopicYN="N">Patient Education as Topic</DescriptorName>
+          <QualifierName UI="Q000379" MajorTopicYN="Y">methods</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D016032" MajorTopicYN="N">Randomized Controlled Trials as Topic</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2018</Year>
+          <Month>4</Month>
+          <Day>20</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2018</Year>
+          <Month>4</Month>
+          <Day>20</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2019</Year>
+          <Month>5</Month>
+          <Day>29</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">29671523</ArticleId>
+        <ArticleId IdType="pii">d13489</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Manual">
+      <PMID Version="1">29461146</PMID>
+      <DateCompleted>
+        <Year>2018</Year>
+        <Month>06</Month>
+        <Day>07</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>01</Month>
+        <Day>27</Day>
+      </DateRevised>
+      <Article PubModel="Print">
+        <Journal>
+          <ISSN IssnType="Print">0040-5930</ISSN>
+          <JournalIssue CitedMedium="Print">
+            <Volume>74</Volume>
+            <Issue>8</Issue>
+            <PubDate>
+              <Year>2017</Year>
+            </PubDate>
+          </JournalIssue>
+          <Title>Therapeutische Umschau. Revue therapeutique</Title>
+          <ISOAbbreviation>Ther Umsch</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>[Not Available].</ArticleTitle>
+        <Pagination>
+          <StartPage>454</StartPage>
+          <EndPage>461</EndPage>
+          <MedlinePgn>454-461</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1024/0040-5930/a000940</ELocationID>
+        <Language>ger</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D002363">Case Reports</PublicationType>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016454">Review</PublicationType>
+        </PublicationTypeList>
+        <VernacularTitle>Diabetiker werden immer älter – was hat das für Konsequenzen für die Behandlung?</VernacularTitle>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>Switzerland</Country>
+        <MedlineTA>Ther Umsch</MedlineTA>
+        <NlmUniqueID>0407224</NlmUniqueID>
+        <ISSNLinking>0040-5930</ISSNLinking>
+      </MedlineJournalInfo>
+      <ChemicalList>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D006442">Glycated Hemoglobin</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="C517652">hemoglobin A1c protein, human</NameOfSubstance>
+        </Chemical>
+      </ChemicalList>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D000367" MajorTopicYN="N">Age Factors</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000369" MajorTopicYN="N">Aged, 80 and over</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000544" MajorTopicYN="N">Alzheimer Disease</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+          <QualifierName UI="Q000209" MajorTopicYN="N">etiology</QualifierName>
+          <QualifierName UI="Q000517" MajorTopicYN="N">prevention &amp; control</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003131" MajorTopicYN="N">Combined Modality Therapy</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D048909" MajorTopicYN="N">Diabetes Complications</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+          <QualifierName UI="Q000209" MajorTopicYN="Y">etiology</QualifierName>
+          <QualifierName UI="Q000517" MajorTopicYN="N">prevention &amp; control</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003922" MajorTopicYN="N">Diabetes Mellitus, Type 1</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+          <QualifierName UI="Q000150" MajorTopicYN="Y">complications</QualifierName>
+          <QualifierName UI="Q000628" MajorTopicYN="N">therapy</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003924" MajorTopicYN="N">Diabetes Mellitus, Type 2</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+          <QualifierName UI="Q000150" MajorTopicYN="Y">complications</QualifierName>
+          <QualifierName UI="Q000628" MajorTopicYN="N">therapy</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D017719" MajorTopicYN="N">Diabetic Foot</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+          <QualifierName UI="Q000209" MajorTopicYN="N">etiology</QualifierName>
+          <QualifierName UI="Q000517" MajorTopicYN="N">prevention &amp; control</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003928" MajorTopicYN="N">Diabetic Nephropathies</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+          <QualifierName UI="Q000209" MajorTopicYN="N">etiology</QualifierName>
+          <QualifierName UI="Q000517" MajorTopicYN="N">prevention &amp; control</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003929" MajorTopicYN="N">Diabetic Neuropathies</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+          <QualifierName UI="Q000209" MajorTopicYN="N">etiology</QualifierName>
+          <QualifierName UI="Q000517" MajorTopicYN="N">prevention &amp; control</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003930" MajorTopicYN="N">Diabetic Retinopathy</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+          <QualifierName UI="Q000209" MajorTopicYN="N">etiology</QualifierName>
+          <QualifierName UI="Q000517" MajorTopicYN="N">prevention &amp; control</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005260" MajorTopicYN="N">Female</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006442" MajorTopicYN="N">Glycated Hemoglobin</DescriptorName>
+          <QualifierName UI="Q000378" MajorTopicYN="N">metabolism</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008297" MajorTopicYN="N">Male</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D011157" MajorTopicYN="Y">Population Dynamics</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D012307" MajorTopicYN="N">Risk Factors</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2018</Year>
+          <Month>2</Month>
+          <Day>21</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2018</Year>
+          <Month>2</Month>
+          <Day>21</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2018</Year>
+          <Month>6</Month>
+          <Day>8</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">29461146</ArticleId>
+        <ArticleId IdType="doi">10.1024/0040-5930/a000940</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+</PubmedArticleSet>

@@ -1,0 +1,369 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE PubmedArticleSet PUBLIC "-//NLM//DTD PubMedArticle, 1st January 2025//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_250101.dtd">
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Curated">
+      <PMID Version="1">38640145</PMID>
+      <DateCompleted>
+        <Year>2024</Year>
+        <Month>08</Month>
+        <Day>16</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2025</Year>
+        <Month>11</Month>
+        <Day>23</Day>
+      </DateRevised>
+      <Article PubModel="Print">
+        <Journal>
+          <ISSN IssnType="Electronic">1875-8622</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>87</Volume>
+            <Issue>4</Issue>
+            <PubDate>
+              <Year>2024</Year>
+            </PubDate>
+          </JournalIssue>
+          <Title>Clinical hemorheology and microcirculation</Title>
+          <ISOAbbreviation>Clin Hemorheol Microcirc</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Tirzepatide and exercise training in obesity.</ArticleTitle>
+        <Pagination>
+          <StartPage>465</StartPage>
+          <EndPage>480</EndPage>
+          <MedlinePgn>465-480</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.3233/CH-242134</ELocationID>
+        <Abstract>
+          <AbstractText Label="OBJECTIVES" NlmCategory="UNASSIGNED">Placeholder objectives text 1 for PMID 38640145.</AbstractText>
+          <AbstractText Label="METHODS" NlmCategory="UNASSIGNED">Placeholder methods text 2 for PMID 38640145.</AbstractText>
+          <AbstractText Label="RESULTS" NlmCategory="UNASSIGNED">Placeholder results text 3 for PMID 38640145.</AbstractText>
+          <AbstractText Label="CONCLUSIONS" NlmCategory="UNASSIGNED">Placeholder conclusions text 4 for PMID 38640145.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016449">Randomized Controlled Trial</PublicationType>
+          <PublicationType UI="D016441">Retracted Publication</PublicationType>
+        </PublicationTypeList>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>United States</Country>
+        <MedlineTA>Clin Hemorheol Microcirc</MedlineTA>
+        <NlmUniqueID>9709206</NlmUniqueID>
+        <ISSNLinking>1386-0291</ISSNLinking>
+      </MedlineJournalInfo>
+      <CitationSubset>IM</CitationSubset>
+      <CommentsCorrectionsList>
+        <CommentsCorrections RefType="RetractionIn">
+          <RefSource>Clin Hemorheol Microcirc. 2025 Dec;91(2-4):96-99. doi: 10.1177/13860291251390410.</RefSource>
+          <PMID Version="1">41275358</PMID>
+        </CommentsCorrections>
+      </CommentsCorrectionsList>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D009765" MajorTopicYN="Y">Obesity</DescriptorName>
+          <QualifierName UI="Q000628" MajorTopicYN="N">therapy</QualifierName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+          <QualifierName UI="Q000503" MajorTopicYN="N">physiopathology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008297" MajorTopicYN="N">Male</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000328" MajorTopicYN="N">Adult</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D007333" MajorTopicYN="N">Insulin Resistance</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D055070" MajorTopicYN="N">Resistance Training</DescriptorName>
+          <QualifierName UI="Q000379" MajorTopicYN="N">methods</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015444" MajorTopicYN="N">Exercise</DescriptorName>
+          <QualifierName UI="Q000502" MajorTopicYN="N">physiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015992" MajorTopicYN="N">Body Mass Index</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2024</Year>
+          <Month>8</Month>
+          <Day>16</Day>
+          <Hour>18</Hour>
+          <Minute>41</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2024</Year>
+          <Month>4</Month>
+          <Day>19</Day>
+          <Hour>18</Hour>
+          <Minute>43</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2024</Year>
+          <Month>4</Month>
+          <Day>19</Day>
+          <Hour>13</Hour>
+          <Minute>43</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">38640145</ArticleId>
+        <ArticleId IdType="doi">10.3233/CH-242134</ArticleId>
+        <ArticleId IdType="pii">CH242134</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Manual">
+      <PMID Version="1">30135585</PMID>
+      <DateCompleted>
+        <Year>2019</Year>
+        <Month>04</Month>
+        <Day>22</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>01</Month>
+        <Day>27</Day>
+      </DateRevised>
+      <Article PubModel="Print-Electronic">
+        <Journal>
+          <ISSN IssnType="Electronic">1476-4687</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>561</Volume>
+            <Issue>7722</Issue>
+            <PubDate>
+              <Year>2018</Year>
+              <Month>Sep</Month>
+            </PubDate>
+          </JournalIssue>
+          <Title>Nature</Title>
+          <ISOAbbreviation>Nature</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Parkin and PINK1 mitigate STING-induced inflammation.</ArticleTitle>
+        <Pagination>
+          <StartPage>258</StartPage>
+          <EndPage>262</EndPage>
+          <MedlinePgn>258-262</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1038/s41586-018-0448-9</ELocationID>
+        <Abstract>
+          <AbstractText>Placeholder abstract text 1 for PMID 30135585.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D052061">Research Support, N.I.H., Extramural</PublicationType>
+          <PublicationType UI="D013485">Research Support, Non-U.S. Gov't</PublicationType>
+          <PublicationType UI="D016441">Retracted Publication</PublicationType>
+        </PublicationTypeList>
+        <ArticleDate DateType="Electronic">
+          <Year>2018</Year>
+          <Month>08</Month>
+          <Day>22</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>England</Country>
+        <MedlineTA>Nature</MedlineTA>
+        <NlmUniqueID>0410462</NlmUniqueID>
+        <ISSNLinking>0028-0836</ISSNLinking>
+      </MedlineJournalInfo>
+      <ChemicalList>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D000067531">Alarmins</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D004272">DNA, Mitochondrial</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D008565">Membrane Proteins</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>EC 2.7.-</RegistryNumber>
+          <NameOfSubstance UI="D011494">Protein Kinases</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>156986-95-7</RegistryNumber>
+          <NameOfSubstance UI="D053633">Receptor, Interferon alpha-beta</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>EC 2.3.2.27</RegistryNumber>
+          <NameOfSubstance UI="D044767">Ubiquitin-Protein Ligases</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>EC 2.7.11.1</RegistryNumber>
+          <NameOfSubstance UI="D000099202">PTEN-Induced Putative Kinase</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="C508032">Ifnar1 protein, mouse</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="C530855">Sting1 protein, mouse</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D000099197">STING Protein</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>EC 2.3.2.27</RegistryNumber>
+          <NameOfSubstance UI="C111567">parkin protein</NameOfSubstance>
+        </Chemical>
+      </ChemicalList>
+      <CitationSubset>IM</CitationSubset>
+      <CommentsCorrectionsList>
+        <CommentsCorrections RefType="CommentIn">
+          <RefSource>J Cell Biol. 2018 Oct 1;217(10):3327-3329. doi: 10.1083/jcb.201808118.</RefSource>
+          <PMID Version="1">30154188</PMID>
+        </CommentsCorrections>
+        <CommentsCorrections RefType="CommentIn">
+          <RefSource>Nature. 2018 Sep;561(7722):185-186. doi: 10.1038/d41586-018-05988-z.</RefSource>
+          <PMID Version="1">30194366</PMID>
+        </CommentsCorrections>
+        <CommentsCorrections RefType="RetractionIn">
+          <RefSource>Nature. 2025 Aug;644(8078):1116. doi: 10.1038/s41586-025-09346-8.</RefSource>
+          <PMID Version="1">40739362</PMID>
+        </CommentsCorrections>
+      </CommentsCorrectionsList>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D000067531" MajorTopicYN="N">Alarmins</DescriptorName>
+          <QualifierName UI="Q000378" MajorTopicYN="N">metabolism</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000818" MajorTopicYN="N">Animals</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D004272" MajorTopicYN="N">DNA, Mitochondrial</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+          <QualifierName UI="Q000235" MajorTopicYN="N">genetics</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D007113" MajorTopicYN="Y">Immunity, Innate</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D007249" MajorTopicYN="N">Inflammation</DescriptorName>
+          <QualifierName UI="Q000235" MajorTopicYN="N">genetics</QualifierName>
+          <QualifierName UI="Q000378" MajorTopicYN="Y">metabolism</QualifierName>
+          <QualifierName UI="Q000517" MajorTopicYN="N">prevention &amp; control</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008565" MajorTopicYN="N">Membrane Proteins</DescriptorName>
+          <QualifierName UI="Q000172" MajorTopicYN="N">deficiency</QualifierName>
+          <QualifierName UI="Q000235" MajorTopicYN="N">genetics</QualifierName>
+          <QualifierName UI="Q000378" MajorTopicYN="Y">metabolism</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D051379" MajorTopicYN="N">Mice</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008810" MajorTopicYN="N">Mice, Inbred C57BL</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D063306" MajorTopicYN="Y">Mitophagy</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D010300" MajorTopicYN="N">Parkinson Disease</DescriptorName>
+          <QualifierName UI="Q000378" MajorTopicYN="N">metabolism</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D010805" MajorTopicYN="N">Physical Conditioning, Animal</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D011494" MajorTopicYN="N">Protein Kinases</DescriptorName>
+          <QualifierName UI="Q000172" MajorTopicYN="N">deficiency</QualifierName>
+          <QualifierName UI="Q000235" MajorTopicYN="N">genetics</QualifierName>
+          <QualifierName UI="Q000378" MajorTopicYN="Y">metabolism</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D053633" MajorTopicYN="N">Receptor, Interferon alpha-beta</DescriptorName>
+          <QualifierName UI="Q000037" MajorTopicYN="N">antagonists &amp; inhibitors</QualifierName>
+          <QualifierName UI="Q000276" MajorTopicYN="N">immunology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D013312" MajorTopicYN="N">Stress, Physiological</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D044767" MajorTopicYN="N">Ubiquitin-Protein Ligases</DescriptorName>
+          <QualifierName UI="Q000172" MajorTopicYN="N">deficiency</QualifierName>
+          <QualifierName UI="Q000235" MajorTopicYN="N">genetics</QualifierName>
+          <QualifierName UI="Q000378" MajorTopicYN="Y">metabolism</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000099202" MajorTopicYN="N">PTEN-Induced Putative Kinase</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000099197" MajorTopicYN="N" AutoHM="Y">STING Protein</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+      <CoiStatement>The authors declare no competing financial interests.</CoiStatement>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="received">
+          <Year>2018</Year>
+          <Month>2</Month>
+          <Day>3</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="accepted">
+          <Year>2018</Year>
+          <Month>7</Month>
+          <Day>23</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2018</Year>
+          <Month>8</Month>
+          <Day>24</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2019</Year>
+          <Month>4</Month>
+          <Day>23</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2018</Year>
+          <Month>8</Month>
+          <Day>24</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pmc-release">
+          <Year>2020</Year>
+          <Month>7</Month>
+          <Day>15</Day>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">30135585</ArticleId>
+        <ArticleId IdType="mid">NIHMS1500754</ArticleId>
+        <ArticleId IdType="pmc">PMC7362342</ArticleId>
+        <ArticleId IdType="doi">10.1038/s41586-018-0448-9</ArticleId>
+        <ArticleId IdType="pii">10.1038/s41586-018-0448-9</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+</PubmedArticleSet>

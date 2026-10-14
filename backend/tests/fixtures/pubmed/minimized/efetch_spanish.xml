@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE PubmedArticleSet PUBLIC "-//NLM//DTD PubMedArticle, 1st January 2025//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_250101.dtd">
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Manual">
+      <PMID Version="1">30525318</PMID>
+      <DateCompleted>
+        <Year>2019</Year>
+        <Month>09</Month>
+        <Day>25</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2019</Year>
+        <Month>09</Month>
+        <Day>25</Day>
+      </DateRevised>
+      <Article PubModel="Print">
+        <Journal>
+          <ISSN IssnType="Electronic">1668-3501</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>116</Volume>
+            <Issue>6</Issue>
+            <PubDate>
+              <Year>2018</Year>
+              <Month>Dec</Month>
+              <Day>01</Day>
+            </PubDate>
+          </JournalIssue>
+          <Title>Archivos argentinos de pediatria</Title>
+          <ISOAbbreviation>Arch Argent Pediatr</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>[Strength training in children and adolescents: benefits, risks and recommendations].</ArticleTitle>
+        <Pagination>
+          <StartPage>S82</StartPage>
+          <EndPage>S91</EndPage>
+          <MedlinePgn>S82-S91</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.5546/aap.2018.s82</ELocationID>
+        <Abstract>
+          <AbstractText>Placeholder abstract text 1 for PMID 30525318.</AbstractText>
+        </Abstract>
+        <Language>spa</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016454">Review</PublicationType>
+        </PublicationTypeList>
+        <VernacularTitle>Entrenamiento de la fuerza en niños y adolescentes: beneficios, riesgos y recomendaciones.</VernacularTitle>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>Argentina</Country>
+        <MedlineTA>Arch Argent Pediatr</MedlineTA>
+        <NlmUniqueID>0372460</NlmUniqueID>
+        <ISSNLinking>0325-0075</ISSNLinking>
+      </MedlineJournalInfo>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D000293" MajorTopicYN="N">Adolescent</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D002648" MajorTopicYN="N">Child</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D063766" MajorTopicYN="N">Pediatric Obesity</DescriptorName>
+          <QualifierName UI="Q000628" MajorTopicYN="Y">therapy</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D010809" MajorTopicYN="N">Physical Fitness</DescriptorName>
+          <QualifierName UI="Q000502" MajorTopicYN="N">physiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D017410" MajorTopicYN="Y">Practice Guidelines as Topic</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D055070" MajorTopicYN="N">Resistance Training</DescriptorName>
+          <QualifierName UI="Q000009" MajorTopicYN="N">adverse effects</QualifierName>
+          <QualifierName UI="Q000379" MajorTopicYN="Y">methods</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D057185" MajorTopicYN="N">Sedentary Behavior</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D013177" MajorTopicYN="N">Sports</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D055815" MajorTopicYN="N">Young Adult</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2019</Year>
+          <Month>1</Month>
+          <Day>4</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2019</Year>
+          <Month>1</Month>
+          <Day>4</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2019</Year>
+          <Month>9</Month>
+          <Day>26</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">30525318</ArticleId>
+        <ArticleId IdType="doi">10.5546/aap.2018.s82</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Manual">
+      <PMID Version="1">31021559</PMID>
+      <DateCompleted>
+        <Year>2019</Year>
+        <Month>12</Month>
+        <Day>26</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2019</Year>
+        <Month>12</Month>
+        <Day>26</Day>
+      </DateRevised>
+      <Article PubModel="Electronic">
+        <Journal>
+          <ISSN IssnType="Electronic">2590-7379</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>39</Volume>
+            <Issue>1</Issue>
+            <PubDate>
+              <Year>2019</Year>
+              <Month>Mar</Month>
+              <Day>31</Day>
+            </PubDate>
+          </JournalIssue>
+          <Title>Biomedica : revista del Instituto Nacional de Salud</Title>
+          <ISOAbbreviation>Biomedica</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>The training of strength-resistance in hypoxia: effect on muscle hypertrophy.</ArticleTitle>
+        <Pagination>
+          <StartPage>212</StartPage>
+          <EndPage>220</EndPage>
+          <MedlinePgn>212-220</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.7705/biomedica.v39i1.4084</ELocationID>
+        <Abstract>
+          <AbstractText>Placeholder abstract text 1 for PMID 31021559.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <Language>spa</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016454">Review</PublicationType>
+        </PublicationTypeList>
+        <VernacularTitle>Entrenamiento de fuerza y resistencia en hipoxia: efecto en la hipertrofia muscular.</VernacularTitle>
+        <ArticleDate DateType="Electronic">
+          <Year>2019</Year>
+          <Month>03</Month>
+          <Day>31</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>Colombia</Country>
+        <MedlineTA>Biomedica</MedlineTA>
+        <NlmUniqueID>8205605</NlmUniqueID>
+        <ISSNLinking>0120-4157</ISSNLinking>
+      </MedlineJournalInfo>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D000064" MajorTopicYN="Y">Acclimatization</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006984" MajorTopicYN="N">Hypertrophy</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000860" MajorTopicYN="N">Hypoxia</DescriptorName>
+          <QualifierName UI="Q000503" MajorTopicYN="Y">physiopathology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D018482" MajorTopicYN="N">Muscle, Skeletal</DescriptorName>
+          <QualifierName UI="Q000473" MajorTopicYN="Y">pathology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D055070" MajorTopicYN="Y">Resistance Training</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="received">
+          <Year>2017</Year>
+          <Month>9</Month>
+          <Day>14</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2019</Year>
+          <Month>4</Month>
+          <Day>26</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2019</Year>
+          <Month>4</Month>
+          <Day>26</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2019</Year>
+          <Month>12</Month>
+          <Day>27</Day>
+          <Hour>6</Hour>
+          <Minute>0</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>epublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">31021559</ArticleId>
+        <ArticleId IdType="doi">10.7705/biomedica.v39i1.4084</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+</PubmedArticleSet>

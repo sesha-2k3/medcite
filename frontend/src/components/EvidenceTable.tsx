@@ -3,7 +3,12 @@ import { CitationChips } from "@/components/CitationChips";
 import { EvidenceBadge } from "@/components/EvidenceBadge";
 import { designLabel, pubmedUrl } from "@/lib/evidence";
 
-/** The cited studies. Every field except the finding comes from stored PubMed data. */
+const HEADER = "px-3 py-2 font-medium";
+
+/**
+ * The cited studies. Every field except the finding comes from stored PubMed data. The citation
+ * column comes first so it stays visible when the table scrolls sideways in a narrow pane.
+ */
 export function EvidenceTable({ rows }: { rows: EvidenceRow[] }) {
   if (rows.length === 0) return null;
   return (
@@ -12,33 +17,36 @@ export function EvidenceTable({ rows }: { rows: EvidenceRow[] }) {
         Evidence table
       </h2>
       <div className="bg-card overflow-x-auto rounded-md border">
-        <table className="w-full min-w-[42rem] text-left text-sm">
+        <table className="w-full min-w-[36rem] text-left text-sm">
           <thead className="bg-muted/60 text-muted-foreground text-xs">
             <tr>
-              <th scope="col" className="px-3 py-2 font-medium">
+              <th scope="col" className={HEADER}>
+                <span className="sr-only">Cited as</span>
+              </th>
+              <th scope="col" className={HEADER}>
                 Study
               </th>
-              <th scope="col" className="px-3 py-2 font-medium">
+              <th scope="col" className={HEADER}>
                 Design
               </th>
-              <th scope="col" className="px-3 py-2 font-medium">
+              <th scope="col" className={HEADER}>
                 n
               </th>
-              <th scope="col" className="px-3 py-2 font-medium">
+              <th scope="col" className={HEADER}>
                 Year
               </th>
-              <th scope="col" className="px-3 py-2 font-medium">
+              <th scope="col" className={HEADER}>
                 Finding
-              </th>
-              <th scope="col" className="px-3 py-2 font-medium">
-                Cited as
               </th>
             </tr>
           </thead>
           <tbody>
             {rows.map((row) => (
               <tr key={row.pmid} className="border-t align-top">
-                <td className="max-w-xs px-3 py-2">
+                <td className="py-2 pr-1 pl-3">
+                  <CitationChips markers={row.markers} />
+                </td>
+                <td className="min-w-48 px-3 py-2">
                   <p className="font-medium">{row.title}</p>
                   <a
                     href={pubmedUrl(row.pmid)}
@@ -55,10 +63,7 @@ export function EvidenceTable({ rows }: { rows: EvidenceRow[] }) {
                 </td>
                 <td className="px-3 py-2 tabular-nums">{row.n ?? "–"}</td>
                 <td className="px-3 py-2 tabular-nums">{row.year ?? "–"}</td>
-                <td className="px-3 py-2">{row.finding ?? "–"}</td>
-                <td className="px-3 py-2">
-                  <CitationChips markers={row.markers} />
-                </td>
+                <td className="min-w-48 px-3 py-2">{row.finding ?? "–"}</td>
               </tr>
             ))}
           </tbody>

@@ -87,14 +87,16 @@ export function ResultView({ run }: { run: Run }) {
         </h1>
       </header>
 
-      <StepProgress
-        steps={state.steps}
-        active={active}
-        kind={request.kind}
-        startedAt={run.startedAt}
-        finishedAt={run.finishedAt}
-        onStop={() => cancel(run.id)}
-      />
+      {active || state.steps.length > 0 ? (
+        <StepProgress
+          steps={state.steps}
+          active={active}
+          kind={request.kind}
+          startedAt={run.startedAt}
+          finishedAt={run.finishedAt}
+          onStop={() => cancel(run.id)}
+        />
+      ) : null}
 
       {state.gap ? <GapBanner requestedEvidence={state.gap.requestedEvidence} /> : null}
 

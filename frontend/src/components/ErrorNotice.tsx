@@ -3,8 +3,11 @@ import type { StreamError } from "@/stream/reducer";
 
 const NOT_RETRYABLE = new Set([401, 422, 429]);
 
+/** Rounded up to the minute: Retry-After counts to midnight, which would read as 7:59. */
 function resetTime(seconds: number): string {
-  return new Date(Date.now() + seconds * 1000).toLocaleTimeString([], {
+  const minute = 60_000;
+  const at = Math.ceil((Date.now() + seconds * 1000) / minute) * minute;
+  return new Date(at).toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
   });

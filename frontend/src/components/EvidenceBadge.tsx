@@ -6,7 +6,7 @@ export function EvidenceBadge({ badge, className }: { badge: string; className?:
   return (
     <span
       className={cn(
-        "inline-flex shrink-0 items-center rounded border px-1.5 py-0.5 font-sans text-xs font-medium",
+        "inline-flex shrink-0 items-center rounded border px-1.5 py-0.5 font-sans text-xs font-medium whitespace-nowrap",
         badgeClass(badge),
         className,
       )}

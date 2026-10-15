@@ -56,7 +56,7 @@ export function getArticle(pmid: number): Promise<ArticleResponse> {
 
 export function postFeedback(queryId: number, value: FeedbackValue): Promise<void> {
   const body: components["schemas"]["FeedbackRequest"] = { query_id: queryId, value };
-  return request<void>("/v1/feedback", {
+  return request<undefined>("/v1/feedback", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),

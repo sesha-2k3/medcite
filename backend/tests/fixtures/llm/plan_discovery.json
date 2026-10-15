@@ -1,18 +1,20 @@
 {
   "mode": "discovery",
   "population": "older adults",
+  "condition": "diabetes",
   "intervention": null,
   "comparison": null,
-  "outcome": "diabetes",
+  "outcome": null,
   "outcome_class": "unknown",
   "requested_evidence": [],
   "date_range": {"from": "2026-04-14", "to": null},
   "standalone_query": "Recent research on diabetes in older people",
   "concepts": {
     "population": {"mesh": ["Aged"], "text": ["older adult*", "elderly"]},
+    "condition": {"mesh": ["Diabetes Mellitus"], "text": ["diabet*"]},
     "intervention": null,
     "comparison": null,
-    "outcome": {"mesh": ["Diabetes Mellitus"], "text": ["diabet*"]},
+    "outcome": null,
     "broader_intervention": null,
     "surrogate_outcome": null
   }

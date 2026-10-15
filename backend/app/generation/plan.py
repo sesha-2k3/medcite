@@ -6,8 +6,13 @@ code turns them into the four tiers of the evidence ladder:
     1  exact evidence           every concept, restricted to the requested study type
                                 (syntheses and guidelines when none is requested)
     2  direct primary studies   every concept, excluding reviews and commentary
-    3  related syntheses        broader intervention and outcome, any body site, reviews only
-    4  mechanistic or surrogate broader intervention at the body site, surrogate outcomes
+    3  related syntheses        broader intervention and outcome in the same population and
+                                condition, any body site, reviews only
+    4  mechanistic or surrogate broader intervention at the body site, surrogate outcomes,
+                                same condition
+
+Discovery has one tier: population, condition, intervention, site and outcome within the
+date window.
 
 If the model fails, or its concepts produce an invalid query, a keyword plan built from the
 question itself takes over, so a question is never left without a search.
@@ -41,7 +46,7 @@ from app.models.llm import ChatMessage, LLMClient, LLMRole, UsageMeter
 
 logger = logging.getLogger(__name__)
 
-PROMPT = load_prompt("plan", "v3")
+PROMPT = load_prompt("plan", "v4")
 BROADEN_PROMPT = load_prompt("plan_broaden", "v1")
 
 Mode = Literal["question", "discovery", "hybrid", "out_of_scope"]
@@ -165,6 +170,7 @@ class Concepts(BaseModel):
     model_config = ConfigDict(extra="ignore")
 
     population: Concept | None = None
+    condition: Concept | None = None  # the disease or health state; never part of population
     intervention: Concept | None = None
     comparison: Concept | None = None
     outcome: Concept | None = None
@@ -191,6 +197,7 @@ class Plan(BaseModel):
 
     mode: Mode
     population: str | None = None
+    condition: str | None = None
     intervention: str | None = None
     comparison: str | None = None
     outcome: str | None = None
@@ -213,6 +220,7 @@ class _ModelPlan(BaseModel):
 
     mode: Mode
     population: str | None = None
+    condition: str | None = None
     intervention: str | None = None
     comparison: str | None = None
     outcome: str | None = None
@@ -222,7 +230,9 @@ class _ModelPlan(BaseModel):
     standalone_query: str
     concepts: Concepts = Field(default_factory=Concepts)
 
-    @field_validator("population", "intervention", "comparison", "outcome", mode="before")
+    @field_validator(
+        "population", "condition", "intervention", "comparison", "outcome", mode="before"
+    )
     @classmethod
     def _drop_placeholders(cls, value: object) -> object:
         if isinstance(value, str) and value.strip(" .") == "":
@@ -379,6 +389,7 @@ def build_plan(drafted: _ModelPlan) -> Plan:
 def _question_tiers(drafted: _ModelPlan) -> list[Tier]:
     c = drafted.concepts
     population = _clause(c.population)
+    condition = _clause(c.condition)
     intervention = _clause(c.intervention)
     comparison = _clause(c.comparison)
     outcome = _clause(c.outcome)
@@ -389,7 +400,7 @@ def _question_tiers(drafted: _ModelPlan) -> list[Tier]:
         return []
 
     dates = _dates(drafted)
-    core = _present(population, intervention, comparison, site, outcome)
+    core = _present(population, condition, intervention, comparison, site, outcome)
     exact = any_of(f for kind in _tier_one_types(drafted) for f in EVIDENCE_FILTERS[kind])
     return [
         Tier(
@@ -406,13 +417,15 @@ def _question_tiers(drafted: _ModelPlan) -> list[Tier]:
             level=3,
             purpose="related syntheses",
             pubmed_query=compose(
-                _present(population, broader, outcome), include=any_of(REVIEWS), dates=dates
+                _present(population, condition, broader, outcome),
+                include=any_of(REVIEWS),
+                dates=dates,
             ),
         ),
         Tier(
             level=4,
             purpose="mechanistic or surrogate",
-            pubmed_query=compose(_present(broader, site, surrogate), dates=dates),
+            pubmed_query=compose(_present(condition, broader, site, surrogate), dates=dates),
         ),
     ]
 
@@ -427,7 +440,7 @@ def _tier_one_types(drafted: _ModelPlan) -> list[EvidenceType]:
 def _discovery_tiers(drafted: _ModelPlan) -> list[Tier]:
     c = drafted.concepts
     topic = _present(
-        _clause(c.population), _clause(c.intervention), _clause(c.site), _clause(c.outcome)
+        *(_clause(x) for x in (c.population, c.condition, c.intervention, c.site, c.outcome))
     )
     if not topic:
         return []

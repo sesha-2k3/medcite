@@ -35,6 +35,14 @@ def stored(name: str, **changes: object) -> str:
     return json.dumps(data)
 
 
+def with_condition(name: str, condition: str, mesh: str, text: list[str]) -> str:
+    """A stored reply with a condition concept added, as plan@v4 asks for."""
+    data = json.loads((FIXTURES / f"{name}.json").read_text())
+    data["condition"] = condition
+    data["concepts"]["condition"] = {"mesh": [mesh], "text": text}
+    return json.dumps(data)
+
+
 BuildPlanner = Callable[[list[Reply]], tuple[Planner, ScriptedProvider]]
 
 
@@ -87,7 +95,7 @@ async def test_dumbbell_question_gets_four_tiers(planner: BuildPlanner) -> None:
     ]
     assert (plan.mode, plan.outcome_class, plan.source) == ("question", "physiological", "llm")
     assert plan.requested_evidence == ["meta_analysis", "systematic_review"]
-    assert plan.prompt == "plan@v3"
+    assert plan.prompt == "plan@v4"
     assert_well_formed(plan)
 
 
@@ -165,7 +173,25 @@ async def test_discovery_gets_one_recent_research_tier(planner: BuildPlanner) ->
     assert '"Aged"[mh]' in tier.pubmed_query
     assert '"Diabetes Mellitus"[mh]' in tier.pubmed_query
     assert "2026/04/14:3000[edat]" in tier.pubmed_query
+    assert (plan.population, plan.condition) == ("older adults", "diabetes")
     assert_well_formed(plan)
+
+
+async def test_the_condition_is_required_in_every_tier(planner: BuildPlanner) -> None:
+    reply = with_condition(
+        "plan_dumbbell", "type 2 diabetes", "Diabetes Mellitus, Type 2", ["diabet*"]
+    )
+    tiers = (await plan_for(planner, reply)).tiers
+    condition = '"Diabetes Mellitus, Type 2"[mh]'
+    assert all(condition in t.pubmed_query for t in tiers)
+    assert '"type 2 diabetes mellitus"[tiab]' in tiers[0].pubmed_query
+
+
+async def test_a_plan_without_a_condition_is_unchanged(planner: BuildPlanner) -> None:
+    plan = await plan_for(planner, stored("plan_dumbbell"))
+    assert plan.condition is None
+    assert plan.concepts is not None
+    assert plan.concepts.condition is None
 
 
 async def test_request_window_overrides_and_forces_discovery(planner: BuildPlanner) -> None:
@@ -256,9 +282,12 @@ async def test_asking_for_a_meta_analysis_also_accepts_systematic_reviews(
 
 
 async def test_placeholder_pico_values_become_null(planner: BuildPlanner) -> None:
-    reply = stored("plan_dumbbell", population="...", outcome="  ", intervention="dumbbell curl")
+    reply = stored(
+        "plan_dumbbell", population="...", condition=" ", outcome="  ", intervention="dumbbell curl"
+    )
     plan = await plan_for(planner, reply)
-    assert (plan.population, plan.outcome, plan.intervention) == (None, None, "dumbbell curl")
+    assert (plan.population, plan.condition, plan.outcome) == (None, None, None)
+    assert plan.intervention == "dumbbell curl"
 
 
 async def test_body_site_is_its_own_concept_in_the_direct_tiers(planner: BuildPlanner) -> None:

@@ -28,7 +28,7 @@ async def run(question: str) -> None:
             plan = await planner.plan(question)
 
             print(f"\nmode: {plan.mode}   source: {plan.source}   outcome: {plan.outcome_class}")
-            print(f"P: {plan.population}\nI: {plan.intervention}")
+            print(f"P: {plan.population}\ncondition: {plan.condition}\nI: {plan.intervention}")
             print(f"C: {plan.comparison}\nO: {plan.outcome}")
             print(f"requested evidence: {plan.requested_evidence or 'none'}")
             print(f"rejected MeSH: {plan.rejected_mesh or 'none'}")

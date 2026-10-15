@@ -94,6 +94,7 @@ def render_request(
     if plan is not None:
         fields = (
             ("population", plan.population),
+            ("condition", plan.condition),
             ("intervention", plan.intervention),
             ("comparison", plan.comparison),
             ("outcome", plan.outcome),

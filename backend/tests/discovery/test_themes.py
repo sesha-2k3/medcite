@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from app.discovery.digest import ThemeGroup, ThemeNames
 from app.discovery.themes import (
+    MAX_NAME_CHARS,
     ThemeContext,
     ThemeDraft,
     apply_names,
@@ -48,6 +49,27 @@ def test_cluster_ids_may_be_numbers() -> None:
 
 def test_names_are_cleaned() -> None:
     assert clean_name('  "GLP-1 drugs\u2011and   muscle."  ') == "GLP-1 drugs-and muscle"
+
+
+def test_long_names_end_at_a_whole_word() -> None:
+    raw = "Continuous glucose monitoring and hypoglycemia awareness in the oldest old, by setting"
+    name = clean_name(raw)
+    assert name == "Continuous glucose monitoring and hypoglycemia awareness in the oldest old"
+    assert len(name) <= MAX_NAME_CHARS
+
+
+def test_a_cut_name_does_not_end_on_a_connective() -> None:
+    raw = "Deintensification of glucose-lowering treatment in nursing home residents with dementia"
+    expected = "Deintensification of glucose-lowering treatment in nursing home residents"
+    assert clean_name(raw) == expected
+
+
+def test_a_word_ending_exactly_at_the_limit_is_kept() -> None:
+    assert clean_name("a" * MAX_NAME_CHARS + " more") == "a" * MAX_NAME_CHARS
+
+
+def test_a_single_overlong_word_is_cut_at_the_limit() -> None:
+    assert clean_name("a" * (MAX_NAME_CHARS + 5)) == "a" * MAX_NAME_CHARS
 
 
 def test_markers_run_across_themes_and_extra_members_are_counted() -> None:

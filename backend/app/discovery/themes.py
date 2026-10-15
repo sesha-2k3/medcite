@@ -34,6 +34,28 @@ NAMING_PROMPT = load_prompt("themes", "v1")
 SUMMARY_PROMPT = load_prompt("digest", "v1")
 TITLES_PER_CLUSTER = 8
 MAX_NAME_CHARS = 80
+# Words a shortened name must not end on.
+_DANGLING = frozenset(
+    [
+        "a",
+        "an",
+        "and",
+        "as",
+        "at",
+        "by",
+        "for",
+        "from",
+        "in",
+        "of",
+        "on",
+        "or",
+        "the",
+        "to",
+        "versus",
+        "vs",
+        "with",
+    ]
+)
 PASSAGE_CHARS = 700
 MAX_FEEDBACK_ITEMS = 8
 
@@ -88,7 +110,15 @@ def apply_names(names: ThemeNames, clusters: Sequence[list[DiscoveryArticle]]) -
 
 def clean_name(raw: str) -> str:
     name = " ".join(normalize_text(raw).split()).strip(" .:;-\"'")
-    return name[:MAX_NAME_CHARS].rstrip()
+    if len(name) <= MAX_NAME_CHARS:
+        return name
+    window = name[: MAX_NAME_CHARS + 1]  # a space just past the limit ends a whole word
+    if " " not in window:
+        return name[:MAX_NAME_CHARS]
+    words = window.rsplit(" ", 1)[0].split(" ")
+    while len(words) > 1 and words[-1].rstrip(",;:-").lower() in _DANGLING:
+        words.pop()
+    return " ".join(words).rstrip(" ,;:-")
 
 
 def fallback_name(index: int) -> str:

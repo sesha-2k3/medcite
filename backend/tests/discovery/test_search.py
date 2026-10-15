@@ -49,7 +49,6 @@ async def test_relevance_search_takes_the_best_matches_from_every_month() -> Non
         query(START, None),
         DateWindow(start=START),
         cap=12,
-        sort="relevance",
         cache_ttl_s=3600,
         today=TODAY,
     )
@@ -64,27 +63,9 @@ async def test_relevance_search_takes_the_best_matches_from_every_month() -> Non
     assert searcher.calls[-1]["term"].endswith(":3000[edat]")  # the window stays open
 
 
-async def test_pub_date_takes_the_newest_in_one_search() -> None:
-    searcher = FakeSearcher({query(START, None): list(range(100))})
-    hits = await find_articles(
-        searcher,
-        query(START, None),
-        DateWindow(start=START),
-        cap=50,
-        sort="pub_date",
-        cache_ttl_s=60,
-        today=TODAY,
-    )
-    assert [(c["sort"], c["retmax"]) for c in searcher.calls] == [("pub_date", 50)]
-    assert hits.pmids == list(range(50))
-    assert hits.slices == []
-
-
 async def test_without_a_window_one_search() -> None:
     searcher = FakeSearcher({TOPIC: [1, 2, 3]})
-    hits = await find_articles(
-        searcher, TOPIC, None, cap=50, sort="relevance", cache_ttl_s=60, today=TODAY
-    )
+    hits = await find_articles(searcher, TOPIC, None, cap=50, cache_ttl_s=60, today=TODAY)
     assert hits.pmids == [1, 2, 3]
     assert len(searcher.calls) == 1
 
@@ -98,7 +79,6 @@ async def test_repeats_across_slices_are_dropped() -> None:
         query(START, date(2026, 6, 13)),
         DateWindow(start=START, end=date(2026, 6, 13)),
         cap=10,
-        sort="relevance",
         cache_ttl_s=60,
     )
     assert hits.pmids == [7, 8]

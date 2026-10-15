@@ -1,26 +1,21 @@
-"""Answer a question from retrieved passages: generate, verify, regenerate once, then warn.
+"""The answer step's interfaces, and the rules the pipeline applies around it.
 
-M7's graph runs ``generate`` and ``verify`` as separate nodes with the same retry rule; this
-service is the same loop for scripts and tests.
+The generate and verify nodes in ``app.graph.nodes`` run the loop: generate, verify, and
+regenerate once with the failed checks as feedback. These helpers are the pieces of that loop
+that do not need a model: the answer when there are no passages, the gap fallback, and
+adding an issue to a verification result.
 """
 
 from __future__ import annotations
 
-import logging
 from collections.abc import Sequence
-from dataclasses import dataclass
 from typing import Protocol
 
-from app.errors import AppError
 from app.generation.answer import Answer, AnswerRating, Issue, VerificationResult, issue
-from app.generation.context import ContextBudget, EvidenceContext, build_context
+from app.generation.context import EvidenceContext
 from app.generation.gap import gap_sentence, requested_evidence_label
 from app.generation.plan import Plan
-from app.generation.verify import user_warnings
 from app.models.llm import UsageMeter
-from app.retrieval.retriever import EvidencePassage
-
-logger = logging.getLogger(__name__)
 
 
 class AnswerGenerator(Protocol):
@@ -49,70 +44,6 @@ class AnswerVerifier(Protocol):
     ) -> VerificationResult: ...
 
 
-@dataclass(frozen=True, slots=True)
-class AnsweredQuestion:
-    answer: Answer
-    verification: VerificationResult
-    context: EvidenceContext
-    warnings: tuple[str, ...]
-
-
-class AnswerService:
-    def __init__(
-        self,
-        generator: AnswerGenerator,
-        verifier: AnswerVerifier,
-        budget: ContextBudget | None = None,
-    ) -> None:
-        self._generator = generator
-        self._verifier = verifier
-        self._budget = budget or ContextBudget()
-
-    async def answer(
-        self,
-        question: str,
-        passages: Sequence[EvidencePassage],
-        *,
-        evidence_gap: bool,
-        plan: Plan | None = None,
-        meter: UsageMeter | None = None,
-    ) -> AnsweredQuestion:
-        """The generator fails closed (its errors propagate on the first attempt); a failed
-        retry returns the first answer with a warning.
-        """
-        context = build_context(passages, self._budget)
-        if not context.items:
-            return AnsweredQuestion(*no_evidence(plan), context, ())
-
-        first = await self._generator.generate(
-            question, context, plan=plan, evidence_gap=evidence_gap, meter=meter
-        )
-        checked = await self._verifier.verify(
-            question, first, context, attempt=1, judge_on_errors=False, meter=meter
-        )
-        if checked.passed:
-            return _done(first, checked, context)
-
-        try:
-            second = await self._generator.generate(
-                question,
-                context,
-                plan=plan,
-                evidence_gap=evidence_gap,
-                feedback=checked.errors,
-                meter=meter,
-            )
-        except AppError as exc:
-            logger.warning("regeneration_failed", extra={"reason": exc.message})
-            note = issue("regeneration_failed", "answer", f"retry failed: {exc.message}")
-            return _done(*with_gap_fallback(first, with_issue(checked, note)), context)
-
-        rechecked = await self._verifier.verify(
-            question, second, context, attempt=2, judge_on_errors=True, meter=meter
-        )
-        return _done(*with_gap_fallback(second, rechecked), context)
-
-
 def with_gap_fallback(
     answer: Answer, result: VerificationResult
 ) -> tuple[Answer, VerificationResult]:
@@ -134,10 +65,6 @@ def with_issue(result: VerificationResult, extra: Issue) -> VerificationResult:
     issues = [*result.issues, extra]
     passed = not any(i.severity == "error" for i in issues)
     return result.model_copy(update={"issues": issues, "passed": passed})
-
-
-def _done(answer: Answer, result: VerificationResult, context: EvidenceContext) -> AnsweredQuestion:
-    return AnsweredQuestion(answer, result, context, tuple(user_warnings(result)))
 
 
 def no_evidence(plan: Plan | None) -> tuple[Answer, VerificationResult]:

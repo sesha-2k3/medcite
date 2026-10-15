@@ -274,11 +274,14 @@ def user_warnings(result: VerificationResult) -> list[str]:
     """Messages for the UI's warning event."""
     messages: list[str] = []
     if not result.passed:
-        messages.append(
-            "Some statements in this answer could not be verified against the cited passages."
-        )
+        messages.append("Some statements could not be verified against the cited passages.")
     if result.judge_status == "failed":
-        messages.append("Automatic fact-checking was unavailable for this answer.")
+        messages.append("Automatic fact-checking was unavailable.")
+    omitted = sum(1 for i in result.issues if i.kind == "theme_omitted")
+    if omitted == 1:
+        messages.append("1 theme could not be written and was left out.")
+    elif omitted:
+        messages.append(f"{omitted} themes could not be written and were left out.")
     return messages
 
 

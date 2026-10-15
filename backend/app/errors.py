@@ -67,11 +67,6 @@ class ServiceUnavailableError(AppError):
     status_code = 503
 
 
-class ReadOnlyError(AppError):
-    code = "read_only"
-    status_code = 503
-
-
 def error_body(code: str, message: str, trace_id: str | None = None) -> dict[str, dict[str, str]]:
     trace = trace_id or request_id_var.get() or ""
     return {"error": {"code": code, "message": message, "trace_id": trace}}

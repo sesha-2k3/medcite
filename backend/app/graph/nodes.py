@@ -71,11 +71,11 @@ class Nodes:
         return {"candidates": candidates, "new_pmids": new, "tier_index": index + 1}
 
     async def ingest_abstracts(self, state: PipelineState) -> Update:
-        new = state.get("new_pmids", [])
-        noun = "article" if len(new) == 1 else "articles"
-        emit_step("ingest_abstracts", "Reading new abstracts", f"{len(new)} new {noun}")
-        if new:
-            await self._s.ingester.ingest(new, meter=state.get("meter"))
+        pmids = state.get("new_pmids", [])
+        noun = "article" if len(pmids) == 1 else "articles"
+        emit_step("ingest_abstracts", "Reading abstracts", f"{len(pmids)} {noun}")
+        if pmids:
+            await self._s.ingester.ingest(pmids, meter=state.get("meter"))
         return {"new_pmids": []}
 
     async def rank(self, state: PipelineState) -> Update:

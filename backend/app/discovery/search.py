@@ -1,9 +1,9 @@
 """Find the articles a digest is built from.
 
-With ``relevance`` (the default) the window is cut into roughly monthly slices and each slice
-contributes its share of PubMed's best matches, so a six-month digest covers six months rather
-than the last few days. Each slice is its own search, which also keeps every search within
-PubMed's 10,000-result limit. ``pub_date`` takes the newest articles in one search.
+The window is cut into roughly monthly slices and each slice contributes its share of
+PubMed's best matches, so a six-month digest covers six months rather than the last few days.
+Each slice is its own search, which also keeps every search within PubMed's 10,000-result
+limit.
 """
 
 from __future__ import annotations
@@ -13,7 +13,6 @@ from dataclasses import dataclass
 from datetime import date, timedelta
 from typing import Protocol
 
-from app.config import DiscoverySort
 from app.generation.plan import DateWindow
 from app.generation.pubmed_query import date_filter
 from app.sources.pubmed import SearchResult, Sort
@@ -76,13 +75,12 @@ async def find_articles(
     window: DateWindow | None,
     *,
     cap: int,
-    sort: DiscoverySort,
     cache_ttl_s: int,
     today: date | None = None,
 ) -> DiscoveryHits:
     clause = date_filter(window.start, window.end, DATE_FIELD) if window else None
-    if window is None or clause is None or sort == "pub_date" or clause not in query:
-        result = await searcher.esearch(query, retmax=cap, sort=sort, cache_ttl_s=cache_ttl_s)
+    if window is None or clause is None or clause not in query:
+        result = await searcher.esearch(query, retmax=cap, cache_ttl_s=cache_ttl_s)
         return DiscoveryHits(pmids=list(result.pmids), total=result.count, slices=[])
 
     pieces = slice_window(window.start, window.end or today or date.today())

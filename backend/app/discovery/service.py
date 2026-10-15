@@ -10,7 +10,7 @@ from typing import Protocol
 
 import numpy as np
 
-from app.config import DiscoverySort, Settings
+from app.config import Settings
 from app.db.queries.discovery import DiscoveryArticle
 from app.discovery.clusters import cluster_vectors
 from app.discovery.digest import Digest, Theme, ThemeArticle
@@ -55,7 +55,6 @@ class ArticleSource(Protocol):
 @dataclass(frozen=True, slots=True)
 class DiscoveryConfig:
     max_articles: int = 50
-    sort: DiscoverySort = "relevance"
     cache_ttl_s: int = 3600
     max_themes: int = 8
     articles_per_theme: int = 6
@@ -66,7 +65,6 @@ class DiscoveryConfig:
 def discovery_config(settings: Settings) -> DiscoveryConfig:
     return DiscoveryConfig(
         max_articles=settings.discovery_max_articles,
-        sort=settings.discovery_sort,
         cache_ttl_s=settings.ncbi_discovery_cache_ttl_s,
         max_themes=settings.discovery_max_themes,
         articles_per_theme=settings.discovery_articles_per_theme,
@@ -104,7 +102,6 @@ class DiscoveryService:
             plan.tiers[0].pubmed_query,
             plan.date_range,
             cap=self.config.max_articles,
-            sort=self.config.sort,
             cache_ttl_s=self.config.cache_ttl_s,
             today=today,
         )

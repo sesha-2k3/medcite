@@ -5,6 +5,7 @@ retriever that returns prepared passages.
 from __future__ import annotations
 
 from collections.abc import Callable, Mapping, Sequence
+from dataclasses import replace
 from datetime import date
 from typing import Any
 
@@ -21,8 +22,16 @@ from app.models.llm import LLMClient, UsageMeter
 from app.retrieval.retriever import EvidencePassage
 from app.services import PipelineConfig, Resources, Services
 from app.sources.pubmed import SearchResult, Sort
-from tests.generation.builders import QUESTION
+from tests.generation.builders import QUESTION, creatine_passages
 from tests.llm_fakes import Reply, ScriptedProvider
+
+PRIMARY = [90_000_001, 90_000_002]  # the trial and the cohort: no synthesis in tier 1
+ALL = [*PRIMARY, 90_000_003]
+
+
+def found_by_search(candidates: Mapping[int, int]) -> list[EvidencePassage]:
+    """The creatine passages, tagged with the tier that found each article."""
+    return [replace(p, tier=candidates.get(p.scored.chunk.pmid)) for p in creatine_passages()]
 
 
 def question_plan(**changes: Any) -> Plan:

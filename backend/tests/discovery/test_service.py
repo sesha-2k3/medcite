@@ -7,7 +7,7 @@ import pytest
 from app.config import Settings
 from app.discovery.service import DiscoveryConfig, DiscoveryService
 from app.errors import RateLimitedError
-from app.generation.verify import Judge
+from app.generation.verify import Judge, user_warnings
 from app.models.llm import LLMClient
 from tests.discovery.builders import GLUCOSE, MUSCLE, TOPIC, FakeArticleSource, all_articles
 from tests.generation.builders import stored
@@ -81,6 +81,7 @@ async def test_a_theme_that_cannot_be_written_is_left_out(service: Build) -> Non
     ]
     assert [i.kind for i in result.warnings] == ["theme_omitted"]
     assert result.passed
+    assert user_warnings(result) == ["1 theme could not be written and was left out."]
 
 
 async def test_naming_failure_falls_back_to_plain_names(service: Build) -> None:

@@ -2,10 +2,11 @@ from __future__ import annotations
 
 import asyncio
 import uuid
-from collections.abc import Callable, Mapping, Sequence
+from collections.abc import Callable, Sequence
 from contextlib import nullcontext
 from dataclasses import replace
 from datetime import date
+from typing import Any
 
 import pytest
 
@@ -23,23 +24,19 @@ from app.tracing import NoopTrace
 from tests.discovery.builders import GLUCOSE, MUSCLE, all_articles
 from tests.generation.builders import creatine_passages, stored
 from tests.graph.fakes import (
+    ALL,
+    PRIMARY,
     FakeIngester,
     FakeRecorder,
     FakeRetriever,
     FakeSearcher,
     fake_services,
+    found_by_search,
     question_plan,
 )
-from tests.llm_fakes import Reply
+from tests.llm_fakes import Reply, ScriptedProvider
 
-PRIMARY = [90_000_001, 90_000_002]  # the trial and the cohort: no synthesis in tier 1
-ALL = [*PRIMARY, 90_000_003]
 GAP_JUDGE = stored("judge_supported", gap_statement_ok=True)
-
-
-def found_by_search(candidates: Mapping[int, int]) -> list[EvidencePassage]:
-    """The creatine passages, tagged with the tier that found each article."""
-    return [replace(p, tier=candidates.get(p.scored.chunk.pmid)) for p in creatine_passages()]
 
 
 async def collect(pipeline: Pipeline) -> list[Event]:
@@ -394,3 +391,121 @@ def test_token_chunks_rejoin_exactly() -> None:
     chunks = token_chunks(text, size=12)
     assert "".join(chunks) == text
     assert all(len(c) <= 12 for c in chunks)
+
+
+GAP_SENTENCE = "No systematic review or meta-analysis addressing this question was found in PubMed."
+type Answered = tuple[list[Event], dict[str, Any], dict[str, Any], ScriptedProvider]
+
+
+async def answered(build: Build, replies: list[Reply], *, gap: bool = False) -> Answered:
+    """Run one question to the end; return its events, the logged answer and verification,
+    and the scripted provider. With ``gap``, tier 1 finds no synthesis.
+    """
+    recorder = FakeRecorder()
+    pipeline, provider = build(
+        replies,
+        searcher=FakeSearcher({"q1": PRIMARY if gap else ALL}),
+        retriever=FakeRetriever(found_by_search),
+        config=PipelineConfig(enough_relevant_passages=3 if gap else 1),
+        recorder=recorder,
+    )
+    events = await collect(pipeline)
+    [entry] = recorder.entries
+    assert entry.answer is not None
+    assert entry.verification is not None
+    assert isinstance(provider, ScriptedProvider)
+    return events, entry.answer, entry.verification, provider
+
+
+def kinds(verification: dict[str, Any], severity: str | None = None) -> list[str]:
+    return [i["kind"] for i in verification["issues"] if severity in (None, i["severity"])]
+
+
+def warnings(events: list[Event]) -> list[str]:
+    return [e.data["message"] for e in events if e.name == "warning"]
+
+
+async def test_conflicting_evidence_answer_reports_both_directions(build: Build) -> None:
+    events, answer, verification, provider = await answered(
+        build, [stored("generate_conflict"), stored("judge_supported")]
+    )
+    assert verification["passed"] is True
+    assert verification["attempts"] == 1
+    assert "increased by 2.1 kg" in answer["synthesis"]
+    assert "no association" in answer["synthesis"]
+    assert {"C1", "C3"} <= {c["marker"] for c in answer["citations"]}
+    assert warnings(events) == []
+    assert len(provider.prompts) == 2
+    assert provider.systems[0].startswith("You write evidence summaries")
+    assert provider.systems[1].startswith("You check an evidence summary")
+
+
+async def test_omitted_conflict_triggers_one_regeneration(build: Build) -> None:
+    one_sided = "A small randomized trial found that grip strength increased by 2.1 kg [C1]."
+    _, answer, verification, provider = await answered(
+        build,
+        [
+            stored("generate_conflict", synthesis=one_sided),
+            stored("judge_supported", conflict_omitted=True, conflict_note="C1 vs C3"),
+            stored("generate_conflict"),
+            stored("judge_supported"),
+        ],
+    )
+    assert verification["passed"] is True
+    assert verification["attempts"] == 2
+    assert "YOUR PREVIOUS ATTEMPT FAILED THESE CHECKS" in provider.prompts[2]
+    assert "C1 vs C3" in provider.prompts[2]
+    assert "no association" in answer["synthesis"]
+
+
+async def test_deterministic_failure_skips_the_first_judge_call(build: Build) -> None:
+    _, _, verification, provider = await answered(
+        build,
+        [
+            stored("generate_conflict", synthesis="Grip strength rose by 2.1 kg [C9]."),
+            stored("generate_conflict"),
+            stored("judge_supported"),
+        ],
+    )
+    assert verification["passed"] is True
+    assert verification["attempts"] == 2
+    assert len(provider.prompts) == 3
+    assert "cites C9" in provider.prompts[1]
+
+
+async def test_persistent_failure_returns_with_a_warning(build: Build) -> None:
+    bad = stored("generate_conflict", synthesis="Grip strength rose by 9.9 kg [C1].")
+    events, _, verification, _ = await answered(build, [bad, bad, stored("judge_supported")])
+    assert verification["passed"] is False
+    assert kinds(verification, "error") == ["number_not_in_source"]
+    assert warnings(events) == ["Some statements could not be verified against the cited passages."]
+
+
+async def test_gap_prompts_tell_the_generator_and_judge(build: Build) -> None:
+    _, answer, verification, provider = await answered(
+        build, [stored("generate_gap"), GAP_JUDGE], gap=True
+    )
+    assert verification["passed"] is True
+    assert answer["direct_answer"].startswith("No systematic review or meta-analysis")
+    assert "EVIDENCE GAP: yes" in provider.prompts[0]
+    assert "EVIDENCE GAP: yes" in provider.prompts[1]
+
+
+async def test_code_states_the_gap_when_the_model_never_does(build: Build) -> None:
+    silent = stored("generate_gap", direct_answer="Creatine may help grip strength [C1].")
+    events, answer, verification, _ = await answered(
+        build, [silent, silent, stored("judge_supported", gap_statement_ok=False)], gap=True
+    )
+    assert answer["direct_answer"].startswith(GAP_SENTENCE)
+    text = "".join(e.data["text"] for e in events if e.name == "token")
+    assert text.startswith(GAP_SENTENCE)
+    assert verification["passed"] is True
+    assert kinds(verification, "warning") == ["gap_statement_inserted"]
+
+
+async def test_failed_regeneration_keeps_the_first_answer(build: Build) -> None:
+    first = stored("generate_conflict", synthesis="Grip strength rose by 2.1 kg [C9].")
+    _, answer, verification, _ = await answered(build, [first, RateLimitedError("slow down")])
+    assert answer["synthesis"] == "Grip strength rose by 2.1 kg [C9]."
+    assert kinds(verification) == ["unknown_citation", "regeneration_failed"]
+    assert verification["passed"] is False

@@ -85,9 +85,9 @@ plan: ## Plan a question and count matches per tier: make plan q="your question"
 	@test -n "$$q" || (echo 'usage: make plan q="your question"' && exit 1)
 	$(PY) python -m scripts.plan_question "$$q"
 
-answer: ## Plan, search, ingest, retrieve, generate and verify: make answer q="..." [n=20]
+answer: ## Run the pipeline in the terminal: make answer q="..." [n=20] [months=6]
 	@test -n "$$q" || (echo 'usage: make answer q="your question"' && exit 1)
-	$(OFFLINE) python -m scripts.answer_question "$$q" --per-tier $(or $(n),20)
+	$(OFFLINE) python -m scripts.answer_question "$$q" $(if $(n),--per-tier $(n)) $(if $(months),--months $(months))
 
 dev-key: ## Print a new AUTH_DEV_SIGNING_KEY for backend/.env
 	$(PY) python -m app.auth.dev_token --new-key
@@ -152,6 +152,3 @@ image-multiarch: ## Build the API image for amd64 and arm64
 clean: ## Remove caches and build output (keeps models and node_modules)
 	find $(BACKEND) -type d \( -name __pycache__ -o -name .pytest_cache -o -name .mypy_cache -o -name .ruff_cache \) -prune -exec rm -rf {} +
 	rm -rf $(FRONTEND)/dist
-
-cluster-diag: ## Raw vs centered MedCPT distances for a discovery run: make cluster-diag [id=N]
-	$(PY) python -m scripts.cluster_diagnostics $(if $(id),--query-id $(id))

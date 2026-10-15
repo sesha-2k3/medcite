@@ -227,7 +227,7 @@ async def test_judge_fails_open(
     assert result.passed
     assert result.judge_status == "failed"
     assert kinds(result.warnings) == ["judge_unavailable"]
-    assert user_warnings(result) == ["Automatic fact-checking was unavailable for this answer."]
+    assert user_warnings(result) == ["Automatic fact-checking was unavailable."]
 
 
 async def test_judge_can_be_skipped_after_deterministic_errors(

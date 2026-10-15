@@ -15,7 +15,6 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 AppEnv = Literal["development", "staging", "production"]
 AuthMode = Literal["dev", "jwks"]
-DiscoverySort = Literal["relevance", "pub_date"]
 LLMProviderName = Literal["groq", "openai_compatible"]
 ReasoningEffort = Literal["none", "low", "medium", "high"]
 
@@ -34,7 +33,6 @@ class Settings(BaseSettings):
     app_name: str = "MedCite"
     app_env: AppEnv = "development"
     log_level: str = "INFO"
-    read_only: bool = False
     cors_origins: str = "http://localhost:5173"  # comma-separated
 
     database_url: str = "postgresql+asyncpg://postgres:dev@localhost:5432/medcite"
@@ -111,9 +109,6 @@ class Settings(BaseSettings):
 
     user_daily_cost_cap_usd: Decimal = Decimal("2.00")
     discovery_max_articles: int = Field(default=200, ge=1)
-    # relevance: monthly slices of the window, PubMed's best matches from each, so a digest
-    # covers the whole window; pub_date: the newest articles only.
-    discovery_sort: DiscoverySort = "relevance"
     discovery_max_themes: int = Field(default=8, ge=1)
     discovery_articles_per_theme: int = Field(default=6, ge=2)
     discovery_summary_max_tokens: int = Field(default=3000, ge=256)

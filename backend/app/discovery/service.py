@@ -59,7 +59,7 @@ class DiscoveryConfig:
     cache_ttl_s: int = 3600
     max_themes: int = 8
     articles_per_theme: int = 6
-    summary_max_tokens: int = 1500
+    summary_max_tokens: int = 3000
     naming_max_tokens: int = 1000
 
 
@@ -157,6 +157,9 @@ class DiscoveryService:
             try:
                 summary, problems = await self._write(topic, context, meter)
             except AppError as exc:
+                logger.warning(
+                    "theme_omitted", extra={"theme": context.name, "reason": exc.message}
+                )
                 last_error = exc
                 issues.append(
                     issue("theme_omitted", f"theme {context.name}", f"not written: {exc.message}")

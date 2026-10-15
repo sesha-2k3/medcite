@@ -116,7 +116,7 @@ class Settings(BaseSettings):
     discovery_sort: DiscoverySort = "relevance"
     discovery_max_themes: int = Field(default=8, ge=1)
     discovery_articles_per_theme: int = Field(default=6, ge=2)
-    discovery_summary_max_tokens: int = Field(default=1500, ge=256)
+    discovery_summary_max_tokens: int = Field(default=3000, ge=256)
 
     langfuse_public_key: str | None = None
     langfuse_secret_key: SecretStr | None = None

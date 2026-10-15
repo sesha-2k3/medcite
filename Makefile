@@ -152,3 +152,6 @@ image-multiarch: ## Build the API image for amd64 and arm64
 clean: ## Remove caches and build output (keeps models and node_modules)
 	find $(BACKEND) -type d \( -name __pycache__ -o -name .pytest_cache -o -name .mypy_cache -o -name .ruff_cache \) -prune -exec rm -rf {} +
 	rm -rf $(FRONTEND)/dist
+
+cluster-diag: ## Raw vs centered MedCPT distances for a discovery run: make cluster-diag [id=N]
+	$(PY) python -m scripts.cluster_diagnostics $(if $(id),--query-id $(id))

@@ -24,22 +24,37 @@ def test_syntheses_are_requested_together() -> None:
 
 
 def test_gap_when_no_tier_one_article_has_the_requested_design() -> None:
-    assert detect_evidence_gap(creatine_passages(), []) is True
+    assert detect_evidence_gap(creatine_passages(), [], min_relevance=0.0) is True
 
 
 def test_no_gap_when_a_tier_one_synthesis_is_kept() -> None:
     review = passage(41, 4, "Pooled results.", design="meta_analysis", tier=1)
-    assert detect_evidence_gap([*creatine_passages(), review], ["systematic_review"]) is False
+    assert (
+        detect_evidence_gap(
+            [*creatine_passages(), review], ["systematic_review"], min_relevance=0.0
+        )
+        is False
+    )
 
 
 def test_a_synthesis_outside_tier_one_does_not_close_the_gap() -> None:
     review = passage(41, 4, "Pooled results.", design="meta_analysis", tier=3)
-    assert detect_evidence_gap([review], ["meta_analysis"]) is True
+    assert detect_evidence_gap([review], ["meta_analysis"], min_relevance=0.0) is True
+
+
+def test_an_off_topic_tier_one_synthesis_leaves_the_gap_open() -> None:
+    review = passage(41, 4, "Unrelated review.", design="meta_analysis", tier=1, relevance=-3.0)
+    assert detect_evidence_gap([review], ["meta_analysis"], min_relevance=0.0) is True
+
+
+def test_a_synthesis_exactly_at_the_threshold_does_not_count() -> None:
+    review = passage(41, 4, "Borderline.", design="meta_analysis", tier=1, relevance=0.0)
+    assert detect_evidence_gap([review], ["meta_analysis"], min_relevance=0.0) is True
 
 
 def test_requested_primary_design_in_tier_one_closes_the_gap() -> None:
     trial = passage(41, 4, "Results.", design="rct", tier=1)
-    assert detect_evidence_gap([trial], ["rct"]) is False
+    assert detect_evidence_gap([trial], ["rct"], min_relevance=0.0) is False
 
 
 @pytest.mark.parametrize(

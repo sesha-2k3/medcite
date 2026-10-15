@@ -111,7 +111,11 @@ class Nodes:
         if previous is None:
             emit_step("generate", "Writing the answer")
             context = build_context(passages, self._s.config.budget)
-            gap = detect_evidence_gap(passages, plan.requested_evidence)
+            gap = detect_evidence_gap(
+                passages,
+                plan.requested_evidence,
+                min_relevance=self._s.config.relevance_threshold,
+            )
             if gap:
                 label = requested_evidence_label(plan.requested_evidence)
                 emit("gap", {"requested_evidence": label})

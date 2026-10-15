@@ -1,8 +1,10 @@
 """The evidence gap: whether the requested kind of evidence was found, and how to say so.
 
-A gap exists when no retrieved passage comes from a tier-1 article whose design matches the
-requested type. Meta-analyses and systematic reviews satisfy each other; with no request, the
-best evidence (syntheses and guidelines) is what was searched for.
+A gap exists when no relevant retrieved passage comes from a tier-1 article whose design matches
+the requested type. Relevance is the cross-encoder's: diversity can keep an off-topic tier-1
+review, and that review must not close the gap. Meta-analyses and systematic reviews satisfy
+each other; with no request, the best evidence (syntheses and guidelines) is what was searched
+for.
 """
 
 from __future__ import annotations
@@ -57,10 +59,17 @@ def requested_evidence_label(requested: Sequence[EvidenceType]) -> str:
 
 
 def detect_evidence_gap(
-    passages: Sequence[EvidencePassage], requested: Sequence[EvidenceType]
+    passages: Sequence[EvidencePassage],
+    requested: Sequence[EvidenceType],
+    *,
+    min_relevance: float,
 ) -> bool:
+    """True unless a tier-1 passage of the requested design scores above ``min_relevance``."""
     kinds = set(expanded_requested(requested))
-    return not any(p.tier == 1 and p.grade.design in kinds for p in passages)
+    return not any(
+        p.tier == 1 and p.grade.design in kinds and p.scored.relevance > min_relevance
+        for p in passages
+    )
 
 
 def states_gap(sentence: str, requested: Sequence[EvidenceType]) -> bool:

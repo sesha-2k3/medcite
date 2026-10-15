@@ -92,7 +92,7 @@ def create_app(
         allow_credentials=False,  # bearer tokens, not cookies
         allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
         allow_headers=["Authorization", "Content-Type", REQUEST_ID_HEADER],
-        expose_headers=[REQUEST_ID_HEADER],
+        expose_headers=[REQUEST_ID_HEADER, "Retry-After"],  # the 429 reset time
     )
     install_error_handlers(app)
     app.include_router(health.router)

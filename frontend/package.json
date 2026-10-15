@@ -18,17 +18,25 @@
     "gen:api": "openapi-typescript ${VITE_API_BASE_URL:-http://localhost:8000}/openapi.json -o src/api/schema.d.ts"
   },
   "dependencies": {
+    "@microsoft/fetch-event-source": "^2.0.1",
     "@radix-ui/react-slot": "^1.2.0",
+    "@tanstack/react-query": "^5.104.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.525.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "tailwind-merge": "^3.3.0"
+    "react-markdown": "^10.1.0",
+    "react-router": "^8.4.0",
+    "tailwind-merge": "^3.3.0",
+    "zustand": "^5.0.15"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.0",
     "@tailwindcss/vite": "^4.1.0",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
     "@types/node": "^22.15.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
@@ -37,6 +45,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.0.0",
+    "jsdom": "^29.1.1",
     "openapi-typescript": "^7.8.0",
     "prettier": "^3.6.0",
     "prettier-plugin-tailwindcss": "^0.6.0",

@@ -12,5 +12,9 @@ export default defineConfig({
   server: { port: 5173, strictPort: true },
   test: {
     include: ["tests/**/*.test.ts", "tests/**/*.test.tsx"],
+    environment: "jsdom",
+    setupFiles: ["tests/setup.ts"],
+    // Hermetic: tests never depend on the developer's frontend/.env.
+    env: { VITE_API_BASE_URL: "http://api.test", VITE_AUTH_PROVIDER: "dev", VITE_DEV_TOKEN: "" },
   },
 });

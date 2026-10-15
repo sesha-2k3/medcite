@@ -8,6 +8,8 @@ export type AuthProvider = "dev" | "supabase";
 export interface AppConfig {
   apiBaseUrl: string;
   authProvider: AuthProvider;
+  /** A `make dev-token` token to start signed in with; honored only by the dev provider. */
+  devToken: string | null;
   sentryDsn: string | null;
 }
 
@@ -16,6 +18,7 @@ const AUTH_PROVIDERS: readonly AuthProvider[] = ["dev", "supabase"];
 export interface EnvSource {
   readonly VITE_API_BASE_URL?: string;
   readonly VITE_AUTH_PROVIDER?: string;
+  readonly VITE_DEV_TOKEN?: string;
   readonly VITE_SENTRY_DSN?: string;
 }
 
@@ -31,6 +34,7 @@ export function readConfig(env: EnvSource): AppConfig {
   return {
     apiBaseUrl: apiBaseUrl.replace(/\/+$/, ""),
     authProvider: provider,
+    devToken: provider === "dev" ? env.VITE_DEV_TOKEN?.trim() || null : null,
     sentryDsn: env.VITE_SENTRY_DSN?.trim() || null,
   };
 }

@@ -11,6 +11,7 @@ describe("readConfig", () => {
     expect(cfg).toEqual({
       apiBaseUrl: "http://localhost:8000",
       authProvider: "dev",
+      devToken: null,
       sentryDsn: null,
     });
   });
@@ -27,5 +28,11 @@ describe("readConfig", () => {
     expect(() => readConfig({ VITE_API_BASE_URL: "x", VITE_AUTH_PROVIDER: "okta" })).toThrow(
       /VITE_AUTH_PROVIDER/,
     );
+  });
+
+  it("honors a dev token only with the dev provider", () => {
+    const env = { VITE_API_BASE_URL: "x", VITE_DEV_TOKEN: " a.b.c " };
+    expect(readConfig(env).devToken).toBe("a.b.c");
+    expect(readConfig({ ...env, VITE_AUTH_PROVIDER: "supabase" }).devToken).toBeNull();
   });
 });

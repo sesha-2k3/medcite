@@ -170,10 +170,11 @@ class Judge:
         claims: Sequence[Claim],
         meter: UsageMeter | None = None,
     ) -> JudgeVerdict:
-        messages = [
-            ChatMessage("system", JUDGE_PROMPT.text),
-            ChatMessage("user", render_judge_request(question, answer, context, claims)),
-        ]
+        return await self.assess(render_judge_request(question, answer, context, claims), meter)
+
+    async def assess(self, request: str, meter: UsageMeter | None = None) -> JudgeVerdict:
+        """Judge an already rendered request (claims and passages), e.g. a digest's."""
+        messages = [ChatMessage("system", JUDGE_PROMPT.text), ChatMessage("user", request)]
         return await self._llm.complete_json(
             LLMRole.JUDGE, messages, JudgeVerdict, max_tokens=self._max_tokens, meter=meter
         )

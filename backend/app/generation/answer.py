@@ -143,6 +143,7 @@ IssueKind = Literal[
     "judge_unavailable",
     "gap_statement_inserted",
     "regeneration_failed",
+    "theme_omitted",
 ]
 _ERRORS: tuple[IssueKind, ...] = (
     "unknown_citation",

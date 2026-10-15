@@ -24,19 +24,13 @@ from app.config import get_settings
 from app.db.models import QueryLog
 from app.db.queries.discovery import DiscoveryArticle, DiscoveryArticles
 from app.db.session import create_engine, create_session_factory
-from app.discovery.clusters import cluster_vectors
+from app.discovery.clusters import MIN_THEME_SIZE, center, cluster_vectors, target_groups
 from app.observability import configure_logging
 
 Vectors = npt.NDArray[np.float32]
 PERCENTILES = (5, 10, 25, 50, 75, 90)
 SWEEP = (0.35, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1)
-
-
-def center(vectors: Vectors) -> Vectors:
-    """Subtract the batch mean, then rescale rows to unit length."""
-    shifted = vectors - vectors.mean(axis=0)
-    norms = np.linalg.norm(shifted, axis=1, keepdims=True)
-    return (shifted / np.where(norms == 0, 1.0, norms)).astype(np.float32)
+OLD_CUT = 0.35  # the distance threshold used before centering
 
 
 def distance_matrix(vectors: Vectors) -> npt.NDArray[np.float64]:
@@ -54,11 +48,6 @@ def nearest_neighbour(matrix: npt.NDArray[np.float64]) -> npt.NDArray[np.float64
     return masked.min(axis=1)
 
 
-def target_groups(count: int, per_theme: int, max_themes: int) -> int:
-    """About one group per ``per_theme`` articles, at least 2, at most ``max_themes``."""
-    return max(2, min(max_themes, round(count / per_theme)))
-
-
 def cut_into(vectors: Vectors, groups: int) -> list[list[int]]:
     """Average-linkage cosine tree cut into ``groups`` clusters, largest first."""
     labels = AgglomerativeClustering(
@@ -68,6 +57,18 @@ def cut_into(vectors: Vectors, groups: int) -> list[list[int]]:
     for index, label in enumerate(labels):
         members.setdefault(int(label), []).append(index)
     return sorted(members.values(), key=lambda m: (-len(m), min(m)))
+
+
+def threshold_cut(vectors: Vectors, distance: float) -> list[list[int]]:
+    """The pre-centering method: cut the tree at ``distance``, groups of at least 2."""
+    labels = AgglomerativeClustering(
+        n_clusters=None, distance_threshold=distance, metric="cosine", linkage="average"
+    ).fit_predict(vectors)
+    members: dict[int, list[int]] = {}
+    for index, label in enumerate(labels):
+        members.setdefault(int(label), []).append(index)
+    kept = [m for m in members.values() if len(m) >= MIN_THEME_SIZE]
+    return sorted(kept, key=lambda m: (-len(m), min(m)))
 
 
 def stats_row(label: str, values: npt.NDArray[np.float64], threshold: float) -> str:
@@ -112,11 +113,7 @@ async def one_run(sessions: async_sessionmaker[AsyncSession], query_id: int) -> 
 
 
 def report(
-    run: QueryLog,
-    articles: list[DiscoveryArticle],
-    threshold: float,
-    per_theme: int,
-    max_themes: int,
+    run: QueryLog, articles: list[DiscoveryArticle], per_theme: int, max_themes: int
 ) -> None:
     pmids = run.candidate_pmids or []
     raw = np.stack([a.vector for a in articles])
@@ -130,29 +127,31 @@ def report(
     print(f"norm of the mean vector: {shared:.3f} (0 = no shared direction, 1 = all identical)\n")
 
     header = " ".join(f"{h:>5}" for h in ["min", *(f"p{p}" for p in PERCENTILES), "max"])
-    print(f"{'cosine distance':<22}{header} {'<' + str(threshold):>6}")
-    print(stats_row("all pairs, raw", raw_d, threshold))
-    print(stats_row("all pairs, centered", cen_d, threshold))
-    print(stats_row("nearest nbr, raw", nearest_neighbour(raw_m), threshold))
-    print(stats_row("nearest nbr, centered", nearest_neighbour(cen_m), threshold))
+    print(f"{'cosine distance':<22}{header} {'<' + str(OLD_CUT):>6}")
+    print(stats_row("all pairs, raw", raw_d, OLD_CUT))
+    print(stats_row("all pairs, centered", cen_d, OLD_CUT))
+    print(stats_row("nearest nbr, raw", nearest_neighbour(raw_m), OLD_CUT))
+    print(stats_row("nearest nbr, centered", nearest_neighbour(cen_m), OLD_CUT))
 
     print(f"\n  {'bin':<9}  {'raw':<30}   centered")
     print("\n".join(histogram(raw_d, cen_d)))
 
-    print("\nthreshold cut (current method, groups of >= 2, uncapped)")
+    print("\nthreshold cut (old method, groups of >= 2, uncapped)")
     print(f"  {'cut':>4}  {'raw sizes':<36} centered sizes")
     for cut in SWEEP:
-        a = cluster_vectors(raw, distance=cut, max_clusters=len(raw))
-        b = cluster_vectors(centered, distance=cut, max_clusters=len(raw))
+        a, b = threshold_cut(raw, cut), threshold_cut(centered, cut)
         print(f"  {cut:4.2f}  {sizes(a):<36} {sizes(b)}")
 
-    groups = target_groups(len(articles), per_theme, max_themes)
-    raw_k, cen_k = cut_into(raw, groups), cut_into(centered, groups)
+    groups = target_groups(
+        len(articles), per_theme=per_theme, max_groups=max_themes, min_size=MIN_THEME_SIZE
+    )
+    raw_k = cut_into(raw, groups) if groups > 1 else [list(range(len(raw)))]
+    themes = cluster_vectors(raw, per_theme=per_theme, max_clusters=max_themes)
     rule = f"about one per {per_theme} articles, max {max_themes}"
     print(f"\ntarget cut into {groups} groups ({rule})")
-    print(f"  raw      {sizes(raw_k)}")
-    print(f"  centered {sizes(cen_k)}")
-    for label, clusters in (("raw", raw_k), ("centered", cen_k)):
+    print(f"  raw             {sizes(raw_k)}")
+    print(f"  current method  {sizes(themes)}  (centered; singletons dropped)")
+    for label, clusters in (("raw", raw_k), ("current method", themes)):
         print(f"\n{label}: first titles per group")
         for number, members in enumerate(clusters, start=1):
             print(f"  group {number} ({len(members)})")
@@ -188,7 +187,6 @@ async def run(query_id: int | None, list_only: bool) -> None:
         report(
             found,
             articles,
-            settings.discovery_cluster_distance,
             settings.discovery_articles_per_theme,
             settings.discovery_max_themes,
         )

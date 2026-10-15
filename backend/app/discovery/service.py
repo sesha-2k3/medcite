@@ -57,7 +57,6 @@ class DiscoveryConfig:
     max_articles: int = 50
     sort: DiscoverySort = "relevance"
     cache_ttl_s: int = 3600
-    cluster_distance: float = 0.35
     max_themes: int = 8
     articles_per_theme: int = 6
     summary_max_tokens: int = 1500
@@ -69,7 +68,6 @@ def discovery_config(settings: Settings) -> DiscoveryConfig:
         max_articles=settings.discovery_max_articles,
         sort=settings.discovery_sort,
         cache_ttl_s=settings.ncbi_discovery_cache_ttl_s,
-        cluster_distance=settings.discovery_cluster_distance,
         max_themes=settings.discovery_max_themes,
         articles_per_theme=settings.discovery_articles_per_theme,
         summary_max_tokens=settings.discovery_summary_max_tokens,
@@ -119,7 +117,7 @@ class DiscoveryService:
             return Grouping(drafts=[], considered=0, named=True)
         indices = cluster_vectors(
             np.stack([a.vector for a in articles]),
-            distance=self.config.cluster_distance,
+            per_theme=self.config.articles_per_theme,
             max_clusters=self.config.max_themes,
         )
         clusters = [[articles[i] for i in members] for members in indices]

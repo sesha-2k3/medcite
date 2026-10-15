@@ -6,6 +6,7 @@ from collections.abc import Sequence
 from datetime import date
 
 import numpy as np
+import numpy.typing as npt
 
 from app.db.models import EMBEDDING_DIM
 from app.db.queries.chunks import ChunkView
@@ -73,6 +74,22 @@ VECTORS = {
     90_000_305: unit((1, 1.0), (3, 0.1)),
     90_000_306: unit((1, 1.0), (3, -0.1)),
 }
+
+
+def shared_direction_batch(
+    topics: int = 4, per_topic: int = 6, seed: int = 0
+) -> npt.NDArray[np.float32]:
+    """Topics on top of one dominant shared direction, as with real MedCPT abstracts."""
+    rng = np.random.default_rng(seed)
+    shared = rng.normal(size=EMBEDDING_DIM)
+    directions = [rng.normal(size=EMBEDDING_DIM) for _ in range(topics)]
+    rows = []
+    for index in range(topics * per_topic):
+        topic = directions[index % topics]
+        row = 3.0 * shared / np.linalg.norm(shared) + 0.6 * topic / np.linalg.norm(topic)
+        row = row + rng.normal(0, 0.03, EMBEDDING_DIM)
+        rows.append(row / np.linalg.norm(row))
+    return np.stack(rows).astype(np.float32)
 
 
 def article(pmid: int, *, vector: np.ndarray | None = None) -> DiscoveryArticle:

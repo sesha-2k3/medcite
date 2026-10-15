@@ -114,7 +114,6 @@ class Settings(BaseSettings):
     # relevance: monthly slices of the window, PubMed's best matches from each, so a digest
     # covers the whole window; pub_date: the newest articles only.
     discovery_sort: DiscoverySort = "relevance"
-    discovery_cluster_distance: float = Field(default=0.35, gt=0, lt=2)
     discovery_max_themes: int = Field(default=8, ge=1)
     discovery_articles_per_theme: int = Field(default=6, ge=2)
     discovery_summary_max_tokens: int = Field(default=1500, ge=256)

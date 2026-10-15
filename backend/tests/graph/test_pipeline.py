@@ -5,11 +5,13 @@ import uuid
 from collections.abc import Callable, Mapping, Sequence
 from contextlib import nullcontext
 from dataclasses import replace
+from datetime import date
 
 import pytest
 
 from app.config import Settings
 from app.errors import RateLimitedError
+from app.generation.plan import DateWindow, Plan, Tier
 from app.graph.build import Pipeline
 from app.graph.events import Event, token_chunks
 from app.graph.state import RunControl
@@ -18,6 +20,7 @@ from app.models.llm import UsageMeter
 from app.retrieval.retriever import EvidencePassage
 from app.services import PipelineConfig
 from app.tracing import NoopTrace
+from tests.discovery.builders import GLUCOSE, MUSCLE, all_articles
 from tests.generation.builders import creatine_passages, stored
 from tests.graph.fakes import (
     FakeIngester,
@@ -318,6 +321,72 @@ async def test_each_node_is_traced_with_its_llm_calls(build: Build) -> None:
         ("verify", 1),
         ("respond", 0),
     ]
+
+
+DISCOVERY_REPLIES: list[Reply] = [
+    stored("themes_two"),
+    stored("digest_glucose"),
+    stored("digest_muscle"),
+    stored("judge_empty"),
+]
+
+
+def discovery_plan() -> Plan:
+    return question_plan(
+        mode="discovery",
+        date_range=DateWindow(start=date(2026, 4, 14)),
+        tiers=[Tier(level=1, purpose="recent research", pubmed_query="recent")],
+    )
+
+
+async def test_discovery_streams_named_themes(build: Build) -> None:
+    recorder = FakeRecorder(query_id=9)
+    searcher = FakeSearcher({"recent": [*GLUCOSE, *MUSCLE]}, counts={"recent": 5900})
+    ingester = FakeIngester()
+    pipeline, _ = build(
+        DISCOVERY_REPLIES,
+        plan=discovery_plan(),
+        searcher=searcher,
+        ingester=ingester,
+        recorder=recorder,
+        discovery_articles=all_articles(),
+    )
+    events = await collect(pipeline)
+    assert steps(events) == [
+        "plan",
+        "discover_search",
+        "ingest_abstracts",
+        "cluster_themes",
+        "summarize_themes",
+        "summarize_themes",
+        "respond",
+    ]
+    themes = [e.data for e in events if e.name == "theme"]
+    assert [t["name"] for t in themes] == [
+        "Continuous glucose monitoring in the oldest patients",
+        "GLP-1 drugs and muscle health",
+    ]
+    assert all(len(t["articles"]) >= 2 for t in themes)
+    assert all(a["badge"] for t in themes for a in t["articles"])
+    assert names(events)[-3:] == ["theme", "citations", "done"]
+    assert ingester.batches == [[*GLUCOSE, *MUSCLE]]
+    assert searcher.calls[0]["ttl"] == 3600
+    assert events[-1].data["query_id"] == 9
+    [entry] = recorder.entries
+    assert entry.mode == "discovery"
+    assert entry.answer is not None
+    assert len(entry.answer["themes"]) == 2
+
+
+async def test_discovery_without_themes_says_so(build: Build) -> None:
+    pipeline, provider = build(
+        [], plan=discovery_plan(), searcher=FakeSearcher({"recent": []}), discovery_articles=[]
+    )
+    events = await collect(pipeline)
+    assert "summarize_themes" not in steps(events)
+    token = next(e for e in events if e.name == "token")
+    assert "No themes could be formed" in token.data["text"]
+    assert provider.prompts == []
 
 
 def test_token_chunks_rejoin_exactly() -> None:

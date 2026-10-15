@@ -13,15 +13,19 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.api.ask import seconds_until_utc_midnight
+from app.api.discover import months_back, window_for
+from app.api.schemas import DiscoverRequest
 from app.auth.tokens import Claims, mint_dev_token
 from app.auth.users import User
 from app.config import Settings
 from app.db.queries.articles import ArticleDetail, Passage
+from app.generation.plan import DateWindow, Tier
 from app.ingest.metadata import StudyMetadata
 from app.main import create_app
 from app.services import PipelineConfig, no_services
+from tests.discovery.builders import GLUCOSE, MUSCLE, all_articles
 from tests.generation.builders import creatine_passages, stored
-from tests.graph.fakes import FakeRetriever, FakeSearcher, factory, fake_services
+from tests.graph.fakes import FakeRetriever, FakeSearcher, factory, fake_services, question_plan
 
 DEV_KEY = "dev-signing-key-for-tests-only-0123456789abcdef"
 ALL = [90_000_001, 90_000_002, 90_000_003]
@@ -194,6 +198,60 @@ def test_unhandled_errors_carry_a_trace_id(make_settings: Callable[..., Settings
         response = test_client.get("/boom", headers={"x-request-id": "trace-abcdef12"})
     assert response.status_code == 500
     assert response.json()["error"]["trace_id"] == "trace-abcdef12"
+
+
+def test_discover_streams_a_digest(settings: Settings, token: str) -> None:
+    plan = question_plan(
+        mode="discovery",
+        date_range=DateWindow(start=date(2026, 4, 14)),
+        tiers=[Tier(level=1, purpose="recent research", pubmed_query="recent")],
+    )
+    services, _ = fake_services(
+        settings,
+        [
+            stored("themes_two"),
+            stored("digest_glucose"),
+            stored("digest_muscle"),
+            stored("judge_empty"),
+        ],
+        plan=plan,
+        searcher=FakeSearcher({"recent": [*GLUCOSE, *MUSCLE]}),
+        discovery_articles=all_articles(),
+    )
+    with TestClient(create_app(settings, services=factory(services))) as test_client:
+        state = test_client.app.state  # type: ignore[attr-defined]
+        state.users, state.usage = FakeUsers(), FakeUsage()
+        body = {"topic": "diabetes in older adults", "months": 6}
+        response = test_client.post("/v1/discover", json=body, headers=auth(token))
+    assert response.status_code == 200
+    themes = [data for name, data in parse(response.text) if name == "theme"]
+    assert len(themes) == 2
+
+
+@pytest.mark.parametrize(
+    "body",
+    [
+        {"topic": "diabetes", "months": 0},
+        {"topic": "diabetes", "from": "2026-06-01", "to": "2026-05-01"},
+        {"topic": "x"},
+    ],
+    ids=["no-months", "reversed-window", "short-topic"],
+)
+def test_discover_rejects_bad_requests(
+    client: TestClient, token: str, body: dict[str, object]
+) -> None:
+    assert client.post("/v1/discover", json=body, headers=auth(token)).status_code == 422
+
+
+def test_window_defaults_to_the_last_months() -> None:
+    assert months_back(date(2026, 10, 14), 6) == date(2026, 4, 14)
+    assert months_back(date(2026, 3, 31), 1) == date(2026, 2, 28)
+    window = window_for(DiscoverRequest(topic="diabetes"), date(2026, 10, 14))
+    assert (window.start, window.end) == (date(2026, 4, 14), None)
+    explicit = DiscoverRequest.model_validate(
+        {"topic": "diabetes", "from": "2026-01-01", "to": "2026-03-31"}
+    )
+    assert window_for(explicit, date(2026, 10, 14)).end == date(2026, 3, 31)
 
 
 def test_usage_is_recorded_when_the_stream_ends(settings: Settings, token: str) -> None:

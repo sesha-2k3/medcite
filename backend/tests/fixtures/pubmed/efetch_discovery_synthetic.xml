@@ -1,0 +1,173 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PubmedArticleSet PUBLIC "-//NLM//DTD PubMedArticle, 1st January 2025//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_250101.dtd">
+<!-- Synthetic records for discovery tests: two topics, three articles each. -->
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">90000301</PMID>
+      <Article PubModel="Electronic">
+        <Journal>
+          <JournalIssue CitedMedium="Internet"><PubDate><Year>2026</Year><Month>Jun</Month><Day>01</Day></PubDate></JournalIssue>
+          <Title>Journal of Synthetic Geriatric Research</Title>
+        </Journal>
+        <ArticleTitle>Continuous glucose monitoring in adults over 75: a randomized trial.</ArticleTitle>
+        <Abstract>
+          <AbstractText Label="BACKGROUND" NlmCategory="BACKGROUND">Older adults with diabetes face particular risks.</AbstractText>
+          <AbstractText Label="CONCLUSIONS" NlmCategory="CONCLUSIONS">Continuous glucose monitoring reduced time in hypoglycemia by 2.1 hours per week in adults over 75.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016449">Randomized Controlled Trial</PublicationType>
+        </PublicationTypeList>
+      </Article>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="entrez"><Year>2026</Year><Month>6</Month><Day>1</Day></PubMedPubDate>
+      </History>
+      <PublicationStatus>epublish</PublicationStatus>
+      <ArticleIdList><ArticleId IdType="pubmed">90000301</ArticleId></ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">90000302</PMID>
+      <Article PubModel="Electronic">
+        <Journal>
+          <JournalIssue CitedMedium="Internet"><PubDate><Year>2026</Year><Month>Jun</Month><Day>01</Day></PubDate></JournalIssue>
+          <Title>Journal of Synthetic Geriatric Research</Title>
+        </Journal>
+        <ArticleTitle>Glucose monitor use and emergency visits in older adults.</ArticleTitle>
+        <Abstract>
+          <AbstractText Label="BACKGROUND" NlmCategory="BACKGROUND">Older adults with diabetes face particular risks.</AbstractText>
+          <AbstractText Label="CONCLUSIONS" NlmCategory="CONCLUSIONS">Monitor use was associated with fewer emergency visits for hypoglycemia (hazard ratio 0.71).</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D064888">Observational Study</PublicationType>
+        </PublicationTypeList>
+      </Article>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="entrez"><Year>2026</Year><Month>6</Month><Day>1</Day></PubMedPubDate>
+      </History>
+      <PublicationStatus>epublish</PublicationStatus>
+      <ArticleIdList><ArticleId IdType="pubmed">90000302</ArticleId></ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">90000303</PMID>
+      <Article PubModel="Electronic">
+        <Journal>
+          <JournalIssue CitedMedium="Internet"><PubDate><Year>2026</Year><Month>Jun</Month><Day>01</Day></PubDate></JournalIssue>
+          <Title>Journal of Synthetic Geriatric Research</Title>
+        </Journal>
+        <ArticleTitle>Glucose monitoring technology for older people with diabetes.</ArticleTitle>
+        <Abstract>
+          <AbstractText Label="BACKGROUND" NlmCategory="BACKGROUND">Older adults with diabetes face particular risks.</AbstractText>
+          <AbstractText Label="CONCLUSIONS" NlmCategory="CONCLUSIONS">Continuous glucose monitoring is increasingly used in older adults with diabetes.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016454">Review</PublicationType>
+        </PublicationTypeList>
+      </Article>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="entrez"><Year>2026</Year><Month>6</Month><Day>1</Day></PubMedPubDate>
+      </History>
+      <PublicationStatus>epublish</PublicationStatus>
+      <ArticleIdList><ArticleId IdType="pubmed">90000303</ArticleId></ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">90000304</PMID>
+      <Article PubModel="Electronic">
+        <Journal>
+          <JournalIssue CitedMedium="Internet"><PubDate><Year>2026</Year><Month>Jun</Month><Day>01</Day></PubDate></JournalIssue>
+          <Title>Journal of Synthetic Geriatric Research</Title>
+        </Journal>
+        <ArticleTitle>Lean mass loss with GLP-1 receptor agonists in older adults.</ArticleTitle>
+        <Abstract>
+          <AbstractText Label="BACKGROUND" NlmCategory="BACKGROUND">Muscle health matters for older adults with diabetes.</AbstractText>
+          <AbstractText Label="CONCLUSIONS" NlmCategory="CONCLUSIONS">GLP-1 receptor agonist users lost more lean mass than non-users.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D064888">Observational Study</PublicationType>
+        </PublicationTypeList>
+      </Article>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="entrez"><Year>2026</Year><Month>6</Month><Day>1</Day></PubMedPubDate>
+      </History>
+      <PublicationStatus>epublish</PublicationStatus>
+      <ArticleIdList><ArticleId IdType="pubmed">90000304</ArticleId></ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">90000305</PMID>
+      <Article PubModel="Electronic">
+        <Journal>
+          <JournalIssue CitedMedium="Internet"><PubDate><Year>2026</Year><Month>Jun</Month><Day>01</Day></PubDate></JournalIssue>
+          <Title>Journal of Synthetic Geriatric Research</Title>
+        </Journal>
+        <ArticleTitle>Resistance training during GLP-1 treatment: a pilot trial.</ArticleTitle>
+        <Abstract>
+          <AbstractText Label="BACKGROUND" NlmCategory="BACKGROUND">Muscle health matters for older adults with diabetes.</AbstractText>
+          <AbstractText Label="CONCLUSIONS" NlmCategory="CONCLUSIONS">Resistance training preserved muscle strength during GLP-1 treatment.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016449">Randomized Controlled Trial</PublicationType>
+        </PublicationTypeList>
+      </Article>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="entrez"><Year>2026</Year><Month>6</Month><Day>1</Day></PubMedPubDate>
+      </History>
+      <PublicationStatus>epublish</PublicationStatus>
+      <ArticleIdList><ArticleId IdType="pubmed">90000305</ArticleId></ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">90000306</PMID>
+      <Article PubModel="Electronic">
+        <Journal>
+          <JournalIssue CitedMedium="Internet"><PubDate><Year>2026</Year><Month>Jun</Month><Day>01</Day></PubDate></JournalIssue>
+          <Title>Journal of Synthetic Geriatric Research</Title>
+        </Journal>
+        <ArticleTitle>Sarcopenia in older adults with diabetes: a systematic review.</ArticleTitle>
+        <Abstract>
+          <AbstractText Label="BACKGROUND" NlmCategory="BACKGROUND">Muscle health matters for older adults with diabetes.</AbstractText>
+          <AbstractText Label="CONCLUSIONS" NlmCategory="CONCLUSIONS">Sarcopenia was more common in older adults with diabetes across 12 studies.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D000078182">Systematic Review</PublicationType>
+        </PublicationTypeList>
+      </Article>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="entrez"><Year>2026</Year><Month>6</Month><Day>1</Day></PubMedPubDate>
+      </History>
+      <PublicationStatus>epublish</PublicationStatus>
+      <ArticleIdList><ArticleId IdType="pubmed">90000306</ArticleId></ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+</PubmedArticleSet>

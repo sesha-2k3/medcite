@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import UTC, date, datetime, timedelta
-from typing import Annotated
+from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import StreamingResponse
@@ -17,6 +17,7 @@ from app.auth.users import User
 from app.config import Settings
 from app.db.queries.query_logs import UsageRepository
 from app.errors import RateLimitedError, ServiceUnavailableError
+from app.generation.plan import DateWindow
 from app.graph.build import Pipeline
 from app.graph.state import RunControl
 from app.models.llm import UsageMeter
@@ -32,14 +33,30 @@ def seconds_until_utc_midnight(now: datetime | None = None) -> float:
     return (tomorrow - now).total_seconds()
 
 
-@router.post(
-    "/ask",
-    response_class=StreamingResponse,
-    responses={200: {"content": {"text/event-stream": {}}, "description": "Event stream"}},
-)
+STREAM_RESPONSES: dict[int | str, dict[str, Any]] = {
+    200: {"content": {"text/event-stream": {}}, "description": "Event stream"}
+}
+
+
+@router.post("/ask", response_class=StreamingResponse, responses=STREAM_RESPONSES)
 async def ask(
     body: AskRequest, request: Request, user: Annotated[User, Depends(current_user)]
 ) -> StreamingResponse:
+    return await stream_pipeline(
+        request, user, name="ask", question=body.question, history=body.history
+    )
+
+
+async def stream_pipeline(
+    request: Request,
+    user: User,
+    *,
+    name: str,
+    question: str,
+    history: list[str],
+    window: DateWindow | None = None,
+) -> StreamingResponse:
+    """Check the daily cap, then run the pipeline as an event stream with tracing and usage."""
     state = request.app.state
     pipeline: Pipeline | None = state.pipeline
     if pipeline is None:
@@ -58,9 +75,9 @@ async def ask(
     request_id = request_id_var.get() or uuid.uuid4().hex
     trace = tracer.start(
         seed=request_id,
-        name="ask",
+        name=name,
         user_id=str(user.id),
-        input={"question": body.question, "history": body.history},
+        input={"question": question, "history": history},
         metadata={"request_id": request_id},  # links the trace to the request's log lines
     )
     meter, control = UsageMeter(), RunControl()
@@ -72,8 +89,9 @@ async def ask(
         background.spawn(usage.add(user.id, day, meter.cost_usd))
 
     events = pipeline.run(
-        question=body.question,
-        history=body.history,
+        question=question,
+        history=history,
+        window=window,
         user_id=user.id,
         trace_id=trace.trace_id,
         meter=meter,

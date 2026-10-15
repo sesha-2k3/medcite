@@ -1,6 +1,7 @@
 """Wire the nodes into the pipeline graph (handoff section 7.3) and run it as an event stream.
 
-plan -> route: retrieve_tier, or respond_scope when out of scope
+plan -> route: retrieve_tier; discover_search for discovery; respond_scope if out of scope
+discover_search -> ingest_abstracts -> cluster_themes -> summarize_themes -> respond_digest
 retrieve_tier -> ingest_abstracts -> rank -> enough_evidence: next tier, or generate
 generate -> after_generate: verify, or respond (no evidence, failed retry)
 verify -> verified: generate once more on failure, else respond
@@ -16,6 +17,7 @@ from typing import Any, Protocol
 
 from langgraph.graph import END, START, StateGraph
 
+from app.generation.plan import DateWindow
 from app.graph.events import Event
 from app.graph.nodes import Nodes
 from app.graph.state import PipelineState, RunControl
@@ -71,16 +73,28 @@ def build_graph(services: Services) -> Any:
     graph.add_node("verify", tracked("verify", nodes.verify))
     graph.add_node("respond", tracked("respond", nodes.respond))
     graph.add_node("respond_scope", tracked("respond_scope", nodes.respond_scope))
+    graph.add_node("discover_search", tracked("discover_search", nodes.discover_search))
+    graph.add_node("cluster_themes", tracked("cluster_themes", nodes.cluster_themes))
+    graph.add_node("summarize_themes", tracked("summarize_themes", nodes.summarize_themes))
+    graph.add_node("respond_digest", tracked("respond_digest", nodes.respond_digest))
 
     graph.add_edge(START, "plan")
-    graph.add_conditional_edges("plan", nodes.route, ["retrieve_tier", "respond_scope"])
+    graph.add_conditional_edges(
+        "plan", nodes.route, ["retrieve_tier", "discover_search", "respond_scope"]
+    )
     graph.add_edge("retrieve_tier", "ingest_abstracts")
-    graph.add_edge("ingest_abstracts", "rank")
+    graph.add_edge("discover_search", "ingest_abstracts")
+    graph.add_conditional_edges("ingest_abstracts", nodes.after_ingest, ["rank", "cluster_themes"])
+    graph.add_conditional_edges(
+        "cluster_themes", nodes.after_grouping, ["summarize_themes", "respond_digest"]
+    )
+    graph.add_edge("summarize_themes", "respond_digest")
     graph.add_conditional_edges("rank", nodes.enough_evidence, ["retrieve_tier", "generate"])
     graph.add_conditional_edges("generate", nodes.after_generate, ["verify", "respond"])
     graph.add_conditional_edges("verify", nodes.verified, ["generate", "respond"])
     graph.add_edge("respond", END)
     graph.add_edge("respond_scope", END)
+    graph.add_edge("respond_digest", END)
     return graph.compile()
 
 
@@ -98,6 +112,7 @@ class Pipeline:
         meter: UsageMeter | None = None,
         control: RunControl | None = None,
         trace: Trace | None = None,
+        window: DateWindow | None = None,
     ) -> AsyncIterator[Event]:
         """Events in emission order. Errors propagate. ``control.cancel()`` stops the node
         that is running, so no further PubMed or LLM calls are made.
@@ -113,6 +128,8 @@ class Pipeline:
             "started_at": time.monotonic(),
             "scores": {},
         }
+        if window is not None:
+            state["window"] = window
         async for chunk in self._graph.astream(state, stream_mode="custom"):
             if isinstance(chunk, Event):
                 yield chunk

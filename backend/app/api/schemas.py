@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import date
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, StringConstraints
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
 
 from app.ingest.metadata import StudyMetadata
 
@@ -19,6 +19,23 @@ class AskRequest(BaseModel):
     history: list[Text] = Field(
         default_factory=list, max_length=5, description="Earlier questions, oldest first"
     )
+
+
+class DiscoverRequest(BaseModel):
+    """A topic and a window: ``from``/``to`` dates, or the last ``months`` up to today."""
+
+    model_config = ConfigDict(extra="forbid", populate_by_name=True)
+
+    topic: Text
+    start: date | None = Field(default=None, alias="from")
+    end: date | None = Field(default=None, alias="to")
+    months: int = Field(default=6, ge=1, le=24)
+
+    @model_validator(mode="after")
+    def _check_window(self) -> DiscoverRequest:
+        if self.start and self.end and self.start > self.end:
+            raise ValueError("'from' must not be after 'to'")
+        return self
 
 
 class FeedbackRequest(BaseModel):

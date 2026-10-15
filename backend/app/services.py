@@ -16,7 +16,9 @@ from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from app.config import Settings
+from app.db.queries.discovery import DiscoveryArticles
 from app.db.queries.query_logs import CompletedQuery, QueryLogRepository
+from app.discovery.service import DiscoveryService, discovery_config
 from app.generation.context import ContextBudget
 from app.generation.factory import context_budget
 from app.generation.generate import Generator
@@ -32,7 +34,7 @@ from app.models.llm import UsageMeter, build_llm_client
 from app.retrieval.factory import build_retriever
 from app.retrieval.retriever import EvidencePassage
 from app.sources.factory import build_pubmed_client
-from app.sources.pubmed import SearchResult
+from app.sources.pubmed import SearchResult, Sort
 
 
 class QuestionPlanner(Protocol):
@@ -48,7 +50,14 @@ class QuestionPlanner(Protocol):
 
 
 class Searcher(Protocol):
-    async def esearch(self, term: str, *, retmax: int = 100) -> SearchResult: ...
+    async def esearch(
+        self,
+        term: str,
+        *,
+        retmax: int = 100,
+        sort: Sort = "relevance",
+        cache_ttl_s: int | None = None,
+    ) -> SearchResult: ...
 
 
 class Ingester(Protocol):
@@ -90,6 +99,7 @@ class Services:
     verifier: AnswerVerifier
     config: PipelineConfig
     recorder: QueryRecorder | None = None
+    discovery: DiscoveryService | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -126,6 +136,12 @@ async def build_services(settings: Settings, resources: Resources) -> Services:
         verifier=Verifier(Judge(llm, max_tokens=settings.judge_max_tokens)),
         config=pipeline_config(settings),
         recorder=QueryLogRepository(resources.sessions),
+        discovery=DiscoveryService(
+            llm,
+            DiscoveryArticles(resources.sessions),
+            Judge(llm, max_tokens=settings.judge_max_tokens),
+            discovery_config(settings),
+        ),
     )
 
 

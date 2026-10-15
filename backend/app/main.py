@@ -12,7 +12,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import articles, ask, feedback, health
+from app.api import articles, ask, discover, feedback, health
 from app.api.background import BackgroundWrites
 from app.api.middleware import REQUEST_ID_HEADER, RequestIdMiddleware
 from app.auth.tokens import build_verifier
@@ -97,6 +97,7 @@ def create_app(
     install_error_handlers(app)
     app.include_router(health.router)
     app.include_router(ask.router)
+    app.include_router(discover.router)
     app.include_router(articles.router)
     app.include_router(feedback.router)
     return app

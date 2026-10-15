@@ -9,7 +9,9 @@ from datetime import date
 from typing import Any
 
 from app.config import Settings
+from app.db.queries.discovery import DiscoveryArticle
 from app.db.queries.query_logs import CompletedQuery
+from app.discovery.service import DiscoveryConfig, DiscoveryService
 from app.generation.generate import Generator
 from app.generation.plan import DateWindow, Plan, Tier
 from app.generation.verify import Judge, Verifier
@@ -18,7 +20,7 @@ from app.ingest.service import IngestReport
 from app.models.llm import LLMClient, UsageMeter
 from app.retrieval.retriever import EvidencePassage
 from app.services import PipelineConfig, Resources, Services
-from app.sources.pubmed import SearchResult
+from app.sources.pubmed import SearchResult, Sort
 from tests.generation.builders import QUESTION
 from tests.llm_fakes import Reply, ScriptedProvider
 
@@ -53,14 +55,27 @@ class FakePlanner:
 class FakeSearcher:
     """Returns ``pmids_by_query[term]`` (nothing for other queries) and records each term."""
 
-    def __init__(self, pmids_by_query: Mapping[str, list[int]]) -> None:
+    def __init__(
+        self, pmids_by_query: Mapping[str, list[int]], counts: Mapping[str, int] | None = None
+    ) -> None:
         self._pmids = pmids_by_query
+        self._counts = counts or {}
         self.terms: list[str] = []
+        self.calls: list[dict[str, Any]] = []
 
-    async def esearch(self, term: str, *, retmax: int = 100) -> SearchResult:
+    async def esearch(
+        self,
+        term: str,
+        *,
+        retmax: int = 100,
+        sort: Sort = "relevance",
+        cache_ttl_s: int | None = None,
+    ) -> SearchResult:
         self.terms.append(term)
-        pmids = self._pmids.get(term, [])[:retmax]
-        return SearchResult(count=len(pmids), pmids=pmids, query_translation=None)
+        self.calls.append({"term": term, "retmax": retmax, "sort": sort, "ttl": cache_ttl_s})
+        found = self._pmids.get(term, [])
+        count = self._counts.get(term, len(found))
+        return SearchResult(count=count, pmids=found[:retmax], query_translation=None)
 
 
 class FakeIngester:
@@ -106,6 +121,14 @@ class FakeRecorder:
         return self._query_id
 
 
+class FakeArticleSource:
+    def __init__(self, articles: list[DiscoveryArticle]) -> None:
+        self._by_pmid = {a.passage.pmid: a for a in articles}
+
+    async def load(self, pmids: Sequence[int]) -> list[DiscoveryArticle]:
+        return [self._by_pmid[p] for p in pmids if p in self._by_pmid]
+
+
 def fake_services(
     settings: Settings,
     replies: list[Reply],
@@ -116,7 +139,9 @@ def fake_services(
     ingester: FakeIngester | None = None,
     config: PipelineConfig | None = None,
     recorder: FakeRecorder | None = None,
+    discovery_articles: list[DiscoveryArticle] | None = None,
 ) -> tuple[Services, ScriptedProvider]:
+    """With ``discovery_articles``, discovery runs against them; otherwise it is off."""
     provider = ScriptedProvider(replies)
     llm = LLMClient(settings, provider)
     services = Services(
@@ -128,6 +153,11 @@ def fake_services(
         verifier=Verifier(Judge(llm)),
         config=config or PipelineConfig(),
         recorder=recorder,
+        discovery=DiscoveryService(
+            llm, FakeArticleSource(discovery_articles), Judge(llm), DiscoveryConfig()
+        )
+        if discovery_articles is not None
+        else None,
     )
     return services, provider
 

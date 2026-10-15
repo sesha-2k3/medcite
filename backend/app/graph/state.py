@@ -11,9 +11,11 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any, TypedDict
 
+from app.discovery.digest import Digest
+from app.discovery.service import Grouping
 from app.generation.answer import Answer, VerificationResult
 from app.generation.context import EvidenceContext
-from app.generation.plan import Mode, Plan
+from app.generation.plan import DateWindow, Mode, Plan
 from app.models.llm import UsageMeter
 from app.retrieval.retriever import EvidencePassage
 from app.tracing import Trace
@@ -56,3 +58,8 @@ class PipelineState(TypedDict, total=False):
     trace: Trace
     started_at: float  # time.monotonic() when the run began
     scores: dict[int, float]  # cross-encoder scores by chunk ID, reused across tiers
+    window: DateWindow  # discovery requests: the date window to digest
+    found: int  # discovery: PubMed matches in the window
+    discovered: list[int]  # discovery: PMIDs to group into themes
+    grouping: Grouping
+    digest: Digest

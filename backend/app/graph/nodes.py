@@ -10,6 +10,8 @@ from decimal import Decimal
 from typing import Any, Literal
 
 from app.db.queries.query_logs import CompletedQuery
+from app.discovery.digest import Digest
+from app.discovery.service import DiscoveryService
 from app.errors import AppError
 from app.generation.answer import Answer, VerificationResult, issue
 from app.generation.context import build_context
@@ -28,8 +30,10 @@ OUT_OF_SCOPE = (
     "MedCite answers questions from the biomedical research literature in PubMed. This "
     "question appears to be outside that scope, so no search was run."
 )
-DISCOVERY_LATER = (
-    "Themed digests of recent research arrive in a later version; this is answered as a question."
+DISCOVERY_LATER = "Themed digests are not available here, so this is answered as a question."
+NO_THEMES = (
+    "No themes could be formed: too few recent articles with abstracts matched this topic in "
+    "the window. Try a broader topic or a longer window."
 )
 
 
@@ -40,7 +44,10 @@ class Nodes:
     async def plan(self, state: PipelineState) -> Update:
         emit_step("plan", "Planning the search")
         plan = await self._s.planner.plan(
-            state["question"], history=state.get("history", []), meter=state.get("meter")
+            state["question"],
+            history=state.get("history", []),
+            window=state.get("window"),
+            meter=state.get("meter"),
         )
         return {
             "plan": plan,
@@ -54,7 +61,7 @@ class Nodes:
     async def retrieve_tier(self, state: PipelineState) -> Update:
         plan, index = state["plan"], state["tier_index"]
         tier = plan.tiers[index]
-        if index == 0 and plan.mode == "discovery":
+        if index == 0 and plan.mode == "discovery":  # only when discovery is not configured
             emit("warning", {"message": DISCOVERY_LATER})
         emit_step("retrieve_tier", f"Searching PubMed: {tier.purpose}", f"tier {tier.level}")
         found = await self._s.searcher.esearch(tier.pubmed_query, retmax=self._s.config.tier_retmax)
@@ -200,7 +207,10 @@ class Nodes:
         return {}
 
     async def _record(
-        self, state: PipelineState, answer: Answer | None, result: VerificationResult | None
+        self,
+        state: PipelineState,
+        answer: Answer | Digest | None,
+        result: VerificationResult | None,
     ) -> int | None:
         """Fails open: the answer is already delivered, so a failed log write only loses
         the row (and with it, feedback for this answer).
@@ -219,7 +229,7 @@ class Nodes:
             candidate_pmids=sorted(state.get("candidates", {})),
             context_chunk_ids=[i.chunk.chunk_id for i in context.items] if context else [],
             answer=answer.model_dump(mode="json") if answer else None,
-            evidence_gap=answer.evidence_gap if answer else None,
+            evidence_gap=answer.evidence_gap if isinstance(answer, Answer) else None,
             verification=result.model_dump(mode="json") if result else None,
             latency_ms=round((time.monotonic() - started) * 1000),
             cost_usd=meter.cost_usd if meter else Decimal(0),
@@ -231,12 +241,95 @@ class Nodes:
             logger.exception("query_log_failed")
             return None
 
-    @staticmethod
-    def route(state: PipelineState) -> Literal["retrieve_tier", "respond_scope"]:
+    def route(
+        self, state: PipelineState
+    ) -> Literal["retrieve_tier", "discover_search", "respond_scope"]:
         plan = state["plan"]
         if plan.mode == "out_of_scope" or not plan.tiers:
             return "respond_scope"
+        if plan.mode == "discovery" and self._s.discovery is not None:
+            return "discover_search"
         return "retrieve_tier"
+
+    @staticmethod
+    def after_ingest(state: PipelineState) -> Literal["rank", "cluster_themes"]:
+        return "cluster_themes" if "discovered" in state else "rank"
+
+    async def discover_search(self, state: PipelineState) -> Update:
+        discovery, plan = self._require_discovery(), state["plan"]
+        window = plan.date_range
+        detail = f"since {window.start.isoformat()}" if window else None
+        emit_step("discover_search", "Searching recent PubMed records", detail)
+        hits = await discovery.search(self._s.searcher, plan)
+        return {
+            "candidates": {pmid: 1 for pmid in hits.pmids},
+            "new_pmids": list(hits.pmids),
+            "discovered": list(hits.pmids),
+            "found": hits.total,
+        }
+
+    async def cluster_themes(self, state: PipelineState) -> Update:
+        pmids = state.get("discovered", [])
+        emit_step("cluster_themes", "Grouping articles into themes", _articles(len(pmids)))
+        grouping = await self._require_discovery().group(
+            _topic(state), pmids, meter=state.get("meter")
+        )
+        return {"grouping": grouping}
+
+    async def summarize_themes(self, state: PipelineState) -> Update:
+        grouping = state["grouping"]
+
+        def progress(index: int, total: int, name: str) -> None:
+            emit_step("summarize_themes", f"Summarizing theme {index} of {total}", name)
+
+        digest, result = await self._require_discovery().summarize(
+            _topic(state),
+            grouping,
+            found=state.get("found", 0),
+            plan=state.get("plan"),
+            meter=state.get("meter"),
+            progress=progress,
+        )
+        return {"digest": digest, "verification": result}
+
+    async def respond_digest(self, state: PipelineState) -> Update:
+        emit_step("respond", "Preparing the digest")
+        digest, result = state.get("digest"), state.get("verification")
+        if digest is None or not digest.themes:
+            emit("token", {"text": NO_THEMES})
+        else:
+            for theme in digest.themes:
+                emit("theme", theme.model_dump(mode="json"))
+            emit("citations", [c.model_dump(mode="json") for c in digest.citations])
+        if result is not None:
+            for message in user_warnings(result):
+                emit("warning", {"message": message})
+        trace = state.get("trace")
+        if trace is not None and digest is not None:
+            trace.update(
+                output={"themes": [t.name for t in digest.themes]},
+                metadata={"found": digest.found, "considered": digest.considered},
+            )
+        _emit_done(state, await self._record(state, digest, result))
+        return {}
+
+    @staticmethod
+    def after_grouping(state: PipelineState) -> Literal["summarize_themes", "respond_digest"]:
+        return "summarize_themes" if state["grouping"].drafts else "respond_digest"
+
+    def _require_discovery(self) -> DiscoveryService:
+        if self._s.discovery is None:
+            raise RuntimeError("discovery is not configured")
+        return self._s.discovery
+
+
+def _topic(state: PipelineState) -> str:
+    plan = state.get("plan")
+    return plan.standalone_query if plan else state["question"]
+
+
+def _articles(count: int) -> str:
+    return f"{count} {'article' if count == 1 else 'articles'}"
 
 
 def _emit_done(state: PipelineState, query_id: int | None) -> None:

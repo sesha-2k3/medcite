@@ -13,7 +13,7 @@ export q n name
 .DEFAULT_GOAL := help
 .PHONY: help setup install up down ps logs psql db-reset migrate downgrade migration history \
 	models pubmed-sample pubmed-record fixtures-minimize ingest search plan answer dev-key dev-token trace-check api web dev test test-live test-web lint lint-web format typecheck typecheck-web \
-	fix check gen-api image image-multiarch clean
+	fix check gen-api image image-multiarch clean eval eval-compare
 
 help: ## List available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -152,3 +152,9 @@ image-multiarch: ## Build the API image for amd64 and arm64
 clean: ## Remove caches and build output (keeps models and node_modules)
 	find $(BACKEND) -type d \( -name __pycache__ -o -name .pytest_cache -o -name .mypy_cache -o -name .ruff_cache \) -prune -exec rm -rf {} +
 	rm -rf $(FRONTEND)/dist
+
+eval: ## Run the evaluation set [report=baseline] [cap=150000] [only=id1,id2]
+	cd backend && HF_HUB_OFFLINE=1 uv run python -m scripts.eval.run --report "$${report:-baseline}" --token-cap "$${cap:-150000}" $${only:+--only "$$only"}
+
+eval-compare: ## Compare two evaluation reports: a=NAME b=NAME
+	cd backend && uv run python -m scripts.eval.run --compare "$$a" "$$b"

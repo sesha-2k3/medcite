@@ -6,8 +6,8 @@
 /*
  * MedCite tokens.
  * Palette: cool "index card" paper, slate ink, and one accent (index teal) used for
- * interactive elements and citation markers only. Evidence-level colors are added in M9
- * and are always paired with a text label.
+ * interactive elements and citation markers only. Evidence-level colors (--ev-*) are always
+ * paired with a text label.
  */
 :root {
   --paper: #f5f7f6;
@@ -36,6 +36,14 @@
   --input: var(--rule);
   --ring: var(--index-teal);
   --radius: 0.375rem;
+
+  --ev-synthesis: #1f5f99;
+  --ev-rct: #2c6e3f;
+  --ev-observational: #8a5d0f;
+  --ev-descriptive: #9a4a1c;
+  --ev-narrative: #6b4e8a;
+  --ev-mechanistic: #4f5d6b;
+  --ev-unclassified: #626b74;
 }
 
 .dark {
@@ -53,6 +61,14 @@
   --accent: #1d3634;
   --destructive: #e07a72;
   --success: #7cc28f;
+
+  --ev-synthesis: #8cb8e8;
+  --ev-rct: #7cc28f;
+  --ev-observational: #e0c070;
+  --ev-descriptive: #e8a06a;
+  --ev-narrative: #c3a6e6;
+  --ev-mechanistic: #a9b4bf;
+  --ev-unclassified: #a3aab4;
 }
 
 @theme inline {
@@ -78,6 +94,13 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-ev-synthesis: var(--ev-synthesis);
+  --color-ev-rct: var(--ev-rct);
+  --color-ev-observational: var(--ev-observational);
+  --color-ev-descriptive: var(--ev-descriptive);
+  --color-ev-narrative: var(--ev-narrative);
+  --color-ev-mechanistic: var(--ev-mechanistic);
+  --color-ev-unclassified: var(--ev-unclassified);
 
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
@@ -107,5 +130,29 @@
       animation-duration: 0.01ms !important;
       transition-duration: 0.01ms !important;
     }
+  }
+}
+
+/* Generator markdown: paragraphs, lists and emphasis only (no headings or tables). */
+@layer components {
+  .prose-medcite {
+    @apply font-serif leading-relaxed;
+  }
+  .prose-medcite > * + * {
+    margin-top: 0.85em;
+  }
+  .prose-medcite ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+  .prose-medcite ol {
+    list-style: decimal;
+    padding-left: 1.25rem;
+  }
+  .prose-medcite li + li {
+    margin-top: 0.3em;
+  }
+  .prose-medcite strong {
+    font-weight: 600;
   }
 }

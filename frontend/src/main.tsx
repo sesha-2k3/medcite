@@ -2,10 +2,11 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import App from "@/App";
-import { followSystemTheme } from "@/lib/theme";
+import { applyTheme, readThemePreference } from "@/lib/theme";
 import "@/index.css";
 
-followSystemTheme();
+// Applied before the first render so the page doesn't flash the wrong theme.
+applyTheme(readThemePreference());
 
 const root = document.getElementById("root");
 if (!root) throw new Error("#root element missing from index.html");

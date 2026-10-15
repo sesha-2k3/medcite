@@ -43,36 +43,12 @@ TOPIC_WORDS = (
     ("glucose", "hypoglycemia", "monitor"),
     ("muscle", "lean", "sarcopenia", "glp-1"),
 )
-STOPWORDS = frozenset(
-    [
-        "with",
-        "from",
-        "that",
-        "this",
-        "were",
-        "have",
-        "been",
-        "their",
-        "which",
-        "among",
-        "between",
-        "after",
-        "older",
-        "adults",
-        "patients",
-        "study",
-        "studies",
-        "results",
-        "conclusions",
-        "background",
-        "methods",
-    ]
-)
-
-STOPWORD_TEXT = (
-    "with from that this were have been their which among between after older adults "
-    "patients study studies results conclusions background methods "
-    "diabetes mellitus type aged"  # the search's own terms: shared by every result
+# Clinical concept families for the recorded titles; stems match inside longer words.
+CONCEPTS = (
+    ("glyc", "hba1c", "metformin", "insulin", "glucose", "glp-1"),
+    ("cardi", "heart", "vascular", "hypertens", "stroke"),
+    ("exercise", "physical activity", "fitness", "frailty", "sarcopenia", "muscle"),
+    ("technology", "experience", "living", "phenomenolog", "education", "self-management"),
 )
 
 
@@ -82,8 +58,7 @@ class TopicEmbedder:
     article_model = "fake/topic-embedder"
 
     def embed_articles(self, pairs: Sequence[tuple[str, str]]) -> np.ndarray:
-        """Titles only: minimized fixtures replace abstract prose with identical placeholders."""
-        return np.stack([self._vector(title) for title, _ in pairs])
+        return np.stack([self._vector(f"{title} {text}") for title, text in pairs])
 
     def embed_queries(self, texts: Sequence[str]) -> np.ndarray:
         return np.stack([self._vector(text) for text in texts])
@@ -98,25 +73,31 @@ class TopicEmbedder:
         return (vector / np.linalg.norm(vector)).astype(np.float32)
 
 
-class WordEmbedder:
-    """Feature-hashed bag of words: abstracts sharing vocabulary end up close together."""
+class ConceptEmbedder:
+    """Places each title on a few clinical concept axes.
 
-    article_model = "fake/word-embedder"
+    Titles only, because minimized fixtures replace abstract prose with identical
+    placeholders, and concepts rather than raw words, because nearly every result of the
+    search shares its own terms ("diabetes", "older adults"). The noise is small enough that
+    one concept word outweighs it.
+    """
+
+    article_model = "fake/concept-embedder"
 
     def embed_articles(self, pairs: Sequence[tuple[str, str]]) -> np.ndarray:
-        return np.stack([self._vector(f"{title} {text}") for title, text in pairs])
+        return np.stack([self._vector(title) for title, _ in pairs])
 
     def embed_queries(self, texts: Sequence[str]) -> np.ndarray:
         return np.stack([self._vector(text) for text in texts])
 
     @staticmethod
     def _vector(text: str) -> np.ndarray:
-        vector = np.zeros(EMBEDDING_DIM, dtype=np.float32)
-        for word in re.findall(r"[a-z][a-z0-9-]{3,}", text.lower()):
-            if word not in STOPWORDS:
-                vector[int(hashlib.sha256(word.encode()).hexdigest(), 16) % EMBEDDING_DIM] += 1
-        norm = float(np.linalg.norm(vector)) or 1.0
-        return vector / norm
+        lower = text.lower()
+        seed = int.from_bytes(hashlib.sha256(text.encode()).digest()[:8], "big")
+        vector = np.random.default_rng(seed).standard_normal(EMBEDDING_DIM) * 0.001
+        for axis, stems in enumerate(CONCEPTS):
+            vector[axis] += sum(lower.count(stem) for stem in stems)
+        return (vector / np.linalg.norm(vector)).astype(np.float32)
 
 
 def pmids_in(path: Path) -> list[int]:
@@ -124,7 +105,9 @@ def pmids_in(path: Path) -> list[int]:
 
 
 async def ingest(
-    sessions: async_sessionmaker[AsyncSession], path: Path, embedder: TopicEmbedder | WordEmbedder
+    sessions: async_sessionmaker[AsyncSession],
+    path: Path,
+    embedder: TopicEmbedder | ConceptEmbedder,
 ) -> list[int]:
     pmids = pmids_in(path)
     store = ArticleStore(sessions)
@@ -217,11 +200,12 @@ async def test_recorded_diabetes_digest_has_named_themes(
        tests/fixtures/pubmed/recorded/efetch_discovery_diabetes.xml
     make fixtures-minimize
     """
-    pmids = await ingest(recorded_sessions, RECORDED, WordEmbedder())
-    config = DiscoveryConfig(cluster_distance=0.9)
-    digest, result = await run_digest(recorded_sessions, make_settings(), pmids, config)
+    pmids = await ingest(recorded_sessions, RECORDED, ConceptEmbedder())
+    digest, result = await run_digest(recorded_sessions, make_settings(), pmids, DiscoveryConfig())
     themes = digest.themes
-    assert len(themes) >= 2, "too few themes: re-record with more articles (n=20)"
+    loaded = await DiscoveryArticles(recorded_sessions).load(pmids)
+    titles = "\n".join(a.passage.title for a in loaded)
+    assert len(themes) >= 2, f"too few themes from these titles:\n{titles}"
     for theme in themes:
         assert theme.name.startswith("Named theme")
         cited = set(re.findall(r"C\d+", theme.summary))

@@ -1,0 +1,1883 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE PubmedArticleSet PUBLIC "-//NLM//DTD PubMedArticle, 1st January 2025//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_250101.dtd">
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Automated">
+      <PMID Version="1">42532083</PMID>
+      <DateCompleted>
+        <Year>2026</Year>
+        <Month>09</Month>
+        <Day>08</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>09</Month>
+        <Day>30</Day>
+      </DateRevised>
+      <Article PubModel="Print-Electronic">
+        <Journal>
+          <ISSN IssnType="Electronic">2213-8595</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>14</Volume>
+            <Issue>10</Issue>
+            <PubDate>
+              <Year>2026</Year>
+              <Month>Oct</Month>
+            </PubDate>
+          </JournalIssue>
+          <Title>The lancet. Diabetes &amp; endocrinology</Title>
+          <ISOAbbreviation>Lancet Diabetes Endocrinol</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Type 1 diabetes in older populations.</ArticleTitle>
+        <Pagination>
+          <StartPage>856</StartPage>
+          <EndPage>866</EndPage>
+          <MedlinePgn>856-866</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1016/S2213-8587(26)00154-3</ELocationID>
+        <ELocationID EIdType="pii" ValidYN="Y">S2213-8587(26)00154-3</ELocationID>
+        <Abstract>
+          <AbstractText>Placeholder abstract text 1 for PMID 42532083.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016454">Review</PublicationType>
+        </PublicationTypeList>
+        <ArticleDate DateType="Electronic">
+          <Year>2026</Year>
+          <Month>07</Month>
+          <Day>30</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>England</Country>
+        <MedlineTA>Lancet Diabetes Endocrinol</MedlineTA>
+        <NlmUniqueID>101618821</NlmUniqueID>
+        <ISSNLinking>2213-8587</ISSNLinking>
+      </MedlineJournalInfo>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003922" MajorTopicYN="Y">Diabetes Mellitus, Type 1</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+          <QualifierName UI="Q000628" MajorTopicYN="N">therapy</QualifierName>
+          <QualifierName UI="Q000523" MajorTopicYN="N">psychology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000375" MajorTopicYN="Y">Aging</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008017" MajorTopicYN="N">Life Expectancy</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+      <CoiStatement>Declaration of interests ARK has received devices from Dexcom for clinical trials provided to the University of North Carolina at no cost. MM received institutional grant funding from Dexcom, provided authorship for UpToDate, served on the scientific advisory board for Abbott, and served as president in a volunteer role for the International Geriatric Diabetes Society. JJN has received payments to self from Proteomics International, travel funding as a member of the American Diabetes Association board of directors, and payments for non-promotional continuing education from Pharmacy Times, Postgraduate Healthcare Education, and the Med Learning Group. SK received speaker fees from Eli Lilly, Novo Nordisk, and Cipla. All other authors declare no competing interests.</CoiStatement>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="received">
+          <Year>2026</Year>
+          <Month>3</Month>
+          <Day>2</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="revised">
+          <Year>2026</Year>
+          <Month>6</Month>
+          <Day>1</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="accepted">
+          <Year>2026</Year>
+          <Month>6</Month>
+          <Day>11</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2026</Year>
+          <Month>9</Month>
+          <Day>8</Day>
+          <Hour>23</Hour>
+          <Minute>35</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>31</Day>
+          <Hour>0</Hour>
+          <Minute>38</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>30</Day>
+          <Hour>18</Hour>
+          <Minute>52</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">42532083</ArticleId>
+        <ArticleId IdType="doi">10.1016/S2213-8587(26)00154-3</ArticleId>
+        <ArticleId IdType="pii">S2213-8587(26)00154-3</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Automated">
+      <PMID Version="1">42527195</PMID>
+      <DateCompleted>
+        <Year>2026</Year>
+        <Month>09</Month>
+        <Day>07</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>09</Month>
+        <Day>07</Day>
+      </DateRevised>
+      <Article PubModel="Print-Electronic">
+        <Journal>
+          <ISSN IssnType="Electronic">1878-0210</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>20</Volume>
+            <Issue>5</Issue>
+            <PubDate>
+              <Year>2026</Year>
+              <Month>Oct</Month>
+            </PubDate>
+          </JournalIssue>
+          <Title>Primary care diabetes</Title>
+          <ISOAbbreviation>Prim Care Diabetes</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Metformin and sleep health in older adults with type 2 diabetes: Mechanisms, clinical evidence, and future directions, a narrative review.</ArticleTitle>
+        <Pagination>
+          <StartPage>543</StartPage>
+          <EndPage>553</EndPage>
+          <MedlinePgn>543-553</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1016/j.pcd.2026.07.012</ELocationID>
+        <ELocationID EIdType="pii" ValidYN="Y">S1751-9918(26)00144-0</ELocationID>
+        <Abstract>
+          <AbstractText>Placeholder abstract text 1 for PMID 42527195.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016454">Review</PublicationType>
+        </PublicationTypeList>
+        <ArticleDate DateType="Electronic">
+          <Year>2026</Year>
+          <Month>07</Month>
+          <Day>30</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>England</Country>
+        <MedlineTA>Prim Care Diabetes</MedlineTA>
+        <NlmUniqueID>101463825</NlmUniqueID>
+        <ISSNLinking>1878-0210</ISSNLinking>
+      </MedlineJournalInfo>
+      <ChemicalList>
+        <Chemical>
+          <RegistryNumber>9100L32L2N</RegistryNumber>
+          <NameOfSubstance UI="D008687">Metformin</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D007004">Hypoglycemic Agents</NameOfSubstance>
+        </Chemical>
+      </ChemicalList>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008687" MajorTopicYN="Y">Metformin</DescriptorName>
+          <QualifierName UI="Q000627" MajorTopicYN="N">therapeutic use</QualifierName>
+          <QualifierName UI="Q000009" MajorTopicYN="N">adverse effects</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003924" MajorTopicYN="Y">Diabetes Mellitus, Type 2</DescriptorName>
+          <QualifierName UI="Q000188" MajorTopicYN="N">drug therapy</QualifierName>
+          <QualifierName UI="Q000175" MajorTopicYN="N">diagnosis</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D007004" MajorTopicYN="Y">Hypoglycemic Agents</DescriptorName>
+          <QualifierName UI="Q000627" MajorTopicYN="N">therapeutic use</QualifierName>
+          <QualifierName UI="Q000009" MajorTopicYN="N">adverse effects</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D012893" MajorTopicYN="Y">Sleep Wake Disorders</DescriptorName>
+          <QualifierName UI="Q000503" MajorTopicYN="N">physiopathology</QualifierName>
+          <QualifierName UI="Q000209" MajorTopicYN="N">etiology</QualifierName>
+          <QualifierName UI="Q000188" MajorTopicYN="N">drug therapy</QualifierName>
+          <QualifierName UI="Q000517" MajorTopicYN="N">prevention &amp; control</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D012890" MajorTopicYN="Y">Sleep</DescriptorName>
+          <QualifierName UI="Q000187" MajorTopicYN="N">drug effects</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000367" MajorTopicYN="N">Age Factors</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D016896" MajorTopicYN="N">Treatment Outcome</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008875" MajorTopicYN="N">Middle Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D012307" MajorTopicYN="N">Risk Factors</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+      <CoiStatement>Declaration of Competing Interest The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.</CoiStatement>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="received">
+          <Year>2026</Year>
+          <Month>3</Month>
+          <Day>19</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="revised">
+          <Year>2026</Year>
+          <Month>6</Month>
+          <Day>10</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="accepted">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>27</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2026</Year>
+          <Month>9</Month>
+          <Day>7</Day>
+          <Hour>23</Hour>
+          <Minute>34</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>30</Day>
+          <Hour>0</Hour>
+          <Minute>38</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>29</Day>
+          <Hour>21</Hour>
+          <Minute>57</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">42527195</ArticleId>
+        <ArticleId IdType="doi">10.1016/j.pcd.2026.07.012</ArticleId>
+        <ArticleId IdType="pii">S1751-9918(26)00144-0</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Curated">
+      <PMID Version="1">42120108</PMID>
+      <DateCompleted>
+        <Year>2026</Year>
+        <Month>07</Month>
+        <Day>16</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>08</Month>
+        <Day>13</Day>
+      </DateRevised>
+      <Article PubModel="Print">
+        <Journal>
+          <ISSN IssnType="Electronic">2530-0180</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>73</Volume>
+            <Issue>5</Issue>
+            <PubDate>
+              <Year>2026</Year>
+              <Month>May</Month>
+            </PubDate>
+          </JournalIssue>
+          <Title>Endocrinologia, diabetes y nutricion</Title>
+          <ISOAbbreviation>Endocrinol Diabetes Nutr (Engl Ed)</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Hypoglycemia in older adults with type 2 diabetes mellitus: Prevalence and associated risk factor: A systematic review and meta-analysis.</ArticleTitle>
+        <Pagination>
+          <StartPage>501759</StartPage>
+          <MedlinePgn>501759</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1016/j.endien.2026.501759</ELocationID>
+        <ELocationID EIdType="pii" ValidYN="Y">S2530-0180(26)00092-2</ELocationID>
+        <Abstract>
+          <AbstractText Label="BACKGROUND" NlmCategory="BACKGROUND">Placeholder background text 1 for PMID 42120108.</AbstractText>
+          <AbstractText Label="METHODS" NlmCategory="METHODS">Placeholder methods text 2 for PMID 42120108.</AbstractText>
+          <AbstractText Label="RESULTS" NlmCategory="RESULTS">Placeholder results text 3 for PMID 42120108.</AbstractText>
+          <AbstractText Label="CONCLUSION" NlmCategory="CONCLUSIONS">Placeholder conclusion text 4 for PMID 42120108.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D000078182">Systematic Review</PublicationType>
+          <PublicationType UI="D017418">Meta-Analysis</PublicationType>
+        </PublicationTypeList>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>Spain</Country>
+        <MedlineTA>Endocrinol Diabetes Nutr (Engl Ed)</MedlineTA>
+        <NlmUniqueID>101717565</NlmUniqueID>
+        <ISSNLinking>2530-0180</ISSNLinking>
+      </MedlineJournalInfo>
+      <ChemicalList>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D007004">Hypoglycemic Agents</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D007328">Insulin</NameOfSubstance>
+        </Chemical>
+      </ChemicalList>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003924" MajorTopicYN="Y">Diabetes Mellitus, Type 2</DescriptorName>
+          <QualifierName UI="Q000150" MajorTopicYN="N">complications</QualifierName>
+          <QualifierName UI="Q000188" MajorTopicYN="N">drug therapy</QualifierName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D007003" MajorTopicYN="Y">Hypoglycemia</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+          <QualifierName UI="Q000209" MajorTopicYN="N">etiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D012307" MajorTopicYN="N">Risk Factors</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015995" MajorTopicYN="N">Prevalence</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D007004" MajorTopicYN="N">Hypoglycemic Agents</DescriptorName>
+          <QualifierName UI="Q000009" MajorTopicYN="N">adverse effects</QualifierName>
+          <QualifierName UI="Q000627" MajorTopicYN="N">therapeutic use</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D007328" MajorTopicYN="N">Insulin</DescriptorName>
+          <QualifierName UI="Q000627" MajorTopicYN="N">therapeutic use</QualifierName>
+          <QualifierName UI="Q000009" MajorTopicYN="N">adverse effects</QualifierName>
+        </MeshHeading>
+      </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="received">
+          <Year>2025</Year>
+          <Month>9</Month>
+          <Day>26</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="accepted">
+          <Year>2025</Year>
+          <Month>12</Month>
+          <Day>1</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>13</Day>
+          <Hour>0</Hour>
+          <Minute>30</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>13</Day>
+          <Hour>0</Hour>
+          <Minute>29</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>12</Day>
+          <Hour>20</Hour>
+          <Minute>53</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">42120108</ArticleId>
+        <ArticleId IdType="doi">10.1016/j.endien.2026.501759</ArticleId>
+        <ArticleId IdType="pii">S2530-0180(26)00092-2</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Curated">
+      <PMID Version="1">42628655</PMID>
+      <DateCompleted>
+        <Year>2026</Year>
+        <Month>09</Month>
+        <Day>07</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>09</Month>
+        <Day>18</Day>
+      </DateRevised>
+      <Article PubModel="Print-Electronic">
+        <Journal>
+          <ISSN IssnType="Electronic">1872-8227</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>240</Volume>
+            <PubDate>
+              <Year>2026</Year>
+              <Month>Oct</Month>
+            </PubDate>
+          </JournalIssue>
+          <Title>Diabetes research and clinical practice</Title>
+          <ISOAbbreviation>Diabetes Res Clin Pract</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Optimal dose and exercise modality to improve HbA1c in older adults with type 2 diabetes mellitus: a systematic review with pairwise, network, and dose-response meta-analyses.</ArticleTitle>
+        <Pagination>
+          <StartPage>113509</StartPage>
+          <MedlinePgn>113509</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1016/j.diabres.2026.113509</ELocationID>
+        <ELocationID EIdType="pii" ValidYN="Y">S0168-8227(26)00429-8</ELocationID>
+        <Abstract>
+          <AbstractText>Placeholder abstract text 1 for PMID 42628655.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D000078182">Systematic Review</PublicationType>
+          <PublicationType UI="D000099094">Network Meta-Analysis</PublicationType>
+        </PublicationTypeList>
+        <ArticleDate DateType="Electronic">
+          <Year>2026</Year>
+          <Month>08</Month>
+          <Day>21</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>Ireland</Country>
+        <MedlineTA>Diabetes Res Clin Pract</MedlineTA>
+        <NlmUniqueID>8508335</NlmUniqueID>
+        <ISSNLinking>0168-8227</ISSNLinking>
+      </MedlineJournalInfo>
+      <ChemicalList>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D006442">Glycated Hemoglobin</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="C517652">hemoglobin A1c protein, human</NameOfSubstance>
+        </Chemical>
+      </ChemicalList>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003924" MajorTopicYN="Y">Diabetes Mellitus, Type 2</DescriptorName>
+          <QualifierName UI="Q000628" MajorTopicYN="N">therapy</QualifierName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006442" MajorTopicYN="Y">Glycated Hemoglobin</DescriptorName>
+          <QualifierName UI="Q000378" MajorTopicYN="N">metabolism</QualifierName>
+          <QualifierName UI="Q000032" MajorTopicYN="N">analysis</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005081" MajorTopicYN="Y">Exercise Therapy</DescriptorName>
+          <QualifierName UI="Q000379" MajorTopicYN="N">methods</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015444" MajorTopicYN="Y">Exercise</DescriptorName>
+          <QualifierName UI="Q000502" MajorTopicYN="N">physiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D055070" MajorTopicYN="N">Resistance Training</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D016032" MajorTopicYN="N">Randomized Controlled Trials as Topic</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+      <CoiStatement>Declaration of competing interest The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.</CoiStatement>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="received">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>28</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="revised">
+          <Year>2026</Year>
+          <Month>8</Month>
+          <Day>7</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="accepted">
+          <Year>2026</Year>
+          <Month>8</Month>
+          <Day>18</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2026</Year>
+          <Month>9</Month>
+          <Day>7</Day>
+          <Hour>23</Hour>
+          <Minute>34</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2026</Year>
+          <Month>8</Month>
+          <Day>21</Day>
+          <Hour>23</Hour>
+          <Minute>37</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2026</Year>
+          <Month>8</Month>
+          <Day>21</Day>
+          <Hour>19</Hour>
+          <Minute>12</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">42628655</ArticleId>
+        <ArticleId IdType="doi">10.1016/j.diabres.2026.113509</ArticleId>
+        <ArticleId IdType="pii">S0168-8227(26)00429-8</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Automated">
+      <PMID Version="1">42483855</PMID>
+      <DateCompleted>
+        <Year>2026</Year>
+        <Month>09</Month>
+        <Day>03</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>09</Month>
+        <Day>09</Day>
+      </DateRevised>
+      <Article PubModel="Print-Electronic">
+        <Journal>
+          <ISSN IssnType="Electronic">1463-1326</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>28</Volume>
+            <Issue>10</Issue>
+            <PubDate>
+              <Year>2026</Year>
+              <Month>Oct</Month>
+            </PubDate>
+          </JournalIssue>
+          <Title>Diabetes, obesity &amp; metabolism</Title>
+          <ISOAbbreviation>Diabetes Obes Metab</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Joint Trajectories of Physical Activity and Depressive Symptoms and Incident Cardiometabolic Multimorbidity: A Multi-Cohort Study.</ArticleTitle>
+        <Pagination>
+          <StartPage>9210</StartPage>
+          <EndPage>9221</EndPage>
+          <MedlinePgn>9210-9221</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1111/dom.71115</ELocationID>
+        <Abstract>
+          <AbstractText Label="BACKGROUND">Placeholder background text 1 for PMID 42483855.</AbstractText>
+          <AbstractText Label="METHODS">Placeholder methods text 2 for PMID 42483855.</AbstractText>
+          <AbstractText Label="RESULTS">Placeholder results text 3 for PMID 42483855.</AbstractText>
+          <AbstractText Label="CONCLUSIONS">Placeholder conclusions text 4 for PMID 42483855.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+        </PublicationTypeList>
+        <ArticleDate DateType="Electronic">
+          <Year>2026</Year>
+          <Month>07</Month>
+          <Day>22</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>England</Country>
+        <MedlineTA>Diabetes Obes Metab</MedlineTA>
+        <NlmUniqueID>100883645</NlmUniqueID>
+        <ISSNLinking>1462-8902</ISSNLinking>
+      </MedlineJournalInfo>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005260" MajorTopicYN="N">Female</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003863" MajorTopicYN="Y">Depression</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+          <QualifierName UI="Q000150" MajorTopicYN="N">complications</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008875" MajorTopicYN="N">Middle Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008297" MajorTopicYN="N">Male</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000076322" MajorTopicYN="N">Multimorbidity</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015444" MajorTopicYN="Y">Exercise</DescriptorName>
+          <QualifierName UI="Q000502" MajorTopicYN="N">physiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015331" MajorTopicYN="N">Cohort Studies</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D002318" MajorTopicYN="Y">Cardiovascular Diseases</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015994" MajorTopicYN="N">Incidence</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008137" MajorTopicYN="N">Longitudinal Studies</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006331" MajorTopicYN="N">Heart Diseases</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006973" MajorTopicYN="N">Hypertension</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000375" MajorTopicYN="N">Aging</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003920" MajorTopicYN="N">Diabetes Mellitus</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+        </MeshHeading>
+      </MeshHeadingList>
+      <CoiStatement>The authors declare no conflicts of interest.</CoiStatement>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="revised">
+          <Year>2026</Year>
+          <Month>6</Month>
+          <Day>29</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="received">
+          <Year>2026</Year>
+          <Month>4</Month>
+          <Day>21</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="accepted">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>2</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2026</Year>
+          <Month>9</Month>
+          <Day>3</Day>
+          <Hour>5</Hour>
+          <Minute>37</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>22</Day>
+          <Hour>12</Hour>
+          <Minute>37</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>22</Day>
+          <Hour>5</Hour>
+          <Minute>32</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pmc-release">
+          <Year>2026</Year>
+          <Month>9</Month>
+          <Day>3</Day>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">42483855</ArticleId>
+        <ArticleId IdType="pmc">PMC13538744</ArticleId>
+        <ArticleId IdType="doi">10.1111/dom.71115</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Automated">
+      <PMID Version="1">42479430</PMID>
+      <DateCompleted>
+        <Year>2026</Year>
+        <Month>07</Month>
+        <Day>21</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>08</Month>
+        <Day>31</Day>
+      </DateRevised>
+      <Article PubModel="Electronic">
+        <Journal>
+          <ISSN IssnType="Electronic">2574-3805</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>9</Volume>
+            <Issue>7</Issue>
+            <PubDate>
+              <Year>2026</Year>
+              <Month>Jul</Month>
+              <Day>01</Day>
+            </PubDate>
+          </JournalIssue>
+          <Title>JAMA network open</Title>
+          <ISOAbbreviation>JAMA Netw Open</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Contemporary Diabetes Technology and the Patient Experience.</ArticleTitle>
+        <Pagination>
+          <StartPage>e2624260</StartPage>
+          <MedlinePgn>e2624260</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="pii" ValidYN="Y">e2624260</ELocationID>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1001/jamanetworkopen.2026.24260</ELocationID>
+        <Abstract>
+          <AbstractText Label="IMPORTANCE">Placeholder importance text 1 for PMID 42479430.</AbstractText>
+          <AbstractText Label="OBJECTIVE">Placeholder objective text 2 for PMID 42479430.</AbstractText>
+          <AbstractText Label="DESIGN, SETTING, AND PARTICIPANTS">Placeholder design, setting, and participants text 3 for PMID 42479430.</AbstractText>
+          <AbstractText Label="RESULTS">Placeholder results text 4 for PMID 42479430.</AbstractText>
+          <AbstractText Label="CONCLUSIONS AND RELEVANCE">Placeholder conclusions and relevance text 5 for PMID 42479430.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+        </PublicationTypeList>
+        <ArticleDate DateType="Electronic">
+          <Year>2026</Year>
+          <Month>07</Month>
+          <Day>01</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>United States</Country>
+        <MedlineTA>JAMA Netw Open</MedlineTA>
+        <NlmUniqueID>101729235</NlmUniqueID>
+        <ISSNLinking>2574-3805</ISSNLinking>
+      </MedlineJournalInfo>
+      <ChemicalList>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D007328">Insulin</NameOfSubstance>
+        </Chemical>
+      </ChemicalList>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005260" MajorTopicYN="N">Female</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003922" MajorTopicYN="Y">Diabetes Mellitus, Type 1</DescriptorName>
+          <QualifierName UI="Q000523" MajorTopicYN="N">psychology</QualifierName>
+          <QualifierName UI="Q000188" MajorTopicYN="N">drug therapy</QualifierName>
+          <QualifierName UI="Q000628" MajorTopicYN="N">therapy</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D007332" MajorTopicYN="Y">Insulin Infusion Systems</DescriptorName>
+          <QualifierName UI="Q000523" MajorTopicYN="N">psychology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008875" MajorTopicYN="N">Middle Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000095583" MajorTopicYN="N">Continuous Glucose Monitoring</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000328" MajorTopicYN="N">Adult</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008297" MajorTopicYN="N">Male</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D036301" MajorTopicYN="N">Qualitative Research</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000293" MajorTopicYN="N">Adolescent</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D055815" MajorTopicYN="N">Young Adult</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015190" MajorTopicYN="N">Blood Glucose Self-Monitoring</DescriptorName>
+          <QualifierName UI="Q000523" MajorTopicYN="N">psychology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D007328" MajorTopicYN="N">Insulin</DescriptorName>
+          <QualifierName UI="Q000008" MajorTopicYN="N">administration &amp; dosage</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000097103" MajorTopicYN="N">Digital Health</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D011795" MajorTopicYN="N">Surveys and Questionnaires</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+      <CoiStatement><b>Conflict of Interest Disclosures:</b> Dr Everett reported receiving grants from the National Institute of Diabetes and Digestive and Kidney Diseases. Dr Moin reported receiving grants from the National Institute of Diabetes and Digestive and Kidney Diseases, Centers for Disease Control and Prevention, UCLA, University of California Office of the President, and the US Department of Veterans Affairs. Dr Wisk reported receiving grants from American Diabetes Association, National Institute of Mental Health, and National Institute of Diabetes and Digestive and Kidney Diseases. No other disclosures were reported.</CoiStatement>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>21</Day>
+          <Hour>18</Hour>
+          <Minute>34</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>21</Day>
+          <Hour>12</Hour>
+          <Minute>35</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>21</Day>
+          <Hour>11</Hour>
+          <Minute>33</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pmc-release">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>21</Day>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>epublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">42479430</ArticleId>
+        <ArticleId IdType="pmc">PMC13389783</ArticleId>
+        <ArticleId IdType="doi">10.1001/jamanetworkopen.2026.24260</ArticleId>
+        <ArticleId IdType="pii">2851862</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Automated">
+      <PMID Version="1">42165511</PMID>
+      <DateCompleted>
+        <Year>2026</Year>
+        <Month>10</Month>
+        <Day>12</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>10</Month>
+        <Day>12</Day>
+      </DateRevised>
+      <Article PubModel="Print">
+        <Journal>
+          <ISSN IssnType="Electronic">2047-4881</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>33</Volume>
+            <Issue>14</Issue>
+            <PubDate>
+              <Year>2026</Year>
+              <Month>Oct</Month>
+              <Day>13</Day>
+            </PubDate>
+          </JournalIssue>
+          <Title>European journal of preventive cardiology</Title>
+          <ISOAbbreviation>Eur J Prev Cardiol</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Body composition changes in patients on GLP-1 receptor agonists undergoing an intensive cardiac rehabilitation program.</ArticleTitle>
+        <Pagination>
+          <StartPage>2665</StartPage>
+          <EndPage>2674</EndPage>
+          <MedlinePgn>2665-2674</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1093/eurjpc/zwag279</ELocationID>
+        <Abstract>
+          <AbstractText Label="AIMS" NlmCategory="OBJECTIVE">Placeholder aims text 1 for PMID 42165511.</AbstractText>
+          <AbstractText Label="METHODS AND RESULTS" NlmCategory="RESULTS">Placeholder methods and results text 2 for PMID 42165511.</AbstractText>
+          <AbstractText Label="CONCLUSION" NlmCategory="CONCLUSIONS">Placeholder conclusion text 3 for PMID 42165511.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+        </PublicationTypeList>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>England</Country>
+        <MedlineTA>Eur J Prev Cardiol</MedlineTA>
+        <NlmUniqueID>101564430</NlmUniqueID>
+        <ISSNLinking>2047-4873</ISSNLinking>
+      </MedlineJournalInfo>
+      <ChemicalList>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D000097789">Glucagon-Like Peptide-1 Receptor Agonists</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D054795">Incretins</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D000067757">Glucagon-Like Peptide-1 Receptor</NameOfSubstance>
+        </Chemical>
+      </ChemicalList>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000097789" MajorTopicYN="Y">Glucagon-Like Peptide-1 Receptor Agonists</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D012189" MajorTopicYN="N">Retrospective Studies</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008297" MajorTopicYN="N">Male</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005260" MajorTopicYN="N">Female</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D001823" MajorTopicYN="Y">Body Composition</DescriptorName>
+          <QualifierName UI="Q000187" MajorTopicYN="N">drug effects</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000072038" MajorTopicYN="Y">Cardiac Rehabilitation</DescriptorName>
+          <QualifierName UI="Q000379" MajorTopicYN="N">methods</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008875" MajorTopicYN="N">Middle Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D016896" MajorTopicYN="N">Treatment Outcome</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D013997" MajorTopicYN="N">Time Factors</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003924" MajorTopicYN="Y">Diabetes Mellitus, Type 2</DescriptorName>
+          <QualifierName UI="Q000188" MajorTopicYN="N">drug therapy</QualifierName>
+          <QualifierName UI="Q000175" MajorTopicYN="N">diagnosis</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006331" MajorTopicYN="Y">Heart Diseases</DescriptorName>
+          <QualifierName UI="Q000534" MajorTopicYN="N">rehabilitation</QualifierName>
+          <QualifierName UI="Q000175" MajorTopicYN="N">diagnosis</QualifierName>
+          <QualifierName UI="Q000503" MajorTopicYN="N">physiopathology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D054795" MajorTopicYN="Y">Incretins</DescriptorName>
+          <QualifierName UI="Q000627" MajorTopicYN="N">therapeutic use</QualifierName>
+          <QualifierName UI="Q000009" MajorTopicYN="N">adverse effects</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D018482" MajorTopicYN="Y">Muscle, Skeletal</DescriptorName>
+          <QualifierName UI="Q000187" MajorTopicYN="N">drug effects</QualifierName>
+          <QualifierName UI="Q000503" MajorTopicYN="N">physiopathology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000067757" MajorTopicYN="N">Glucagon-Like Peptide-1 Receptor</DescriptorName>
+          <QualifierName UI="Q000378" MajorTopicYN="N">metabolism</QualifierName>
+        </MeshHeading>
+      </MeshHeadingList>
+      <CoiStatement>Conflict of interest: P.R.T. is a consultant to Novo Nordisk, Eli Lilly, Amgen, Boehringer, Ingelheim, and Roche. All other authors have no disclosures.</CoiStatement>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="received">
+          <Year>2026</Year>
+          <Month>1</Month>
+          <Day>19</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="revised">
+          <Year>2026</Year>
+          <Month>3</Month>
+          <Day>30</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="accepted">
+          <Year>2026</Year>
+          <Month>4</Month>
+          <Day>23</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2026</Year>
+          <Month>10</Month>
+          <Day>13</Day>
+          <Hour>0</Hour>
+          <Minute>16</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>21</Day>
+          <Hour>12</Hour>
+          <Minute>39</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>21</Day>
+          <Hour>8</Hour>
+          <Minute>32</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">42165511</ArticleId>
+        <ArticleId IdType="doi">10.1093/eurjpc/zwag279</ArticleId>
+        <ArticleId IdType="pii">8688935</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Automated">
+      <PMID Version="1">42109730</PMID>
+      <DateCompleted>
+        <Year>2026</Year>
+        <Month>07</Month>
+        <Day>16</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>08</Month>
+        <Day>13</Day>
+      </DateRevised>
+      <Article PubModel="Electronic-eCollection">
+        <Journal>
+          <ISSN IssnType="Print">1664-2392</ISSN>
+          <JournalIssue CitedMedium="Print">
+            <Volume>17</Volume>
+            <PubDate>
+              <Year>2026</Year>
+            </PubDate>
+          </JournalIssue>
+          <Title>Frontiers in endocrinology</Title>
+          <ISOAbbreviation>Front Endocrinol (Lausanne)</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Prevalence and clinical correlates of diabetes in hospitalized heart failure patients: a retrospective study.</ArticleTitle>
+        <Pagination>
+          <StartPage>1806046</StartPage>
+          <MedlinePgn>1806046</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="pii" ValidYN="Y">1806046</ELocationID>
+        <ELocationID EIdType="doi" ValidYN="Y">10.3389/fendo.2026.1806046</ELocationID>
+        <Abstract>
+          <AbstractText Label="BACKGROUND" NlmCategory="UNASSIGNED">Placeholder background text 1 for PMID 42109730.</AbstractText>
+          <AbstractText Label="METHODS" NlmCategory="UNASSIGNED">Placeholder methods text 2 for PMID 42109730.</AbstractText>
+          <AbstractText Label="RESULTS" NlmCategory="UNASSIGNED">Placeholder results text 3 for PMID 42109730.</AbstractText>
+          <AbstractText Label="CONCLUSION" NlmCategory="UNASSIGNED">Placeholder conclusion text 4 for PMID 42109730.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+        </PublicationTypeList>
+        <ArticleDate DateType="Electronic">
+          <Year>2026</Year>
+          <Month>04</Month>
+          <Day>23</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>Switzerland</Country>
+        <MedlineTA>Front Endocrinol (Lausanne)</MedlineTA>
+        <NlmUniqueID>101555782</NlmUniqueID>
+        <ISSNLinking>1664-2392</ISSNLinking>
+      </MedlineJournalInfo>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005260" MajorTopicYN="N">Female</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006333" MajorTopicYN="Y">Heart Failure</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+          <QualifierName UI="Q000150" MajorTopicYN="N">complications</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008297" MajorTopicYN="N">Male</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D012189" MajorTopicYN="N">Retrospective Studies</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015995" MajorTopicYN="N">Prevalence</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006760" MajorTopicYN="Y">Hospitalization</DescriptorName>
+          <QualifierName UI="Q000706" MajorTopicYN="N">statistics &amp; numerical data</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003920" MajorTopicYN="Y">Diabetes Mellitus</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D002681" MajorTopicYN="N" Type="Geographic">China</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008875" MajorTopicYN="N">Middle Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D012307" MajorTopicYN="N">Risk Factors</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000369" MajorTopicYN="N">Aged, 80 and over</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000069550" MajorTopicYN="N">Machine Learning</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+      <CoiStatement>The author(s) declared that this work was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.</CoiStatement>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="received">
+          <Year>2026</Year>
+          <Month>2</Month>
+          <Day>7</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="revised">
+          <Year>2026</Year>
+          <Month>3</Month>
+          <Day>22</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="accepted">
+          <Year>2026</Year>
+          <Month>3</Month>
+          <Day>24</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>11</Day>
+          <Hour>13</Hour>
+          <Minute>2</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>11</Day>
+          <Hour>13</Hour>
+          <Minute>1</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>11</Day>
+          <Hour>6</Hour>
+          <Minute>38</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pmc-release">
+          <Year>2026</Year>
+          <Month>4</Month>
+          <Day>23</Day>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>epublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">42109730</ArticleId>
+        <ArticleId IdType="pmc">PMC13149073</ArticleId>
+        <ArticleId IdType="doi">10.3389/fendo.2026.1806046</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Automated">
+      <PMID Version="1">42225437</PMID>
+      <DateCompleted>
+        <Year>2026</Year>
+        <Month>09</Month>
+        <Day>05</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>09</Month>
+        <Day>05</Day>
+      </DateRevised>
+      <Article PubModel="Print-Electronic">
+        <Journal>
+          <ISSN IssnType="Electronic">1590-3729</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>36</Volume>
+            <Issue>10</Issue>
+            <PubDate>
+              <Year>2026</Year>
+              <Month>Oct</Month>
+            </PubDate>
+          </JournalIssue>
+          <Title>Nutrition, metabolism, and cardiovascular diseases : NMCD</Title>
+          <ISOAbbreviation>Nutr Metab Cardiovasc Dis</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>The role of assessing frailty in cardiometabolic risk management.</ArticleTitle>
+        <Pagination>
+          <StartPage>104807</StartPage>
+          <MedlinePgn>104807</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1016/j.numecd.2026.104807</ELocationID>
+        <ELocationID EIdType="pii" ValidYN="Y">S0939-4753(26)00269-3</ELocationID>
+        <Abstract>
+          <AbstractText Label="AIMS" NlmCategory="OBJECTIVE">Placeholder aims text 1 for PMID 42225437.</AbstractText>
+          <AbstractText Label="DATA SYNTHESIS" NlmCategory="RESULTS">Placeholder data synthesis text 2 for PMID 42225437.</AbstractText>
+          <AbstractText Label="CONCLUSIONS" NlmCategory="CONCLUSIONS">Placeholder conclusions text 3 for PMID 42225437.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016454">Review</PublicationType>
+        </PublicationTypeList>
+        <ArticleDate DateType="Electronic">
+          <Year>2026</Year>
+          <Month>05</Month>
+          <Day>25</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>Netherlands</Country>
+        <MedlineTA>Nutr Metab Cardiovasc Dis</MedlineTA>
+        <NlmUniqueID>9111474</NlmUniqueID>
+        <ISSNLinking>0939-4753</ISSNLinking>
+      </MedlineJournalInfo>
+      <ChemicalList>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D015415">Biomarkers</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D001786">Blood Glucose</NameOfSubstance>
+        </Chemical>
+      </ChemicalList>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000073496" MajorTopicYN="Y">Frailty</DescriptorName>
+          <QualifierName UI="Q000175" MajorTopicYN="N">diagnosis</QualifierName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+          <QualifierName UI="Q000628" MajorTopicYN="N">therapy</QualifierName>
+          <QualifierName UI="Q000401" MajorTopicYN="N">mortality</QualifierName>
+          <QualifierName UI="Q000503" MajorTopicYN="N">physiopathology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003924" MajorTopicYN="Y">Diabetes Mellitus, Type 2</DescriptorName>
+          <QualifierName UI="Q000175" MajorTopicYN="N">diagnosis</QualifierName>
+          <QualifierName UI="Q000628" MajorTopicYN="N">therapy</QualifierName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+          <QualifierName UI="Q000401" MajorTopicYN="N">mortality</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D016330" MajorTopicYN="Y">Frail Elderly</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D018570" MajorTopicYN="N">Risk Assessment</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000083202" MajorTopicYN="N">Cardiometabolic Risk Factors</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D011379" MajorTopicYN="N">Prognosis</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D011237" MajorTopicYN="N">Predictive Value of Tests</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015995" MajorTopicYN="N">Prevalence</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015577" MajorTopicYN="Y">Geriatric Assessment</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000367" MajorTopicYN="N">Age Factors</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D002318" MajorTopicYN="Y">Cardiovascular Diseases</DescriptorName>
+          <QualifierName UI="Q000175" MajorTopicYN="N">diagnosis</QualifierName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+          <QualifierName UI="Q000628" MajorTopicYN="N">therapy</QualifierName>
+          <QualifierName UI="Q000517" MajorTopicYN="N">prevention &amp; control</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005260" MajorTopicYN="N">Female</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D010641" MajorTopicYN="N">Phenotype</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008297" MajorTopicYN="N">Male</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000369" MajorTopicYN="N">Aged, 80 and over</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015415" MajorTopicYN="N">Biomarkers</DescriptorName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000085542" MajorTopicYN="N">Functional Status</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D001786" MajorTopicYN="N">Blood Glucose</DescriptorName>
+          <QualifierName UI="Q000378" MajorTopicYN="N">metabolism</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D012307" MajorTopicYN="N">Risk Factors</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000066491" MajorTopicYN="N">Clinical Decision-Making</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000085002" MajorTopicYN="N">Glycemic Control</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+      <CoiStatement>Declaration of competing interest The authors declare they do not have any commercial or financial interest that could be construed as a potential conflict of interest.</CoiStatement>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="received">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>20</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="accepted">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>23</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2026</Year>
+          <Month>9</Month>
+          <Day>6</Day>
+          <Hour>1</Hour>
+          <Minute>18</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2026</Year>
+          <Month>6</Month>
+          <Day>2</Day>
+          <Hour>0</Hour>
+          <Minute>35</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2026</Year>
+          <Month>6</Month>
+          <Day>1</Day>
+          <Hour>21</Hour>
+          <Minute>56</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">42225437</ArticleId>
+        <ArticleId IdType="doi">10.1016/j.numecd.2026.104807</ArticleId>
+        <ArticleId IdType="pii">S0939-4753(26)00269-3</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Automated">
+      <PMID Version="1">42391260</PMID>
+      <DateCompleted>
+        <Year>2026</Year>
+        <Month>07</Month>
+        <Day>02</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>07</Month>
+        <Day>02</Day>
+      </DateRevised>
+      <Article PubModel="Print-Electronic">
+        <Journal>
+          <ISSN IssnType="Print">1462-4753</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>31</Volume>
+            <Issue>7</Issue>
+            <PubDate>
+              <Year>2026</Year>
+              <Month>Jul</Month>
+              <Day>02</Day>
+            </PubDate>
+          </JournalIssue>
+          <Title>British journal of community nursing</Title>
+          <ISOAbbreviation>Br J Community Nurs</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Living alone with diabetes: a phenomenological study.</ArticleTitle>
+        <Pagination>
+          <StartPage>309</StartPage>
+          <EndPage>316</EndPage>
+          <MedlinePgn>309-316</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.12968/bjcn.2025.0230</ELocationID>
+        <Abstract>
+          <AbstractText Label="BACKGROUND" NlmCategory="BACKGROUND">Placeholder background text 1 for PMID 42391260.</AbstractText>
+          <AbstractText Label="AIMS" NlmCategory="OBJECTIVE">Placeholder aims text 2 for PMID 42391260.</AbstractText>
+          <AbstractText Label="METHODS" NlmCategory="METHODS">Placeholder methods text 3 for PMID 42391260.</AbstractText>
+          <AbstractText Label="FINDINGS" NlmCategory="RESULTS">Placeholder findings text 4 for PMID 42391260.</AbstractText>
+          <AbstractText Label="CONCLUSIONS" NlmCategory="CONCLUSIONS">Placeholder conclusions text 5 for PMID 42391260.</AbstractText>
+          <AbstractText Label="IMPLICATIONS FOR PRACTICE" NlmCategory="CONCLUSIONS">Placeholder implications for practice text 6 for PMID 42391260.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+        </PublicationTypeList>
+        <ArticleDate DateType="Electronic">
+          <Year>2026</Year>
+          <Month>07</Month>
+          <Day>02</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>England</Country>
+        <MedlineTA>Br J Community Nurs</MedlineTA>
+        <NlmUniqueID>9815827</NlmUniqueID>
+        <ISSNLinking>1462-4753</ISSNLinking>
+      </MedlineJournalInfo>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003924" MajorTopicYN="Y">Diabetes Mellitus, Type 2</DescriptorName>
+          <QualifierName UI="Q000523" MajorTopicYN="N">psychology</QualifierName>
+          <QualifierName UI="Q000628" MajorTopicYN="N">therapy</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D012944" MajorTopicYN="N">Social Support</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005260" MajorTopicYN="N">Female</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008297" MajorTopicYN="N">Male</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D036301" MajorTopicYN="N">Qualitative Research</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000223" MajorTopicYN="N">Adaptation, Psychological</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D012648" MajorTopicYN="N">Self Care</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000369" MajorTopicYN="N">Aged, 80 and over</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+      <CoiStatement><b>Conflicts of interest:</b> The authors declare that there are no conflicts of interest. <b>Funding:</b> This work was supported by the research and community services centre fund of Universitas Andalas, Padang, Indonesia.</CoiStatement>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>2</Day>
+          <Hour>18</Hour>
+          <Minute>34</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>2</Day>
+          <Hour>18</Hour>
+          <Minute>33</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2026</Year>
+          <Month>7</Month>
+          <Day>2</Day>
+          <Hour>13</Hour>
+          <Minute>44</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">42391260</ArticleId>
+        <ArticleId IdType="doi">10.12968/bjcn.2025.0230</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Automated">
+      <PMID Version="1">42171728</PMID>
+      <DateCompleted>
+        <Year>2026</Year>
+        <Month>06</Month>
+        <Day>28</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>10</Month>
+        <Day>10</Day>
+      </DateRevised>
+      <Article PubModel="Print-Electronic">
+        <Journal>
+          <ISSN IssnType="Electronic">1432-0428</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>69</Volume>
+            <Issue>8</Issue>
+            <PubDate>
+              <Year>2026</Year>
+              <Month>Aug</Month>
+            </PubDate>
+          </JournalIssue>
+          <Title>Diabetologia</Title>
+          <ISOAbbreviation>Diabetologia</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Age-related patterns of cardiometabolic risk factors for complications in type 2 diabetes.</ArticleTitle>
+        <Pagination>
+          <StartPage>2253</StartPage>
+          <EndPage>2265</EndPage>
+          <MedlinePgn>2253-2265</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1007/s00125-026-06753-y</ELocationID>
+        <Abstract>
+          <AbstractText Label="AIMS/HYPOTHESIS" NlmCategory="OBJECTIVE">Placeholder aims/hypothesis text 1 for PMID 42171728.</AbstractText>
+          <AbstractText Label="METHODS" NlmCategory="METHODS">Placeholder methods text 2 for PMID 42171728.</AbstractText>
+          <AbstractText Label="RESULTS" NlmCategory="RESULTS">Placeholder results text 3 for PMID 42171728.</AbstractText>
+          <AbstractText Label="CONCLUSIONS/INTERPRETATION" NlmCategory="CONCLUSIONS">Placeholder conclusions/interpretation text 4 for PMID 42171728.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+        </PublicationTypeList>
+        <ArticleDate DateType="Electronic">
+          <Year>2026</Year>
+          <Month>05</Month>
+          <Day>22</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>Germany</Country>
+        <MedlineTA>Diabetologia</MedlineTA>
+        <NlmUniqueID>0006777</NlmUniqueID>
+        <ISSNLinking>0012-186X</ISSNLinking>
+      </MedlineJournalInfo>
+      <ChemicalList>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D001786">Blood Glucose</NameOfSubstance>
+        </Chemical>
+        <Chemical>
+          <RegistryNumber>0</RegistryNumber>
+          <NameOfSubstance UI="D006442">Glycated Hemoglobin</NameOfSubstance>
+        </Chemical>
+      </ChemicalList>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003924" MajorTopicYN="Y">Diabetes Mellitus, Type 2</DescriptorName>
+          <QualifierName UI="Q000150" MajorTopicYN="N">complications</QualifierName>
+          <QualifierName UI="Q000097" MajorTopicYN="N">blood</QualifierName>
+          <QualifierName UI="Q000378" MajorTopicYN="N">metabolism</QualifierName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008297" MajorTopicYN="N">Male</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005260" MajorTopicYN="N">Female</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008875" MajorTopicYN="N">Middle Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003430" MajorTopicYN="N">Cross-Sectional Studies</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000328" MajorTopicYN="N">Adult</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000367" MajorTopicYN="N">Age Factors</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D012307" MajorTopicYN="N">Risk Factors</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000083202" MajorTopicYN="Y">Cardiometabolic Risk Factors</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D009749" MajorTopicYN="N">Nutrition Surveys</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D001786" MajorTopicYN="N">Blood Glucose</DescriptorName>
+          <QualifierName UI="Q000378" MajorTopicYN="N">metabolism</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006442" MajorTopicYN="N">Glycated Hemoglobin</DescriptorName>
+          <QualifierName UI="Q000378" MajorTopicYN="N">metabolism</QualifierName>
+        </MeshHeading>
+      </MeshHeadingList>
+      <CoiStatement>Data availability: Data from the AusDiab study are available to researchers upon successful application to the AusDiab Steering Committee, in accordance with the study’s access programme stipulations ( www.baker.edu.au/ausdiab/ ). Data from the Mauritius NCD surveys are not freely available according to General Data Protection Regulation (GDPR) due to the presence of individual data. However, pseudonymised data can be shared after ethical evaluation and formal request ( www.umu.se/en/brs/ ). Data from the ICMR–INDIAB study are restricted due to national ethical and data protection constraints in India; however, raw data may be shared for non-commercial research purposes upon reasonable request to the original study investigators, subject to approval from the Research Ethics Board of the Madras Diabetes Research Foundation and the Indian Council of Medical Research. NHANES data are publicly available at www.cdc.gov/nchs/nhanes/index.html . Funding: DJM and JES are supported by National Health and Medical Research Council (NHMRC) Investigator Grants. SFS is supported by a Monash Graduate Scholarship and Monash International Tuition Scholarship. This article received no specific grant from any funding agency in the public, commercial or not-for-profit sectors. Authors’ relationships and activities: The authors declare that there are no relationships or activities that might bias, or be perceived to bias, their work. DJM is a member of the Editorial Board of Diabetologia and had no involvement in the peer review or editorial decision-making for this manuscript. Contribution statement: DJM and JES jointly conceived the idea of the study. SFS conducted the analysis and wrote the first draft of the manuscript. All authors contributed to the conception, writing and review of this manuscript. All authors approved the final version to be published. DJM and JES are responsible for the integrity of the work as a whole.</CoiStatement>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="received">
+          <Year>2025</Year>
+          <Month>11</Month>
+          <Day>13</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="accepted">
+          <Year>2026</Year>
+          <Month>3</Month>
+          <Day>20</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2026</Year>
+          <Month>6</Month>
+          <Day>28</Day>
+          <Hour>6</Hour>
+          <Minute>34</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>22</Day>
+          <Hour>12</Hour>
+          <Minute>35</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>22</Day>
+          <Hour>11</Hour>
+          <Minute>14</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">42171728</ArticleId>
+        <ArticleId IdType="doi">10.1007/s00125-026-06753-y</ArticleId>
+        <ArticleId IdType="pii">10.1007/s00125-026-06753-y</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM" IndexingMethod="Automated">
+      <PMID Version="1">42090941</PMID>
+      <DateCompleted>
+        <Year>2026</Year>
+        <Month>07</Month>
+        <Day>16</Day>
+      </DateCompleted>
+      <DateRevised>
+        <Year>2026</Year>
+        <Month>07</Month>
+        <Day>16</Day>
+      </DateRevised>
+      <Article PubModel="Print-Electronic">
+        <Journal>
+          <ISSN IssnType="Electronic">1873-4111</ISSN>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>209</Volume>
+            <PubDate>
+              <Year>2026</Year>
+              <Month>Jun</Month>
+            </PubDate>
+          </JournalIssue>
+          <Title>Maturitas</Title>
+          <ISOAbbreviation>Maturitas</ISOAbbreviation>
+        </Journal>
+        <ArticleTitle>Non-exercise estimated cardiorespiratory fitness and incident diabetes in middle-aged and older adults: a cross-cultural comparative cohort study using data from CHARLS and ELSA.</ArticleTitle>
+        <Pagination>
+          <StartPage>108968</StartPage>
+          <MedlinePgn>108968</MedlinePgn>
+        </Pagination>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1016/j.maturitas.2026.108968</ELocationID>
+        <ELocationID EIdType="pii" ValidYN="Y">S0378-5122(26)00145-3</ELocationID>
+        <Abstract>
+          <AbstractText Label="BACKGROUND" NlmCategory="BACKGROUND">Placeholder background text 1 for PMID 42090941.</AbstractText>
+          <AbstractText Label="METHODS" NlmCategory="METHODS">Placeholder methods text 2 for PMID 42090941.</AbstractText>
+          <AbstractText Label="RESULTS" NlmCategory="RESULTS">Placeholder results text 3 for PMID 42090941.</AbstractText>
+          <AbstractText Label="CONCLUSIONS" NlmCategory="CONCLUSIONS">Placeholder conclusions text 4 for PMID 42090941.</AbstractText>
+        </Abstract>
+        <Language>eng</Language>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D003160">Comparative Study</PublicationType>
+        </PublicationTypeList>
+        <ArticleDate DateType="Electronic">
+          <Year>2026</Year>
+          <Month>05</Month>
+          <Day>01</Day>
+        </ArticleDate>
+      </Article>
+      <MedlineJournalInfo>
+        <Country>Ireland</Country>
+        <MedlineTA>Maturitas</MedlineTA>
+        <NlmUniqueID>7807333</NlmUniqueID>
+        <ISSNLinking>0378-5122</ISSNLinking>
+      </MedlineJournalInfo>
+      <CitationSubset>IM</CitationSubset>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008875" MajorTopicYN="N">Middle Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000072599" MajorTopicYN="Y">Cardiorespiratory Fitness</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008297" MajorTopicYN="N">Male</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D005260" MajorTopicYN="N">Female</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D000368" MajorTopicYN="N">Aged</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D011446" MajorTopicYN="N">Prospective Studies</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D008137" MajorTopicYN="N">Longitudinal Studies</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D002681" MajorTopicYN="N" Type="Geographic">China</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003431" MajorTopicYN="N">Cross-Cultural Comparison</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D015994" MajorTopicYN="N">Incidence</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D003920" MajorTopicYN="Y">Diabetes Mellitus</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006113" MajorTopicYN="N" Type="Geographic">United Kingdom</DescriptorName>
+          <QualifierName UI="Q000453" MajorTopicYN="N">epidemiology</QualifierName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D012307" MajorTopicYN="N">Risk Factors</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D016016" MajorTopicYN="N">Proportional Hazards Models</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+      <CoiStatement>Declaration of competing interest The authors declare that they have no competing interest.</CoiStatement>
+    </MedlineCitation>
+    <PubmedData>
+      <History>
+        <PubMedPubDate PubStatus="received">
+          <Year>2026</Year>
+          <Month>2</Month>
+          <Day>10</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="revised">
+          <Year>2026</Year>
+          <Month>4</Month>
+          <Day>9</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="accepted">
+          <Year>2026</Year>
+          <Month>4</Month>
+          <Day>26</Day>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="medline">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>24</Day>
+          <Hour>4</Hour>
+          <Minute>38</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="pubmed">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>7</Day>
+          <Hour>0</Hour>
+          <Minute>33</Minute>
+        </PubMedPubDate>
+        <PubMedPubDate PubStatus="entrez">
+          <Year>2026</Year>
+          <Month>5</Month>
+          <Day>6</Day>
+          <Hour>18</Hour>
+          <Minute>7</Minute>
+        </PubMedPubDate>
+      </History>
+      <PublicationStatus>ppublish</PublicationStatus>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">42090941</ArticleId>
+        <ArticleId IdType="doi">10.1016/j.maturitas.2026.108968</ArticleId>
+        <ArticleId IdType="pii">S0378-5122(26)00145-3</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+</PubmedArticleSet>

@@ -107,8 +107,12 @@ class PubMedClient:
         retstart: int = 0,
         sort: Sort = "relevance",
         dates: DateRange | None = None,
+        cache_ttl_s: int | None = None,
     ) -> SearchResult:
-        """Return matching PMIDs. PubMed serves at most 10,000 results per query."""
+        """Return matching PMIDs. PubMed serves at most 10,000 results per query.
+
+        ``cache_ttl_s`` overrides the configured cache lifetime for this search.
+        """
         if not term.strip():
             raise ValueError("term must not be empty")
         if retmax < 0 or retstart < 0 or retstart + retmax > ESEARCH_MAX_RESULTS:
@@ -123,7 +127,7 @@ class PubMedClient:
         }
         if dates is not None:
             params |= {"datetype": dates.datetype, "mindate": dates.start, "maxdate": dates.end}
-        return await self._cached("esearch.fcgi", params, parse_esearch)
+        return await self._cached("esearch.fcgi", params, parse_esearch, cache_ttl_s)
 
     async def efetch(self, pmids: Sequence[int]) -> list[str]:
         """Return PubMed XML, one document per batch of up to 200 PMIDs, in request order."""
@@ -142,7 +146,11 @@ class PubMedClient:
         return await self._cached("efetch.fcgi", params, check_efetch)
 
     async def _cached[T](
-        self, endpoint: str, params: Mapping[str, object], parse: Callable[[str], T]
+        self,
+        endpoint: str,
+        params: Mapping[str, object],
+        parse: Callable[[str], T],
+        ttl_s: int | None = None,
     ) -> T:
         """Serve from cache, else fetch; only bodies that parse are cached."""
         key = cache_key(f"pubmed:{endpoint}", params)
@@ -151,7 +159,7 @@ class PubMedClient:
             return parse(cached)
         body = await self._get(endpoint, params)
         result = parse(body)
-        await self._cache.set(key, body, self._config.cache_ttl_s)
+        await self._cache.set(key, body, self._config.cache_ttl_s if ttl_s is None else ttl_s)
         return result
 
     async def _get(self, endpoint: str, params: Mapping[str, object]) -> str:

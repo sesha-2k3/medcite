@@ -15,6 +15,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 AppEnv = Literal["development", "staging", "production"]
 AuthMode = Literal["dev", "jwks"]
+DiscoverySort = Literal["relevance", "pub_date"]
 LLMProviderName = Literal["groq", "openai_compatible"]
 ReasoningEffort = Literal["none", "low", "medium", "high"]
 
@@ -53,6 +54,8 @@ class Settings(BaseSettings):
     ncbi_timeout_s: float = Field(default=15.0, gt=0)
     ncbi_retry_attempts: int = Field(default=4, ge=1)
     ncbi_cache_ttl_s: int = Field(default=86_400, ge=0)
+    # Discovery windows end today, so their results change daily.
+    ncbi_discovery_cache_ttl_s: int = Field(default=3600, ge=0)
 
     llm_provider: LLMProviderName = "groq"
     llm_api_key: SecretStr | None = None
@@ -108,6 +111,13 @@ class Settings(BaseSettings):
 
     user_daily_cost_cap_usd: Decimal = Decimal("2.00")
     discovery_max_articles: int = Field(default=200, ge=1)
+    # relevance: monthly slices of the window, PubMed's best matches from each, so a digest
+    # covers the whole window; pub_date: the newest articles only.
+    discovery_sort: DiscoverySort = "relevance"
+    discovery_cluster_distance: float = Field(default=0.35, gt=0, lt=2)
+    discovery_max_themes: int = Field(default=8, ge=1)
+    discovery_articles_per_theme: int = Field(default=6, ge=2)
+    discovery_summary_max_tokens: int = Field(default=1500, ge=256)
 
     langfuse_public_key: str | None = None
     langfuse_secret_key: SecretStr | None = None

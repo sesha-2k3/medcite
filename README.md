@@ -7,7 +7,6 @@ strength of evidence, and the app says plainly when the evidence you asked for d
 Data from PubMed, courtesy of the U.S. National Library of Medicine. MedCite summarizes
 published research and is not medical advice.
 
-**Status:** Phase 1 (abstract MVP), milestone **M0: scaffold** complete.
 
 ## Repository layout
 
